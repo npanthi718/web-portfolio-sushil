@@ -23,7 +23,7 @@ export const Navigation = () => {
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xl font-heading font-bold"
+            className="text-xl font-heading font-bold bg-gradient-to-r from-primary to-purple-500 text-transparent bg-clip-text"
           >
             SP
           </motion.span>
