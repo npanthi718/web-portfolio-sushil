@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
-import { FolderGit2, Server } from "lucide-react";
+import { FolderGit2, Server, ExternalLink } from "lucide-react";
+import { Button } from "./ui/button";
 
 const projects = [
   {
@@ -12,6 +13,8 @@ const projects = [
       "Automated stock updates post-sales to ensure accurate inventory.",
       "Integrated dashboards for administrators to monitor performance metrics.",
     ],
+    demoUrl: "#", // Add your demo URL here
+    githubUrl: "#", // Add your GitHub URL here
   },
   {
     title: "Student Management System",
@@ -22,6 +25,8 @@ const projects = [
       "Designed a responsive user interface for seamless interaction.",
       "Implemented secure database operations to manage sensitive information.",
     ],
+    demoUrl: "#", // Add your demo URL here
+    githubUrl: "#", // Add your GitHub URL here
   },
 ];
 
@@ -48,7 +53,7 @@ export const Projects = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="glass h-full">
+              <Card className="glass h-full hover:scale-105 transition-transform duration-300">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-heading font-semibold">{project.title}</h3>
@@ -71,7 +76,7 @@ export const Projects = () => {
                       ))}
                     </div>
                   </div>
-                  <div>
+                  <div className="mb-4">
                     <h4 className="text-sm font-semibold mb-2">Key Contributions:</h4>
                     <ul className="list-disc list-inside space-y-1">
                       {project.contributions.map((contribution, idx) => (
@@ -80,6 +85,20 @@ export const Projects = () => {
                         </li>
                       ))}
                     </ul>
+                  </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live Demo
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="sm" asChild>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <FolderGit2 className="w-4 h-4 mr-2" />
+                        Source Code
+                      </a>
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
