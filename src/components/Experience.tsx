@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
 import { Briefcase, Calendar } from "lucide-react";
 
-const experiences = [
+const techExperiences = [
   {
     title: "Tech Intern",
     company: "Anishk Sustainable Development Foundation",
@@ -30,6 +30,9 @@ const experiences = [
       "Developed strong collaboration, time management, and problem-solving skills in a professional environment.",
     ],
   },
+];
+
+const additionalExperiences = [
   {
     title: "Manager",
     company: "New Sushant Chamena Griha",
@@ -99,47 +102,60 @@ export const Experience = () => {
       >
         <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8 flex items-center gap-2">
           <Briefcase className="w-8 h-8" />
-          Experience
+          Technical Experience
+        </h2>
+        <div className="space-y-6 mb-12">
+          {techExperiences.map((exp, index) => (
+            <ExperienceCard key={index} experience={exp} index={index} />
+          ))}
+        </div>
+
+        <h2 className="text-3xl md:text-4xl font-heading font-bold mb-8 flex items-center gap-2">
+          <Briefcase className="w-8 h-8" />
+          Additional Experience
         </h2>
         <div className="space-y-6">
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="glass">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                    <div>
-                      <h3 className="text-xl font-heading font-semibold">{exp.title}</h3>
-                      <p className="text-muted-foreground">{exp.company}</p>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="w-4 h-4" />
-                      {exp.period}
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                    <span>{exp.location}</span>
-                    <span>•</span>
-                    <span>{exp.type}</span>
-                  </div>
-                  <ul className="list-disc list-inside space-y-2">
-                    {exp.points.map((point, idx) => (
-                      <li key={idx} className="text-sm text-muted-foreground">
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
+          {additionalExperiences.map((exp, index) => (
+            <ExperienceCard key={index} experience={exp} index={index} />
           ))}
         </div>
       </motion.div>
     </section>
   );
 };
+
+const ExperienceCard = ({ experience, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    viewport={{ once: true }}
+  >
+    <Card className="glass hover:scale-[1.02] transition-transform duration-300">
+      <CardContent className="p-6">
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
+          <div>
+            <h3 className="text-xl font-heading font-semibold gradient-text">{experience.title}</h3>
+            <p className="text-muted-foreground">{experience.company}</p>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="w-4 h-4" />
+            {experience.period}
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+          <span>{experience.location}</span>
+          <span>•</span>
+          <span>{experience.type}</span>
+        </div>
+        <ul className="list-disc list-inside space-y-2">
+          {experience.points.map((point, idx) => (
+            <li key={idx} className="text-sm text-muted-foreground">
+              {point}
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
+  </motion.div>
+);

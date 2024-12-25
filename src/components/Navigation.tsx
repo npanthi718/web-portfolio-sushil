@@ -8,6 +8,8 @@ const navItems = [
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#education", label: "Education" },
+  { href: "#certificates", label: "Certificates" },
+  { href: "#courses", label: "Courses" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -23,7 +25,7 @@ export const Navigation = () => {
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-xl font-heading font-bold bg-gradient-to-r from-primary to-purple-500 text-transparent bg-clip-text"
+            className="text-xl font-heading font-bold gradient-text"
           >
             SP
           </motion.span>
