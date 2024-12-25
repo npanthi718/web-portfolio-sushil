@@ -14,17 +14,17 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center section-padding pt-24">
+    <section id="hero" className="min-h-screen flex items-center justify-center section-padding pt-24 bg-gradient-to-b from-background via-accent/20 to-background">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-left"
+            className="text-left space-y-6"
           >
-            <h2 className="text-2xl md:text-3xl font-heading mb-4">Hello, I'm</h2>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 gradient-text">
+            <h2 className="text-2xl md:text-3xl font-heading mb-4 text-gradient animate-shimmer">Hello, I'm</h2>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 gradient-text animate-float">
               Sushil Panthi
             </h1>
             <div className="text-xl md:text-2xl text-muted-foreground mb-8 h-12">
@@ -45,9 +45,8 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="space-x-4"
             >
-              <Button onClick={handleDownload} className="text-lg">
+              <Button onClick={handleDownload} className="text-lg glass hover:scale-105 transition-all duration-300">
                 <Download className="mr-2 h-5 w-5" />
                 Download Resume
               </Button>
@@ -59,10 +58,10 @@ export const Hero = () => {
             transition={{ duration: 0.5 }}
             className="flex justify-center md:justify-end"
           >
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-full blur-xl" />
-              <Avatar className="w-64 h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300">
-                <AvatarImage src="/lovable-uploads/bbd07e70-b699-4932-98c0-c0739b9ecd4e.png" alt="Sushil Panthi" />
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <Avatar className="w-64 h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300 animate-float">
+                <AvatarImage src="/lovable-uploads/bbd07e70-b699-4932-98c0-c0739b9ecd4e.png" alt="Sushil Panthi" className="object-cover" />
                 <AvatarFallback>SP</AvatarFallback>
               </Avatar>
             </div>
