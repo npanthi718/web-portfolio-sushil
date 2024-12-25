@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "./ui/card";
-import { Trophy, Leaf, Child, Theater } from "lucide-react";
+import { Trophy, Leaf, Theater } from "lucide-react";
 
 const achievements = [
   {
@@ -21,7 +21,7 @@ const achievements = [
     organization: "Vinaya Memorial Secondary School",
     period: "2019 – 2021",
     location: "Kathmandu, Nepal",
-    icon: <Child className="w-5 h-5 text-primary" />,
+    icon: <Trophy className="w-5 h-5 text-primary" />,
     points: [
       "Led initiatives to promote child rights, education, and personal development.",
       "Organized awareness programs, talent shows, and leadership workshops.",
