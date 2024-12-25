@@ -30,6 +30,61 @@ const experiences = [
       "Developed strong collaboration, time management, and problem-solving skills in a professional environment.",
     ],
   },
+  {
+    title: "Manager",
+    company: "New Sushant Chamena Griha",
+    location: "Kathmandu, Nepal",
+    period: "April 2020 – June 2023",
+    type: "On-site",
+    points: [
+      "Managed inventory, finances, and supplier relations effectively",
+    ],
+  },
+  {
+    title: "Marketing Director",
+    company: "Vision Dreamery Private Limited",
+    location: "Kathmandu, Nepal",
+    period: "November 2022 – April 2023",
+    type: "On-site",
+    points: [
+      "Oversaw marketing campaigns to enhance brand visibility and drive revenue growth.",
+      "Conducted market research to inform strategy development.",
+      "Led team efforts to design and execute impactful campaigns.",
+    ],
+  },
+  {
+    title: "Motivational Speaker",
+    company: "Sarva Sikshya Educational Center",
+    location: "Kathmandu, Nepal",
+    period: "November 2022 – April 2023",
+    type: "On-site",
+    points: [
+      "Delivered engaging speeches to inspire individuals to overcome challenges and achieve goals.",
+      "Tailored presentations to suit audience needs, fostering motivation and personal growth.",
+    ],
+  },
+  {
+    title: "Sales and Marketing Specialist",
+    company: "Emporium Marketing Private Limited",
+    location: "West Bengal, India",
+    period: "August 2021 – October 2022",
+    type: "On-site",
+    points: [
+      "Developed and executed marketing programs to promote products and expand the customer base.",
+      "Engaged in lead generation and strengthened distributor relationships.",
+    ],
+  },
+  {
+    title: "Sales Supervisor",
+    company: "Bishal Impex",
+    location: "Kathmandu, Nepal",
+    period: "January 2021 – July 2021",
+    type: "On-site",
+    points: [
+      "Led a team of sales associates, optimizing sales processes and mentoring staff.",
+      "Managed inventory and ensured high levels of customer satisfaction.",
+    ],
+  },
 ];
 
 export const Experience = () => {
