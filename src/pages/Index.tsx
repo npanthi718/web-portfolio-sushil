@@ -9,6 +9,7 @@ import { Navigation } from "@/components/Navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Certificates } from "@/components/Certificates";
 import { Courses } from "@/components/Courses";
+import { Achievements } from "@/components/Achievements";
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <Experience />
         <Projects />
         <Education />
+        <Achievements />
         <Certificates />
         <Courses />
         <Contact />
