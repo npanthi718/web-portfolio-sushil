@@ -143,3 +143,48 @@
 .skill-icon {
   @apply transition-all duration-300 hover:scale-110 hover:text-primary;
 }
+
+.mobile-nav {
+  @apply fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-t z-50 md:hidden;
+}
+
+.mobile-nav-item {
+  @apply flex flex-col items-center justify-center p-2 text-xs text-muted-foreground hover:text-primary transition-colors;
+}
+
+.section-wrapper {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-scale {
+  animation: scale 0.3s ease-out;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
