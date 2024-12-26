@@ -30,10 +30,13 @@ export const Hero = () => {
               className="space-y-2"
             >
               <h2 className="text-2xl md:text-3xl font-heading mb-4">
-                Hello I am <span className="text-gradient animate-shimmer">Sushil Panthi</span>
-                <span className="text-sm ml-2 text-muted-foreground">(can re-allocate)</span>
+                Hello I am
               </h2>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-2">
+                <span className="text-gradient animate-shimmer">Sushil Panthi</span>
+                <span className="text-sm ml-2 text-muted-foreground">(can re-allocate)</span>
+              </h1>
+              <div className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6">
                 <span className="gradient-text animate-float">
                   <TypeAnimation
                     sequence={[
@@ -49,7 +52,7 @@ export const Hero = () => {
                     repeat={Infinity}
                   />
                 </span>
-              </h1>
+              </div>
             </motion.div>
             
             <motion.div
