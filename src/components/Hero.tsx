@@ -29,14 +29,14 @@ export const Hero = () => {
               transition={{ delay: 0.2 }}
               className="space-y-2"
             >
-              <h2 className="text-2xl md:text-3xl font-heading mb-4">
+              <h2 className="text-2xl md:text-3xl font-heading mb-4 animate-fadeIn">
                 Hello I am
               </h2>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-2">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-2 animate-scale">
                 <span className="text-gradient animate-shimmer">Sushil Panthi</span>
-                <span className="text-sm ml-2 text-muted-foreground">(can re-allocate)</span>
+                <span className="text-xs ml-2 text-muted-foreground">(can re-allocate)</span>
               </h1>
-              <div className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6">
+              <div className="text-xl md:text-2xl lg:text-3xl font-heading font-bold mb-6">
                 <span className="gradient-text animate-float">
                   <TypeAnimation
                     sequence={[
@@ -63,7 +63,7 @@ export const Hero = () => {
             >
               <Button 
                 onClick={handleDownload} 
-                className="glass hover:scale-105 transition-all duration-300 w-full sm:w-auto"
+                className="glass hover:scale-105 transition-all duration-300 w-full sm:w-auto animate-pulse"
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download Resume

@@ -104,11 +104,11 @@
 }
 
 .icon-wrapper {
-  @apply p-2 rounded-full bg-primary/10 text-primary;
+  @apply p-2 rounded-full bg-primary/10 text-primary animate-pulse;
 }
 
 .skill-tag {
-  @apply px-3 py-1 rounded-full text-sm bg-primary/10 hover:bg-primary/20 transition-colors duration-300;
+  @apply px-3 py-1 rounded-full text-sm bg-primary/10 hover:bg-primary/20 transition-colors duration-300 animate-float;
 }
 
 .hover-lift {
@@ -133,7 +133,7 @@
 }
 
 .glass-card {
-  @apply relative overflow-hidden rounded-2xl;
+  @apply relative overflow-hidden rounded-2xl animate-fadeIn;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -141,7 +141,7 @@
 }
 
 .skill-icon {
-  @apply transition-all duration-300 hover:scale-110 hover:text-primary;
+  @apply transition-all duration-300 hover:scale-110 hover:text-primary animate-bounce;
 }
 
 .mobile-nav {
