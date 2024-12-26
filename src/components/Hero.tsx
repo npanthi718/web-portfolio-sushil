@@ -29,14 +29,19 @@ export const Hero = () => {
               transition={{ delay: 0.2 }}
               className="space-y-2"
             >
-              <h2 className="text-2xl md:text-3xl font-heading mb-4 text-gradient animate-shimmer">
-                Sushil Panthi
+              <h2 className="text-2xl md:text-3xl font-heading mb-4">
+                Hello I am <span className="text-gradient animate-shimmer">Sushil Panthi</span>
+                <span className="text-sm ml-2 text-muted-foreground">(can re-allocate)</span>
               </h2>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6">
                 <span className="gradient-text animate-float">
                   <TypeAnimation
                     sequence={[
-                      'Software Developer, Power Bi Expert',
+                      'Full Stack Developer (MERN)',
+                      3000,
+                      'Software Developer',
+                      3000,
+                      'Power Bi Expert',
                       3000,
                     ]}
                     wrapper="span"
@@ -45,11 +50,6 @@ export const Hero = () => {
                   />
                 </span>
               </h1>
-              <div className="text-xl md:text-2xl text-muted-foreground">
-                <span className="gradient-text font-medium text-base">
-                  can re-allocate
-                </span>
-              </div>
             </motion.div>
             
             <motion.div
