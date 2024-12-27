@@ -68,7 +68,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-heading font-bold mb-12 flex items-center gap-2 bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text;
+    @apply text-3xl md:text-4xl font-heading font-bold mb-12 flex items-center gap-2 bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text hover:scale-105 transition-transform duration-300;
   }
 }
 
@@ -81,15 +81,15 @@
 }
 
 .heading {
-  @apply font-heading font-bold;
+  @apply font-heading font-bold animate-fadeIn;
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text;
+  @apply bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text hover:scale-105 transition-transform duration-300;
 }
 
 .gradient-bg {
-  @apply bg-gradient-to-br from-background via-accent/20 to-background;
+  @apply bg-gradient-to-br from-background via-accent/20 to-background animate-pulse;
 }
 
 .content-container {
@@ -135,6 +135,18 @@
   animation: shimmer 2s linear infinite;
 }
 
+.animate-wave {
+  animation: wave 2.5s ease-in-out infinite;
+}
+
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.hover-glow {
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-primary/20;
+}
+
 /* Responsive design improvements */
 @media (max-width: 640px) {
   .section-title {
@@ -150,6 +162,20 @@
   }
 }
 
+@media (min-width: 641px) and (max-width: 1023px) {
+  .section-title {
+    @apply text-3xl;
+  }
+  
+  .card-content {
+    @apply p-6;
+  }
+  
+  section {
+    @apply py-16;
+  }
+}
+
 @media (min-width: 1024px) {
   .section-title {
     @apply text-5xl;
@@ -157,5 +183,9 @@
   
   .content-container {
     @apply max-w-7xl;
+  }
+  
+  section {
+    @apply py-20;
   }
 }

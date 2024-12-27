@@ -89,6 +89,24 @@ export default {
         shimmer: {
           "100%": { transform: "translateX(100%)" },
         },
+        bounce: {
+          "0%, 100%": { transform: "translateY(-5%)" },
+          "50%": { transform: "translateY(0)" },
+        },
+        pulse: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: ".5" },
+        },
+        wave: {
+          "0%": { transform: "rotate(0.0deg)" },
+          "10%": { transform: "rotate(14deg)" },
+          "20%": { transform: "rotate(-8deg)" },
+          "30%": { transform: "rotate(14deg)" },
+          "40%": { transform: "rotate(-4deg)" },
+          "50%": { transform: "rotate(10.0deg)" },
+          "60%": { transform: "rotate(0.0deg)" },
+          "100%": { transform: "rotate(0.0deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -99,6 +117,9 @@ export default {
         glow: "glow 2s ease-in-out infinite",
         scale: "scale 0.3s ease-out",
         shimmer: "shimmer 2s linear infinite",
+        bounce: "bounce 2s infinite",
+        pulse: "pulse 3s infinite",
+        wave: "wave 2.5s ease-in-out infinite",
       },
     },
   },
