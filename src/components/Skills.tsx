@@ -37,7 +37,7 @@ const SkillCard = ({ skill, index }: { skill: { name: string; icon: JSX.Element 
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.3, delay: index * 0.1 }}
-    className="skill-tag hover-lift flex items-center gap-2"
+    className="glass p-3 rounded-lg flex items-center gap-2 hover:scale-105 transition-transform duration-300"
   >
     <span className="text-primary">{skill.icon}</span>
     {skill.name}
@@ -53,7 +53,7 @@ export const Skills = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="section-title text-gradient"
+          className="text-3xl md:text-4xl font-heading font-bold mb-8 text-center"
         >
           Skills & Expertise
         </motion.h2>
@@ -66,7 +66,7 @@ export const Skills = () => {
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-gradient">Technical Skills</h3>
+                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Technical Skills</h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.technical.map((skill, index) => (
                     <SkillCard key={skill.name} skill={skill} index={index} />
@@ -83,7 +83,7 @@ export const Skills = () => {
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-gradient">Tools & Platforms</h3>
+                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Tools & Platforms</h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.tools.map((tool, index) => (
                     <SkillCard key={tool.name} skill={tool} index={index} />
@@ -100,7 +100,7 @@ export const Skills = () => {
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-gradient">Soft Skills</h3>
+                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Soft Skills</h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.soft.map((skill, index) => (
                     <SkillCard key={skill.name} skill={skill} index={index} />
