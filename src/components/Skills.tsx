@@ -46,18 +46,18 @@ const SkillCard = ({ skill, index }: { skill: { name: string; icon: JSX.Element 
 
 export const Skills = () => {
   return (
-    <section id="skills" className="section-padding bg-gradient-to-b from-background via-accent/20 to-background">
-      <div className="max-w-6xl mx-auto">
+    <section id="skills" className="section-padding section-gradient">
+      <div className="content-container">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-heading font-bold mb-8 text-center"
+          className="section-title text-center"
         >
           Skills & Expertise
         </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -65,8 +65,10 @@ export const Skills = () => {
             viewport={{ once: true }}
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Technical Skills</h3>
+              <CardContent className="card-content">
+                <h3 className="text-xl font-heading font-semibold mb-6 text-center gradient-text">
+                  Technical Skills
+                </h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.technical.map((skill, index) => (
                     <SkillCard key={skill.name} skill={skill} index={index} />
@@ -75,6 +77,7 @@ export const Skills = () => {
               </CardContent>
             </Card>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -82,8 +85,10 @@ export const Skills = () => {
             viewport={{ once: true }}
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Tools & Platforms</h3>
+              <CardContent className="card-content">
+                <h3 className="text-xl font-heading font-semibold mb-6 text-center gradient-text">
+                  Tools & Platforms
+                </h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.tools.map((tool, index) => (
                     <SkillCard key={tool.name} skill={tool} index={index} />
@@ -92,6 +97,7 @@ export const Skills = () => {
               </CardContent>
             </Card>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -99,8 +105,10 @@ export const Skills = () => {
             viewport={{ once: true }}
           >
             <Card className="glass h-full hover:scale-105 transition-all duration-300">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-heading font-semibold mb-4 text-center bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text">Soft Skills</h3>
+              <CardContent className="card-content">
+                <h3 className="text-xl font-heading font-semibold mb-6 text-center gradient-text">
+                  Soft Skills
+                </h3>
                 <div className="flex flex-wrap gap-3">
                   {skills.soft.map((skill, index) => (
                     <SkillCard key={skill.name} skill={skill} index={index} />
