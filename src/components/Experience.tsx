@@ -7,7 +7,7 @@ const techExperiences = [
     title: "Tech Intern",
     company: "Anishk Sustainable Development Foundation",
     location: "Chhattisgarh, India",
-    period: "April 2024 – present",
+    period: "April 2024 – Present",
     type: "Remote",
     points: [
       "Contributed to developing scalable software solutions for sustainable development initiatives.",

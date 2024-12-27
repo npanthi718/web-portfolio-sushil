@@ -56,23 +56,13 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    background: linear-gradient(to bottom right, rgba(13, 14, 18, 1), rgba(42, 45, 56, 1));
   }
 
   .glass {
     @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl hover:shadow-primary/20 transition-all duration-300;
   }
 
-  .section-padding {
-    @apply py-20 px-6 md:px-12 lg:px-24;
-  }
-
-  .gradient-border {
-    @apply relative before:absolute before:inset-0 before:-z-10 before:p-1 before:rounded-full before:bg-gradient-to-r before:from-primary before:via-purple-500 before:to-pink-500;
-  }
-
-  .shimmer {
-    @apply relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent;
-  }
 }
 
 .card-hover {
@@ -84,107 +74,9 @@
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text;
+  @apply bg-gradient-to-r from-primary via-purple-500 to-pink-500 text-transparent bg-clip-text animate-shimmer;
 }
 
 .gradient-bg {
-  @apply bg-gradient-to-b from-background via-accent/20 to-background;
-}
-
-.nav-item {
-  @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
-}
-
-.section-title {
-  @apply text-3xl md:text-4xl font-heading font-bold mb-8 animate-fadeIn;
-}
-
-.card-content {
-  @apply p-6 hover:bg-white/5 transition-colors duration-300;
-}
-
-.icon-wrapper {
-  @apply p-2 rounded-full bg-primary/10 text-primary animate-pulse;
-}
-
-.skill-tag {
-  @apply px-3 py-1 rounded-full text-sm bg-primary/10 hover:bg-primary/20 transition-colors duration-300 animate-float;
-}
-
-.hover-lift {
-  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
-}
-
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-pink-500;
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.glass-card {
-  @apply relative overflow-hidden rounded-2xl animate-fadeIn;
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-.skill-icon {
-  @apply transition-all duration-300 hover:scale-110 hover:text-primary animate-bounce;
-}
-
-.mobile-nav {
-  @apply fixed bottom-0 left-0 right-0 bg-background/80 backdrop-blur-lg border-t z-50 md:hidden;
-}
-
-.mobile-nav-item {
-  @apply flex flex-col items-center justify-center p-2 text-xs text-muted-foreground hover:text-primary transition-colors;
-}
-
-.section-wrapper {
-  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-.hero-gradient {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-.animate-scale {
-  animation: scale 0.3s ease-out;
-}
-
-@keyframes scale {
-  0% {
-    transform: scale(0.95);
-  }
-  100% {
-    transform: scale(1);
-  }
+  @apply bg-gradient-to-br from-background via-accent/20 to-background;
 }
