@@ -1,28 +1,77 @@
-# Welcome to your Lovable project
+# Sushil Panthi's Web Portfolio
 
-## Project info
+A fully responsive and interactive web portfolio built using **React.js** and **TypeScript**. This portfolio showcases my professional experience, projects, achievements, skills, and more. It is designed to give a comprehensive overview of my qualifications and expertise as a Full Stack Developer (MERN).
 
-**URL**: https://lovable.dev/projects/fa288980-3d36-4fe5-b606-21786a171681
+## Features
 
-## How can I edit this code?
+### 1. **Home Section**
+- Brief introduction and personal branding.
+- Navigation links for easy access to all sections.
 
-There are several ways of editing your application.
+### 2. **About Section**
+- A detailed summary of my profile, including career objectives and a snapshot of my technical skills and strengths.
 
-**Use Lovable**
+### 3. **Skills Section**
+- A visual representation of technical and soft skills.
+- Highlights programming languages, frameworks, tools, and methodologies.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/fa288980-3d36-4fe5-b606-21786a171681) and start prompting.
+### 4. **Education Section**
+- Detailed educational background with institutions, degrees, and timelines.
 
-Changes made via Lovable will be committed automatically to this repo.
+### 5. **Professional Experience**
+- A comprehensive list of roles, responsibilities, and contributions across various organizations.
+- Focus on project outcomes and team collaborations.
 
-**Use your preferred IDE**
+### 6. **Projects**
+- Showcases major projects, including:
+  - **Supermarket Management System**: Built with MongoDB, Express.js, React.js, and Node.js.
+  - **Student Management System**: Developed for managing student data with features like CRUD operations, filters, and error handling.
+- Key contributions and technologies used in each project.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 7. **Certificates**
+- Lists all certifications achieved, showcasing technical and personal development.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 8. **Achievements & Extracurricular Activities**
+- Highlights leadership roles, environmental contributions, and personal initiatives.
 
-Follow these steps:
+### 9. **Contact Section**
+- Provides all necessary contact details:
+  - Email
+  - Phone number
+  - Address
+  - Social media links (LinkedIn, GitHub, etc.)
 
-```sh
+## Technologies Used
+- **Frontend**: React.js, TypeScript, CSS
+- **Libraries/Frameworks**:
+  - Framer Motion for animations.
+  - Styled-components for dynamic styling.
+- **Backend Integration**: Placeholder APIs for dynamic content loading.
+
+## File Structure
+```plaintext
+src/
+├── components/
+│   ├── ui/
+│   │   ├── About.tsx
+│   │   ├── Achievements.tsx
+│   │   ├── Certificates.tsx
+│   │   ├── Contact.tsx
+│   │   ├── Courses.tsx
+│   │   ├── Education.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Navigation.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Skills.tsx
+│   │   ├── ThemeToggle.tsx
+│   ├── hooks/
+│   │   ├── use-mobile.tsx
+│   │   ├── use-theme.tsx
+│   │   ├── use-toast.tsx
+├── App.tsx
+├── App.css
+
 # Step 1: Clone the repository using the project's Git URL.
 git clone <YOUR_GIT_URL>
 
@@ -59,11 +108,3 @@ This project is built with .
 - React
 - shadcn-ui
 - Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/fa288980-3d36-4fe5-b606-21786a171681) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)

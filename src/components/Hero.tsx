@@ -8,7 +8,7 @@ export const Hero = () => {
   const handleDownload = () => {
     // TODO: Add download link
     const link = document.createElement("a");
-    link.href = "/path-to-your-resume.pdf";
+    link.href = "/uploads/Tech Resume Sushil Panthi.pdf";
     link.download = "Sushil_Panthi_Resume.pdf";
     link.click();
   };
@@ -34,7 +34,7 @@ export const Hero = () => {
               </h2>
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-2 animate-scale">
                 <span className="text-gradient animate-shimmer">Sushil Panthi</span>
-                <span className="text-xs ml-2 text-muted-foreground">(can re-allocate)</span>
+                <span className="text-xs ml-2 text-muted-foreground">(Can Re-allocate)</span>
               </h1>
               <div className="text-xl md:text-2xl lg:text-3xl font-heading font-bold mb-6">
                 <span className="gradient-text animate-float">
@@ -81,7 +81,7 @@ export const Hero = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300 animate-glow opacity-75" />
               <Avatar className="w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300 animate-float">
                 <AvatarImage 
-                  src="/lovable-uploads/bbd07e70-b699-4932-98c0-c0739b9ecd4e.png" 
+                  src="/lovable-uploads/DV.jpg" 
                   alt="Sushil Panthi" 
                   className="object-cover"
                 />
