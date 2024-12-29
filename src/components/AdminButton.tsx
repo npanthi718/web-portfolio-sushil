@@ -12,7 +12,7 @@ export const AdminButton = () => {
       className="fixed top-4 right-20 z-[100] glass hover:scale-105 transition-transform duration-300 flex items-center gap-2"
       onClick={() => navigate("/admin/login")}
     >
-      <Settings className="w-4 h-4" />
+      <Settings className="admin-icon w-4 h-4" />
       Admin
     </Button>
   );
