@@ -1,6 +1,6 @@
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
-import { Lock } from "lucide-react";
+import { Settings } from "lucide-react";
 
 export const AdminButton = () => {
   const navigate = useNavigate();
@@ -9,10 +9,10 @@ export const AdminButton = () => {
     <Button
       variant="outline"
       size="sm"
-      className="fixed top-4 right-20 z-50 glass"
+      className="fixed top-4 right-20 z-[100] glass hover:scale-105 transition-transform duration-300 flex items-center gap-2"
       onClick={() => navigate("/admin/login")}
     >
-      <Lock className="w-4 h-4 mr-2" />
+      <Settings className="w-4 h-4" />
       Admin
     </Button>
   );

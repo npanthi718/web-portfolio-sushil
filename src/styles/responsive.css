@@ -1,0 +1,41 @@
+@media (max-width: 640px) {
+  .section-title {
+    @apply text-xl;
+  }
+  
+  .card-content {
+    @apply p-3;
+  }
+  
+  section {
+    @apply py-8;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .section-title {
+    @apply text-2xl;
+  }
+  
+  .card-content {
+    @apply p-5;
+  }
+  
+  section {
+    @apply py-12;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-title {
+    @apply text-4xl;
+  }
+  
+  .content-container {
+    @apply max-w-7xl;
+  }
+  
+  section {
+    @apply py-16;
+  }
+}
