@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import { Lock, AlertCircle } from "lucide-react";
+import { Lock, AlertCircle, Eye, EyeOff } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const AdminLogin = () => {
 
     try {
       console.log("Attempting login with:", email); // Debug log
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
@@ -33,12 +34,12 @@ const AdminLogin = () => {
         throw signInError;
       }
 
-      if (data.user) {
-        console.log("User signed in:", data.user.id); // Debug log
+      if (user) {
+        console.log("User signed in:", user.id); // Debug log
         const { data: profileData, error: profileError } = await supabase
           .from("profiles")
           .select("is_admin")
-          .eq("id", data.user.id)
+          .eq("id", user.id)
           .single();
 
         console.log("Profile data:", profileData); // Debug log
@@ -75,6 +76,10 @@ const AdminLogin = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-accent/20 p-4">
       <Card className="w-full max-w-md glass">
@@ -102,15 +107,28 @@ const AdminLogin = () => {
                 className="admin-login-input"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="admin-login-input"
+                className="admin-login-input pr-10"
               />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-2 top-2"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
             </div>
             <Button type="submit" className="w-full admin-login-button" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
