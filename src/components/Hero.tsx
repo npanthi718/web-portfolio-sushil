@@ -8,7 +8,7 @@ export const Hero = () => {
   const handleDownload = () => {
     // TODO: Add download link
     const link = document.createElement("a");
-    link.href = "/uploads/Tech Resume Sushil Panthi.pdf";
+    link.href = "public/uploads/Tech Resume Sushil Panthi.pdf";
     link.download = "Sushil_Panthi_Resume.pdf";
     link.click();
   };
