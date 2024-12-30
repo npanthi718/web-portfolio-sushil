@@ -15,25 +15,54 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  const validateCredentials = () => {
+    if (!email.trim() || !password.trim()) {
+      setError("Email and password are required");
+      return false;
+    }
+    if (!email.includes("@")) {
+      setError("Please enter a valid email address");
+      return false;
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return false;
+    }
+    return true;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError("");
 
-    try {
-      if (!navigator.onLine) {
-        throw new Error("No internet connection. Please check your network and try again.");
-      }
+    if (!validateCredentials()) {
+      return;
+    }
 
+    if (!navigator.onLine) {
+      setError("No internet connection. Please check your network and try again.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password.trim()
       });
 
       if (signInError) {
-        if (signInError.message.includes("Service Temporarily Unavailable")) {
-          throw new Error("Supabase service is temporarily unavailable. Please try again in a few minutes.");
+        console.error("Auth error:", signInError);
+        
+        if (signInError.message.includes("Invalid login credentials")) {
+          throw new Error("The email or password you entered is incorrect. Please try again.");
         }
+        
+        if (signInError.message.includes("Service Temporarily Unavailable")) {
+          throw new Error("The authentication service is temporarily unavailable. Please try again in a few minutes.");
+        }
+
         throw signInError;
       }
 
@@ -48,11 +77,12 @@ const AdminLogin = () => {
         .single();
 
       if (profileError) {
-        throw profileError;
+        console.error("Profile error:", profileError);
+        throw new Error("Failed to verify admin status");
       }
 
       if (!profileData?.is_admin) {
-        throw new Error("Unauthorized access - not an admin user");
+        throw new Error("This account does not have admin privileges");
       }
 
       toast({
@@ -62,16 +92,12 @@ const AdminLogin = () => {
       navigate("/admin/dashboard");
       
     } catch (error: any) {
-      let errorMessage = "An unexpected error occurred";
+      console.error("Login error:", error);
       
-      if (error.message === "Invalid login credentials") {
-        errorMessage = "Invalid email or password. Please check your credentials and try again.";
-      } else if (error.message === "Unauthorized access - not an admin user") {
-        errorMessage = "This account does not have admin privileges.";
-      } else if (error.message.includes("Service Temporarily Unavailable")) {
-        errorMessage = "The authentication service is temporarily unavailable. Please try again in a few minutes.";
-      } else if (!navigator.onLine) {
-        errorMessage = "No internet connection. Please check your network and try again.";
+      let errorMessage = "An unexpected error occurred. Please try again.";
+      
+      if (error.message) {
+        errorMessage = error.message;
       }
 
       setError(errorMessage);

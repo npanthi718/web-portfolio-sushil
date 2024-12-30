@@ -33,6 +33,7 @@ export const LoginForm = ({
           required
           className="admin-login-email-input"
           disabled={loading}
+          autoComplete="email"
         />
       </div>
       <div className="admin-login-password-field relative">
@@ -44,6 +45,7 @@ export const LoginForm = ({
           required
           className="admin-login-password-input pr-10"
           disabled={loading}
+          autoComplete="current-password"
         />
         <Button
           type="button"
