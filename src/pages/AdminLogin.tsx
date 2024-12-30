@@ -63,13 +63,6 @@ const AdminLogin = () => {
           message: signInError.message,
           name: signInError.name,
         });
-
-        // Check if the error is due to invalid credentials
-        if (signInError.message?.includes("Invalid login credentials")) {
-          throw new Error("Invalid email or password. Please check your credentials and try again.");
-        }
-
-        // For other authentication errors
         throw new Error(signInError.message || "Authentication failed. Please try again.");
       }
 

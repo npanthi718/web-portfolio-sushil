@@ -1,43 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import { LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  Palette,
-  Layout,
-  LogOut,
-  Plus,
-  Save,
-  Eye,
-  EyeOff,
-  Trash,
-} from "lucide-react";
-
-interface ThemeSettings {
-  id: string;
-  theme_name: string;
-  colors: any;
-  fonts: any;
-  animations: any;
-  is_active: boolean;
-}
-
-interface PortfolioContent {
-  id: string;
-  section_name: string;
-  content: any;
-  order_index: number;
-  is_visible: boolean;
-}
+import { ContentManagement } from "@/components/admin/ContentManagement";
+import { ThemeManagement } from "@/components/admin/ThemeManagement";
+import { Tables } from "@/integrations/supabase/types";
 
 const AdminDashboard = () => {
-  const [themes, setThemes] = useState<ThemeSettings[]>([]);
-  const [sections, setSections] = useState<PortfolioContent[]>([]);
+  const [themes, setThemes] = useState<Tables<"theme_settings">[]>([]);
+  const [sections, setSections] = useState<Tables<"portfolio_content">[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -119,7 +92,7 @@ const AdminDashboard = () => {
     navigate("/");
   };
 
-  const toggleSectionVisibility = async (section: PortfolioContent) => {
+  const toggleSectionVisibility = async (section: Tables<"portfolio_content">) => {
     try {
       const { error } = await supabase
         .from("portfolio_content")
@@ -141,7 +114,7 @@ const AdminDashboard = () => {
     }
   };
 
-  const activateTheme = async (theme: ThemeSettings) => {
+  const activateTheme = async (theme: Tables<"theme_settings">) => {
     try {
       await supabase
         .from("theme_settings")
@@ -183,76 +156,15 @@ const AdminDashboard = () => {
           </Button>
         </div>
 
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Layout className="w-5 h-5" />
-              Content Management
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {sections.map((section) => (
-              <div
-                key={section.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div>
-                  <h3 className="font-semibold">{section.section_name}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Order: {section.order_index}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => toggleSectionVisibility(section)}
-                  >
-                    {section.is_visible ? (
-                      <Eye className="w-4 h-4" />
-                    ) : (
-                      <EyeOff className="w-4 h-4" />
-                    )}
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <ContentManagement 
+          sections={sections}
+          onToggleVisibility={toggleSectionVisibility}
+        />
 
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Palette className="w-5 h-5" />
-              Theme Management
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {themes.map((theme) => (
-              <div
-                key={theme.id}
-                className="flex items-center justify-between p-4 border rounded-lg"
-              >
-                <div>
-                  <h3 className="font-semibold">{theme.theme_name}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {theme.is_active ? "Active" : "Inactive"}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => activateTheme(theme)}
-                    disabled={theme.is_active}
-                  >
-                    {theme.is_active ? "Active" : "Activate"}
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <ThemeManagement 
+          themes={themes}
+          onActivateTheme={activateTheme}
+        />
       </div>
     </div>
   );
