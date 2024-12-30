@@ -23,52 +23,66 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      console.log("Attempting login with:", email); // Debug log
-      const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      console.log("Starting login process for:", email);
+      
+      // First, sign in with email/password
+      const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password.trim()
       });
 
       if (signInError) {
-        console.error("Sign in error:", signInError); // Debug log
+        console.error("Authentication error:", signInError);
         throw signInError;
       }
 
-      if (user) {
-        console.log("User signed in:", user.id); // Debug log
-        const { data: profileData, error: profileError } = await supabase
-          .from("profiles")
-          .select("is_admin")
-          .eq("id", user.id)
-          .single();
-
-        console.log("Profile data:", profileData); // Debug log
-
-        if (profileError) {
-          console.error("Profile error:", profileError); // Debug log
-          throw profileError;
-        }
-
-        if (profileData?.is_admin) {
-          toast({
-            title: "Welcome back!",
-            description: "Successfully logged in as admin.",
-          });
-          navigate("/admin/dashboard");
-        } else {
-          throw new Error("Unauthorized access - not an admin user");
-        }
+      if (!authData.user) {
+        throw new Error("No user data returned");
       }
-    } catch (error: any) {
-      console.error("Login error:", error); // Debug log
-      setError(
-        error.message === "Invalid login credentials"
-          ? "Invalid email or password. Please check your credentials and try again."
-          : error.message
-      );
+
+      console.log("User authenticated successfully:", authData.user.id);
+
+      // Then check if user is admin
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("is_admin")
+        .eq("id", authData.user.id)
+        .single();
+
+      console.log("Profile data:", profileData);
+
+      if (profileError) {
+        console.error("Profile fetch error:", profileError);
+        throw profileError;
+      }
+
+      if (!profileData?.is_admin) {
+        throw new Error("Unauthorized access - not an admin user");
+      }
+
+      // Success - redirect to dashboard
       toast({
-        title: "Error",
-        description: error.message,
+        title: "Welcome back!",
+        description: "Successfully logged in as admin.",
+      });
+      navigate("/admin/dashboard");
+      
+    } catch (error: any) {
+      console.error("Login process error:", error);
+      
+      // Handle specific error cases
+      let errorMessage = "An unexpected error occurred";
+      
+      if (error.message === "Invalid login credentials") {
+        errorMessage = "Invalid email or password. Please check your credentials and try again.";
+      } else if (error.message === "Unauthorized access - not an admin user") {
+        errorMessage = "This account does not have admin privileges.";
+      }
+
+      setError(errorMessage);
+      toast({
+        title: "Login Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -81,56 +95,60 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-accent/20 p-4">
-      <Card className="w-full max-w-md glass">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-heading flex items-center gap-2">
-            <Lock className="w-6 h-6" />
+    <div className="admin-login-container min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-accent/20 p-4">
+      <Card className="admin-login-card w-full max-w-md">
+        <CardHeader className="admin-login-header space-y-1">
+          <CardTitle className="admin-login-title text-2xl font-heading flex items-center gap-2">
+            <Lock className="admin-login-icon w-6 h-6" />
             Admin Login
           </CardTitle>
         </CardHeader>
         <CardContent>
           {error && (
-            <Alert variant="destructive" className="mb-4">
-              <AlertCircle className="h-4 w-4" />
+            <Alert variant="destructive" className="admin-login-error mb-4">
+              <AlertCircle className="admin-login-error-icon h-4 w-4" />
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div className="space-y-2">
+          <form onSubmit={handleLogin} className="admin-login-form space-y-4">
+            <div className="admin-login-email-container space-y-2">
               <Input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="admin-login-input"
+                className="admin-login-email-input"
               />
             </div>
-            <div className="space-y-2 relative">
+            <div className="admin-login-password-container space-y-2 relative">
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="admin-login-input pr-10"
+                className="admin-login-password-input pr-10"
               />
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="absolute right-2 top-2"
+                className="admin-login-password-toggle absolute right-2 top-2"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <EyeOff className="admin-login-password-toggle-icon h-4 w-4" />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <Eye className="admin-login-password-toggle-icon h-4 w-4" />
                 )}
               </Button>
             </div>
-            <Button type="submit" className="w-full admin-login-button" disabled={loading}>
+            <Button 
+              type="submit" 
+              className="admin-login-submit w-full" 
+              disabled={loading}
+            >
               {loading ? "Logging in..." : "Login"}
             </Button>
           </form>
