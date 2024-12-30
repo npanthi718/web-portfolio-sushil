@@ -47,44 +47,46 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      console.log("Attempting login with:", { email: email.trim() });
-      
+      const trimmedEmail = email.trim();
+      const trimmedPassword = password.trim();
+
+      console.log("Starting login attempt for:", { email: trimmedEmail });
+
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password: password.trim(),
+        email: trimmedEmail,
+        password: trimmedPassword,
       });
 
       if (signInError) {
-        console.error("Detailed auth error:", {
+        console.error("Authentication error details:", {
           status: signInError.status,
           message: signInError.message,
           name: signInError.name,
-          stack: signInError.stack
         });
-        
-        if (signInError.message.includes("invalid_grant")) {
-          throw new Error("Your login session has expired. Please try logging in again.");
-        }
-        
-        if (signInError.message.includes("Invalid login credentials")) {
-          throw new Error("The email or password you entered is incorrect. Please check your credentials and try again.");
+
+        let errorMessage = "Authentication failed. Please try again.";
+
+        if (signInError.message?.includes("Invalid login credentials")) {
+          errorMessage = "Invalid email or password. Please check your credentials and try again.";
+        } else if (signInError.message?.includes("invalid_grant")) {
+          errorMessage = "Your session has expired. Please try logging in again.";
         }
 
-        throw new Error(signInError.message || "Authentication failed. Please try again.");
+        throw new Error(errorMessage);
       }
 
       if (!authData?.user?.id) {
-        console.error("No user data returned:", authData);
+        console.error("No user data in response:", authData);
         throw new Error("Login failed - no user data returned");
       }
 
-      console.log("Auth successful, checking admin status");
+      console.log("Authentication successful, checking admin status");
 
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("is_admin")
         .eq("id", authData.user.id)
-        .single();
+        .maybeSingle();
 
       if (profileError) {
         console.error("Profile fetch error:", profileError);
@@ -92,11 +94,11 @@ const AdminLogin = () => {
       }
 
       if (!profileData?.is_admin) {
-        console.error("User not admin:", profileData);
+        console.error("User not admin:", { userId: authData.user.id, profile: profileData });
         throw new Error("This account does not have admin privileges");
       }
 
-      console.log("Admin status verified, proceeding to dashboard");
+      console.log("Admin verification successful");
 
       toast({
         title: "Welcome back!",
@@ -108,12 +110,8 @@ const AdminLogin = () => {
     } catch (error: any) {
       console.error("Login error:", error);
       
-      let errorMessage = "An unexpected error occurred. Please try again.";
+      const errorMessage = error.message || "An unexpected error occurred. Please try again.";
       
-      if (error.message) {
-        errorMessage = error.message;
-      }
-
       setError(errorMessage);
       toast({
         title: "Login Failed",
