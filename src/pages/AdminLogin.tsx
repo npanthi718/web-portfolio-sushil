@@ -64,12 +64,17 @@ const AdminLogin = () => {
           name: signInError.name,
         });
 
-        // Check for specific error cases
-        if (signInError.message?.includes("invalid_credentials")) {
-          throw new Error("Please check if Site URL and Redirect URLs are properly configured in Supabase. Contact support if the issue persists.");
+        let errorMessage = "Authentication failed. Please try again.";
+
+        if (signInError.message?.includes("Invalid login credentials")) {
+          errorMessage = "Invalid email or password. Please check your credentials and try again.";
+        } else if (signInError.message?.includes("invalid_grant")) {
+          errorMessage = "Your session has expired. Please try logging in again.";
+        } else if (signInError.message?.includes("Network")) {
+          errorMessage = "Network error. Please check your connection and try again.";
         }
 
-        throw new Error(signInError.message || "Authentication failed. Please try again.");
+        throw new Error(errorMessage);
       }
 
       if (!authData?.user?.id) {
@@ -149,7 +154,7 @@ const AdminLogin = () => {
           <LoginError 
             error={error} 
             onRetry={retryConnection}
-            showRetry={error.includes("unavailable") || !navigator.onLine}
+            showRetry={error.includes("connection") || !navigator.onLine}
           />
           <LoginForm
             email={email}
