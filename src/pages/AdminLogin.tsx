@@ -95,7 +95,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="admin-login-container min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-accent/20 p-4">
+    <div className="admin-login-container min-h-screen flex items-center justify-center bg-gradient-to-b from-background via-accent/20 to-background p-4">
       <Card className="admin-login-card w-full max-w-md">
         <CardHeader className="admin-login-header space-y-1">
           <CardTitle className="admin-login-title text-2xl font-heading flex items-center gap-2">
