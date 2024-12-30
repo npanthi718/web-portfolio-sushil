@@ -47,29 +47,22 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
+      // First, attempt to sign in
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
-        password: password.trim()
+        password: password.trim(),
       });
 
       if (signInError) {
         console.error("Auth error:", signInError);
-        
-        if (signInError.message.includes("Invalid login credentials")) {
-          throw new Error("The email or password you entered is incorrect. Please try again.");
-        }
-        
-        if (signInError.message.includes("Service Temporarily Unavailable")) {
-          throw new Error("The authentication service is temporarily unavailable. Please try again in a few minutes.");
-        }
-
-        throw signInError;
+        throw new Error("Invalid email or password. Please try again.");
       }
 
       if (!authData.user) {
         throw new Error("No user data returned");
       }
 
+      // Then check if the user has admin privileges
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("is_admin")
@@ -85,10 +78,12 @@ const AdminLogin = () => {
         throw new Error("This account does not have admin privileges");
       }
 
+      // If we get here, login was successful
       toast({
         title: "Welcome back!",
         description: "Successfully logged in as admin.",
       });
+      
       navigate("/admin/dashboard");
       
     } catch (error: any) {
