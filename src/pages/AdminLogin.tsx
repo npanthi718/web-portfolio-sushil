@@ -47,22 +47,39 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      // First, attempt to sign in
+      console.log("Attempting login with:", { email: email.trim() });
+      
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password: password.trim(),
       });
 
       if (signInError) {
-        console.error("Auth error:", signInError);
-        throw new Error("Invalid email or password. Please try again.");
+        console.error("Detailed auth error:", {
+          status: signInError.status,
+          message: signInError.message,
+          name: signInError.name,
+          stack: signInError.stack
+        });
+        
+        if (signInError.message.includes("invalid_grant")) {
+          throw new Error("Your login session has expired. Please try logging in again.");
+        }
+        
+        if (signInError.message.includes("Invalid login credentials")) {
+          throw new Error("The email or password you entered is incorrect. Please check your credentials and try again.");
+        }
+
+        throw new Error(signInError.message || "Authentication failed. Please try again.");
       }
 
-      if (!authData.user) {
-        throw new Error("No user data returned");
+      if (!authData?.user?.id) {
+        console.error("No user data returned:", authData);
+        throw new Error("Login failed - no user data returned");
       }
 
-      // Then check if the user has admin privileges
+      console.log("Auth successful, checking admin status");
+
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("is_admin")
@@ -70,15 +87,17 @@ const AdminLogin = () => {
         .single();
 
       if (profileError) {
-        console.error("Profile error:", profileError);
+        console.error("Profile fetch error:", profileError);
         throw new Error("Failed to verify admin status");
       }
 
       if (!profileData?.is_admin) {
+        console.error("User not admin:", profileData);
         throw new Error("This account does not have admin privileges");
       }
 
-      // If we get here, login was successful
+      console.log("Admin status verified, proceeding to dashboard");
+
       toast({
         title: "Welcome back!",
         description: "Successfully logged in as admin.",
