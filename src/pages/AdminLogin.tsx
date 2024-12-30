@@ -74,9 +74,9 @@ const AdminLogin = () => {
       console.log("Authentication successful, checking admin status");
 
       const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .select("is_admin")
-        .eq("id", authData.user.id)
+        .from('profiles')
+        .select('is_admin')
+        .eq('id', authData.user.id)
         .maybeSingle();
 
       if (profileError) {
