@@ -47,7 +47,7 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const trimmedEmail = email.trim();
+      const trimmedEmail = email.trim().toLowerCase();
       const trimmedPassword = password.trim();
 
       console.log("Starting login attempt for:", { email: trimmedEmail });
@@ -64,17 +64,20 @@ const AdminLogin = () => {
           name: signInError.name,
         });
 
-        let errorMessage = "Authentication failed. Please try again.";
-
-        if (signInError.message?.includes("Invalid login credentials")) {
-          errorMessage = "Invalid email or password. Please check your credentials and try again.";
-        } else if (signInError.message?.includes("invalid_grant")) {
-          errorMessage = "Your session has expired. Please try logging in again.";
-        } else if (signInError.message?.includes("Network")) {
-          errorMessage = "Network error. Please check your connection and try again.";
+        // Check if user exists first
+        const { data: userExists } = await supabase.auth.admin.getUserByEmail(trimmedEmail);
+        
+        if (!userExists) {
+          throw new Error("No account found with this email. Please check your email or sign up.");
         }
 
-        throw new Error(errorMessage);
+        // If user exists but credentials are invalid
+        if (signInError.message?.includes("Invalid login credentials")) {
+          throw new Error("Incorrect password. Please try again or reset your password.");
+        }
+
+        // For other authentication errors
+        throw new Error(signInError.message || "Authentication failed. Please try again.");
       }
 
       if (!authData?.user?.id) {
