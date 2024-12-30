@@ -64,16 +64,9 @@ const AdminLogin = () => {
           name: signInError.name,
         });
 
-        // Check if user exists first
-        const { data: userExists } = await supabase.auth.admin.getUserByEmail(trimmedEmail);
-        
-        if (!userExists) {
-          throw new Error("No account found with this email. Please check your email or sign up.");
-        }
-
-        // If user exists but credentials are invalid
+        // Check if the error is due to invalid credentials
         if (signInError.message?.includes("Invalid login credentials")) {
-          throw new Error("Incorrect password. Please try again or reset your password.");
+          throw new Error("Invalid email or password. Please check your credentials and try again.");
         }
 
         // For other authentication errors
