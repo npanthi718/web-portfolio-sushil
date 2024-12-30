@@ -23,6 +23,11 @@ const AdminLogin = () => {
     setError("");
 
     try {
+      // Check network connectivity first
+      if (!navigator.onLine) {
+        throw new Error("No internet connection. Please check your network and try again.");
+      }
+
       console.log("Starting login process for:", email);
       
       // First, sign in with email/password
@@ -33,6 +38,12 @@ const AdminLogin = () => {
 
       if (signInError) {
         console.error("Authentication error:", signInError);
+        
+        // Handle specific error cases
+        if (signInError.message.includes("Service Temporarily Unavailable")) {
+          throw new Error("Supabase service is temporarily unavailable. Please try again in a few minutes.");
+        }
+        
         throw signInError;
       }
 
@@ -77,6 +88,10 @@ const AdminLogin = () => {
         errorMessage = "Invalid email or password. Please check your credentials and try again.";
       } else if (error.message === "Unauthorized access - not an admin user") {
         errorMessage = "This account does not have admin privileges.";
+      } else if (error.message.includes("Service Temporarily Unavailable")) {
+        errorMessage = "The authentication service is temporarily unavailable. Please try again in a few minutes.";
+      } else if (!navigator.onLine) {
+        errorMessage = "No internet connection. Please check your network and try again.";
       }
 
       setError(errorMessage);
@@ -94,6 +109,22 @@ const AdminLogin = () => {
     setShowPassword(!showPassword);
   };
 
+  const retryConnection = () => {
+    setError("");
+    if (navigator.onLine) {
+      toast({
+        title: "Connection Restored",
+        description: "You can now try logging in again.",
+      });
+    } else {
+      toast({
+        title: "Still Offline",
+        description: "Please check your internet connection.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="admin-login-container min-h-screen flex items-center justify-center bg-gradient-to-b from-background via-accent/20 to-background p-4">
       <Card className="admin-login-card w-full max-w-md">
@@ -107,7 +138,19 @@ const AdminLogin = () => {
           {error && (
             <Alert variant="destructive" className="admin-login-error mb-4">
               <AlertCircle className="admin-login-error-icon h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="flex flex-col gap-2">
+                {error}
+                {(error.includes("unavailable") || !navigator.onLine) && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={retryConnection}
+                    className="self-start mt-2"
+                  >
+                    Retry Connection
+                  </Button>
+                )}
+              </AlertDescription>
             </Alert>
           )}
           <form onSubmit={handleLogin} className="admin-login-form space-y-4">
@@ -119,6 +162,7 @@ const AdminLogin = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="admin-login-email-input"
+                disabled={loading}
               />
             </div>
             <div className="admin-login-password-container space-y-2 relative">
@@ -129,6 +173,7 @@ const AdminLogin = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="admin-login-password-input pr-10"
+                disabled={loading}
               />
               <Button
                 type="button"
@@ -136,6 +181,7 @@ const AdminLogin = () => {
                 size="sm"
                 className="admin-login-password-toggle absolute right-2 top-2"
                 onClick={togglePasswordVisibility}
+                disabled={loading}
               >
                 {showPassword ? (
                   <EyeOff className="admin-login-password-toggle-icon h-4 w-4" />
