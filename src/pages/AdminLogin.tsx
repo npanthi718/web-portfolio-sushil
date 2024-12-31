@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { LoginError } from "@/components/admin/LoginError";
+import { Tables } from "@/integrations/supabase/types";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -74,10 +75,10 @@ const AdminLogin = () => {
       console.log("Authentication successful, checking admin status");
 
       const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('is_admin')
-        .eq('id', authData.user.id)
-        .maybeSingle();
+        .from("profiles")
+        .select("is_admin")
+        .eq("id", authData.user.id)
+        .single();
 
       if (profileError) {
         console.error("Profile fetch error:", profileError);
