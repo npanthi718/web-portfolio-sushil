@@ -53,6 +53,9 @@ const AdminLogin = () => {
       });
 
       if (signInError) {
+        if (signInError.message.includes("Invalid login credentials")) {
+          throw new Error("Invalid email or password. Please try again or use the default credentials.");
+        }
         throw new Error(signInError.message || "Authentication failed. Please try again.");
       }
 
