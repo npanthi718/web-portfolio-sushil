@@ -13,19 +13,32 @@ export const AdminButton = () => {
   const handleAdminClick = async () => {
     setIsLoading(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError) {
+        console.error("Session error:", sessionError);
+        // If there's a session error, clear any stale session data
+        await supabase.auth.signOut();
+        navigate("/admin/login");
+        return;
+      }
       
       if (session) {
-        // If logged in, try to logout
         try {
+          // Clear session and local storage
           await supabase.auth.signOut();
+          localStorage.removeItem('supabase.auth.token');
           toast({
             title: "Logged out successfully",
             description: "You have been logged out of the admin panel",
           });
         } catch (error: any) {
-          // If logout fails due to invalid session, just redirect to login
-          console.log("Logout error:", error);
+          console.error("Logout error:", error);
+          // If logout fails due to token issues, clear local storage
+          if (error.message?.includes('refresh_token_not_found') || 
+              error.message?.includes('session_not_found')) {
+            localStorage.removeItem('supabase.auth.token');
+          }
         }
       }
       
@@ -34,11 +47,14 @@ export const AdminButton = () => {
       
     } catch (error: any) {
       console.error("Session check error:", error);
+      // Clear any potentially corrupted session data
+      localStorage.removeItem('supabase.auth.token');
       toast({
         variant: "destructive",
         title: "Error",
-        description: "There was a problem processing your request",
+        description: "There was a problem with your session. Please log in again.",
       });
+      navigate("/admin/login");
     } finally {
       setIsLoading(false);
     }
