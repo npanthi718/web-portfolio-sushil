@@ -59,23 +59,41 @@ export type Database = {
       }
       theme_settings: {
         Row: {
+          accent_color: string | null
+          background_color: string | null
           created_at: string
+          font_family: string | null
           id: string
           is_active: boolean | null
+          primary_color: string | null
+          secondary_color: string | null
+          text_color: string | null
           theme_name: string
           updated_at: string
         }
         Insert: {
+          accent_color?: string | null
+          background_color?: string | null
           created_at?: string
+          font_family?: string | null
           id?: string
           is_active?: boolean | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
           theme_name: string
           updated_at?: string
         }
         Update: {
+          accent_color?: string | null
+          background_color?: string | null
           created_at?: string
+          font_family?: string | null
           id?: string
           is_active?: boolean | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
           theme_name?: string
           updated_at?: string
         }

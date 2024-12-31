@@ -10,13 +10,13 @@ export const ThemeToggle = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="theme-toggle-container fixed top-4 right-4 z-50"
+      className="fixed top-4 right-20 z-50" // Positioned to the left of the admin button
     >
       <Button
         variant="outline"
         size="icon"
         onClick={toggleTheme}
-        className="theme-toggle-button rounded-full"
+        className="theme-toggle-button rounded-full bg-background/80 backdrop-blur-sm"
       >
         {theme === "dark" ? (
           <Sun className="theme-toggle-icon h-5 w-5" />
