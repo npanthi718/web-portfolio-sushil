@@ -22,6 +22,11 @@ export const LoginForm = ({
 }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const setDefaultCredentials = () => {
+    setEmail("npanthi718@gmail.com");
+    setPassword("RESUME@12sushil");
+  };
+
   return (
     <form onSubmit={onSubmit} className="admin-login-form space-y-4">
       <div className="admin-login-email-field">
@@ -62,13 +67,24 @@ export const LoginForm = ({
           )}
         </Button>
       </div>
-      <Button 
-        type="submit" 
-        className="admin-login-submit-button w-full" 
-        disabled={loading}
-      >
-        {loading ? "Logging in..." : "Login"}
-      </Button>
+      <div className="flex flex-col space-y-2">
+        <Button 
+          type="submit" 
+          className="admin-login-submit-button w-full" 
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full text-sm"
+          onClick={setDefaultCredentials}
+          disabled={loading}
+        >
+          Use Default Admin Credentials
+        </Button>
+      </div>
     </form>
   );
 };
