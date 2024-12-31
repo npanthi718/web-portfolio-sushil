@@ -5,7 +5,7 @@ import { Trophy, Leaf, Theater } from "lucide-react";
 const achievements = [
   {
     title: "President, Nature Club",
-    organization: "Vinaya Memorial Secondary School",
+    organization: "Vijaya Memorial Secondary School",
     period: "2020 – 2021",
     location: "Kathmandu, Nepal",
     icon: <Leaf className="w-5 h-5 text-primary" />,
@@ -18,7 +18,7 @@ const achievements = [
   },
   {
     title: "President, Child Club",
-    organization: "Vinaya Memorial Secondary School",
+    organization: "Vijaya Memorial Secondary School",
     period: "2019 – 2021",
     location: "Kathmandu, Nepal",
     icon: <Trophy className="w-5 h-5 text-primary" />,
@@ -31,7 +31,7 @@ const achievements = [
   },
   {
     title: "Cultural Program Coordinator",
-    organization: "Vinaya Memorial Secondary School",
+    organization: "Vijaya Memorial Secondary School",
     period: "2018 – 2021",
     location: "Kathmandu, Nepal",
     icon: <Theater className="w-5 h-5 text-primary" />,

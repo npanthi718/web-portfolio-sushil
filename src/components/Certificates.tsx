@@ -4,13 +4,13 @@ import { Award } from "lucide-react";
 
 const certificates = [
   {
-    title: "Full Stack Development",
-    issuer: "The Byte Brain",
+    title: "Completion Training on 'Full Stack Development'",
+    issuer: "The Byte Brain (TBB)",
     year: "2024"
   },
   {
-    title: "Fundamentals of Logistic & Linear Regression Modeling",
-    issuer: "TBI Foundation",
+    title: "Completion Training on 'Fundamentals of Logistic & Linear Regression Modeling'",
+    issuer: "YBI Foundation",
     year: "2023"
   },
   {
@@ -20,11 +20,11 @@ const certificates = [
   },
   {
     title: "Certificate of Appreciation",
-    issuer: "Reni Pandiat, Miss Web",
+    issuer: "Best Panelist, Miles Web",
     year: "2024"
   },
   {
-    title: "Basic Personality Skill Development",
+    title: "Basic Personality & Skill Development",
     issuer: "Vision Dreamery Pvt. Ltd.",
     year: "2023"
   },
@@ -34,12 +34,12 @@ const certificates = [
     year: "2017"
   },
   {
-    title: "Artificial Intelligence & Data Skills",
-    issuer: "TBI Foundation",
+    title: "Completion Training on 'Artificial Intelligence & Data Skills'",
+    issuer: "YBI Foundation",
     year: "2023"
   },
   {
-    title: "Direct Selling Excellence",
+    title: "Active Participation on 'Direct Selling Excellence'",
     issuer: "Direct Selling Today",
     year: "2023"
   }

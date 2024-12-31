@@ -5,7 +5,7 @@ import { BookOpen } from "lucide-react";
 const courses = [
   {
     title: "Data Structures and Algorithms (DSA)",
-    institution: "Arpna College",
+    institution: "Aapna College",
     period: "October 2024 – August 2025",
     location: "New Delhi, India",
     points: [
@@ -18,7 +18,7 @@ const courses = [
   },
   {
     title: "Full Stack Development (MERN Stack)",
-    institution: "Arpna College",
+    institution: "Aapna College",
     period: "October 2024 – August 2025",
     location: "New Delhi, India",
     points: [
