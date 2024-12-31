@@ -15,30 +15,44 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Check and clear any invalid sessions on component mount
+  // Check session status on mount
   useEffect(() => {
-    const checkAndClearSession = async () => {
+    const checkSession = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-          // If there's a session, verify it's still valid
-          const { error: verifyError } = await supabase.auth.getUser();
-          if (verifyError) {
-            console.log("Invalid session detected, clearing...");
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError) {
+          console.error("Session check error:", sessionError);
+          return;
+        }
+
+        if (session?.user) {
+          // Verify if the user is an admin
+          const { data: profile, error: profileError } = await supabase
+            .from("profiles")
+            .select("is_admin")
+            .eq("id", session.user.id)
+            .single();
+
+          if (profileError) {
+            console.error("Profile check error:", profileError);
             await supabase.auth.signOut();
-          } else {
-            // If session is valid, redirect to dashboard
+            return;
+          }
+
+          if (profile?.is_admin) {
             navigate("/admin/dashboard");
+          } else {
+            // If not admin, sign out
+            await supabase.auth.signOut();
           }
         }
       } catch (error) {
-        console.error("Session check error:", error);
-        // Attempt to clear any problematic session state
-        await supabase.auth.signOut();
+        console.error("Session verification error:", error);
       }
     };
-    
-    checkAndClearSession();
+
+    checkSession();
   }, [navigate]);
 
   const validateCredentials = () => {
@@ -71,24 +85,14 @@ const AdminLogin = () => {
     }
 
     setLoading(true);
-    console.log("Starting login process...");
 
     try {
-      // First ensure we're logged out to clear any stale session
-      await supabase.auth.signOut();
-      console.log("Cleared previous session");
-      
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password: password.trim(),
       });
 
-      console.log("Auth response received");
-
       if (signInError) {
-        if (signInError.message.includes("Invalid login credentials")) {
-          throw new Error("Invalid email or password");
-        }
         throw new Error(signInError.message || "Authentication failed");
       }
 
@@ -102,13 +106,13 @@ const AdminLogin = () => {
         .eq("id", authData.user.id)
         .single();
 
-      console.log("Profile data fetched");
-
       if (profileError) {
         throw new Error("Failed to verify admin status");
       }
 
       if (!profileData?.is_admin) {
+        // Sign out if not admin
+        await supabase.auth.signOut();
         throw new Error("This account does not have admin privileges");
       }
 
