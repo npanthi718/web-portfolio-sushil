@@ -21,17 +21,25 @@ const AdminLogin = () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
-          // If there's an invalid session, clear it
-          await supabase.auth.signOut();
-          console.log("Cleared existing session");
+          // If there's a session, verify it's still valid
+          const { error: verifyError } = await supabase.auth.getUser();
+          if (verifyError) {
+            console.log("Invalid session detected, clearing...");
+            await supabase.auth.signOut();
+          } else {
+            // If session is valid, redirect to dashboard
+            navigate("/admin/dashboard");
+          }
         }
       } catch (error) {
-        console.log("Error clearing session:", error);
+        console.error("Session check error:", error);
+        // Attempt to clear any problematic session state
+        await supabase.auth.signOut();
       }
     };
     
     checkAndClearSession();
-  }, []);
+  }, [navigate]);
 
   const validateCredentials = () => {
     if (!email.trim() || !password.trim()) {
@@ -63,24 +71,25 @@ const AdminLogin = () => {
     }
 
     setLoading(true);
-    console.log("Attempting login with:", { email });
+    console.log("Starting login process...");
 
     try {
-      // First ensure we're logged out
+      // First ensure we're logged out to clear any stale session
       await supabase.auth.signOut();
+      console.log("Cleared previous session");
       
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password: password.trim(),
       });
 
-      console.log("Auth response:", { authData, signInError });
+      console.log("Auth response received");
 
       if (signInError) {
         if (signInError.message.includes("Invalid login credentials")) {
-          throw new Error("Invalid email or password. Please try again or use the default credentials.");
+          throw new Error("Invalid email or password");
         }
-        throw new Error(signInError.message || "Authentication failed. Please try again.");
+        throw new Error(signInError.message || "Authentication failed");
       }
 
       if (!authData?.user?.id) {
@@ -93,7 +102,7 @@ const AdminLogin = () => {
         .eq("id", authData.user.id)
         .single();
 
-      console.log("Profile data:", { profileData, profileError });
+      console.log("Profile data fetched");
 
       if (profileError) {
         throw new Error("Failed to verify admin status");
@@ -111,7 +120,8 @@ const AdminLogin = () => {
       navigate("/admin/dashboard");
       
     } catch (error: any) {
-      const errorMessage = error.message || "An unexpected error occurred. Please try again.";
+      const errorMessage = error.message || "An unexpected error occurred";
+      console.error("Login error:", error);
       
       setError(errorMessage);
       toast({
