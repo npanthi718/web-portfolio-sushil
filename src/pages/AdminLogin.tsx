@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
@@ -14,6 +14,24 @@ const AdminLogin = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  // Check and clear any invalid sessions on component mount
+  useEffect(() => {
+    const checkAndClearSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          // If there's an invalid session, clear it
+          await supabase.auth.signOut();
+          console.log("Cleared existing session");
+        }
+      } catch (error) {
+        console.log("Error clearing session:", error);
+      }
+    };
+    
+    checkAndClearSession();
+  }, []);
 
   const validateCredentials = () => {
     if (!email.trim() || !password.trim()) {
@@ -45,9 +63,12 @@ const AdminLogin = () => {
     }
 
     setLoading(true);
-    console.log("Attempting login with:", { email, password });
+    console.log("Attempting login with:", { email });
 
     try {
+      // First ensure we're logged out
+      await supabase.auth.signOut();
+      
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password: password.trim(),
