@@ -57,6 +57,63 @@ export type Database = {
         }
         Relationships: []
       }
+      resume_sections: {
+        Row: {
+          content: Json
+          created_at: string
+          id: string
+          is_visible: boolean | null
+          order_index: number
+          section_name: string
+          updated_at: string
+        }
+        Insert: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_visible?: boolean | null
+          order_index: number
+          section_name: string
+          updated_at?: string
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          id?: string
+          is_visible?: boolean | null
+          order_index?: number
+          section_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      resume_themes: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          theme_name: string
+          theme_template: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          theme_name: string
+          theme_template: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          theme_name?: string
+          theme_template?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       theme_settings: {
         Row: {
           accent_color: string | null

@@ -18,8 +18,10 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ThemeToggle />
-          <AdminButton />
+          <div className="fixed top-16 right-4 z-50 flex flex-col gap-2">
+            <AdminButton />
+            <ThemeToggle />
+          </div>
           <main className="app-main-content">
             <Routes>
               <Route path="/" element={<Index />} />
