@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { LoginForm } from "@/components/admin/LoginForm";
 import { LoginError } from "@/components/admin/LoginError";
@@ -45,12 +45,15 @@ const AdminLogin = () => {
     }
 
     setLoading(true);
+    console.log("Attempting login with:", { email, password });
 
     try {
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
         email: email.trim().toLowerCase(),
         password: password.trim(),
       });
+
+      console.log("Auth response:", { authData, signInError });
 
       if (signInError) {
         if (signInError.message.includes("Invalid login credentials")) {
@@ -68,6 +71,8 @@ const AdminLogin = () => {
         .select("is_admin")
         .eq("id", authData.user.id)
         .single();
+
+      console.log("Profile data:", { profileData, profileError });
 
       if (profileError) {
         throw new Error("Failed to verify admin status");
