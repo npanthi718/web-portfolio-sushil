@@ -28,27 +28,27 @@ export const LoginForm = ({
   };
 
   return (
-    <form onSubmit={onSubmit} className="admin-login-form space-y-4">
-      <div className="admin-login-email-field">
+    <form onSubmit={onSubmit} className="space-y-4">
+      <div>
         <Input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="admin-login-email-input"
+          className="w-full"
           disabled={loading}
           autoComplete="email"
         />
       </div>
-      <div className="admin-login-password-field relative">
+      <div className="relative">
         <Input
           type={showPassword ? "text" : "password"}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="admin-login-password-input pr-10"
+          className="w-full pr-10"
           disabled={loading}
           autoComplete="current-password"
         />
@@ -56,21 +56,21 @@ export const LoginForm = ({
           type="button"
           variant="ghost"
           size="sm"
-          className="admin-login-password-toggle absolute right-2 top-2"
+          className="absolute right-2 top-2"
           onClick={() => setShowPassword(!showPassword)}
           disabled={loading}
         >
           {showPassword ? (
-            <EyeOff className="admin-login-password-toggle-icon h-4 w-4" />
+            <EyeOff className="h-4 w-4" />
           ) : (
-            <Eye className="admin-login-password-toggle-icon h-4 w-4" />
+            <Eye className="h-4 w-4" />
           )}
         </Button>
       </div>
       <div className="flex flex-col space-y-2">
         <Button 
           type="submit" 
-          className="admin-login-submit-button w-full" 
+          className="w-full" 
           disabled={loading}
         >
           {loading ? "Logging in..." : "Login"}

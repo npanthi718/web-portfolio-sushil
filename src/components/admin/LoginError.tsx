@@ -12,16 +12,16 @@ export const LoginError = ({ error, onRetry, showRetry }: LoginErrorProps) => {
   if (!error) return null;
 
   return (
-    <Alert variant="destructive" className="admin-login-error-alert mb-4">
-      <AlertCircle className="admin-login-error-icon h-4 w-4" />
-      <AlertDescription className="admin-login-error-description flex flex-col gap-2">
+    <Alert variant="destructive" className="mb-4">
+      <AlertCircle className="h-4 w-4" />
+      <AlertDescription className="flex flex-col gap-2">
         {error}
         {showRetry && (
           <Button 
             variant="outline" 
             size="sm" 
             onClick={onRetry}
-            className="admin-login-retry-button self-start mt-2"
+            className="self-start mt-2"
           >
             Retry Connection
           </Button>

@@ -47,12 +47,9 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const trimmedEmail = email.trim().toLowerCase();
-      const trimmedPassword = password.trim();
-
       const { data: authData, error: signInError } = await supabase.auth.signInWithPassword({
-        email: trimmedEmail,
-        password: trimmedPassword,
+        email: email.trim().toLowerCase(),
+        password: password.trim(),
       });
 
       if (signInError) {
