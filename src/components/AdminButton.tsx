@@ -18,7 +18,7 @@ export const AdminButton = () => {
       if (sessionError) {
         console.error("Session error:", sessionError);
         // If there's a session error, clear any stale session data
-        await supabase.auth.signOut();
+        localStorage.removeItem('supabase.auth.token');
         navigate("/admin/login");
         return;
       }
