@@ -25,7 +25,7 @@ export const AdminButton = () => {
       
       if (sessionError) {
         console.error("Session error:", sessionError);
-        localStorage.removeItem('supabase.auth.token');
+        clearAuthData();
         navigate("/admin/login");
         return;
       }
@@ -54,18 +54,16 @@ export const AdminButton = () => {
               description: "There was a problem logging out. Please try again.",
             });
           }
-        } finally {
-          // Always clear local storage and redirect on logout attempt
-          localStorage.removeItem('supabase.auth.token');
-          localStorage.removeItem('supabase.auth.refreshToken');
         }
       }
       
+      // Always clear auth data and redirect after logout attempt
+      clearAuthData();
       navigate("/admin/login");
       
     } catch (error: any) {
       console.error("Session check error:", error);
-      localStorage.removeItem('supabase.auth.token');
+      clearAuthData();
       toast({
         variant: "destructive",
         title: "Error",
@@ -75,6 +73,12 @@ export const AdminButton = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const clearAuthData = () => {
+    localStorage.removeItem('supabase.auth.token');
+    localStorage.removeItem('supabase.auth.refreshToken');
+    // Clear any other auth-related data if needed
   };
 
   return (
