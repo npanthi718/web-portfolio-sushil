@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowUp, ArrowDown, Save, Trash, Edit, Plus } from "lucide-react";
+import { ArrowUp, ArrowDown, Save, Edit } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
@@ -22,7 +21,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
     try {
       const { error } = await supabase
         .from("portfolio_content")
-        .update({ content })
+        .update({ content: content })
         .eq("id", section.id);
 
       if (error) throw error;

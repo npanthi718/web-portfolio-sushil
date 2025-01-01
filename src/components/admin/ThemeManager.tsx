@@ -23,7 +23,7 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
       if (activeTheme) {
         await supabase.from("theme_history").insert({
           theme_id: activeTheme.id,
-          theme_data: activeTheme,
+          theme_data: activeTheme as any,
         });
       }
 
@@ -71,9 +71,19 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
 
       if (historyError) throw historyError;
 
+      const themeData = historyData.theme_data as Tables<"theme_settings">;
       const { error: updateError } = await supabase
         .from("theme_settings")
-        .update(historyData.theme_data)
+        .update({
+          theme_name: themeData.theme_name,
+          primary_color: themeData.primary_color,
+          secondary_color: themeData.secondary_color,
+          accent_color: themeData.accent_color,
+          background_color: themeData.background_color,
+          text_color: themeData.text_color,
+          font_family: themeData.font_family,
+          is_active: themeData.is_active,
+        })
         .eq("id", themeId);
 
       if (updateError) throw updateError;
