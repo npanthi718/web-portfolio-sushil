@@ -4,14 +4,42 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, Palette, History } from "lucide-react";
 
-interface ThemeManagerProps {
-  themes: Tables<"theme_settings">[];
-  onUpdate: () => void;
-}
+const sampleThemes = [
+  {
+    name: "Modern Dark",
+    primary: "#6366f1",
+    secondary: "#4f46e5",
+    accent: "#818cf8",
+    background: "#1e1e2e",
+    text: "#e2e8f0",
+    font: "'Inter', sans-serif"
+  },
+  {
+    name: "Light Minimal",
+    primary: "#0ea5e9",
+    secondary: "#0284c7",
+    accent: "#38bdf8",
+    background: "#f8fafc",
+    text: "#0f172a",
+    font: "'Poppins', sans-serif"
+  },
+  {
+    name: "Nature",
+    primary: "#059669",
+    secondary: "#047857",
+    accent: "#34d399",
+    background: "#f0fdf4",
+    text: "#064e3b",
+    font: "'Montserrat', sans-serif"
+  }
+];
 
-export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
+export const ThemeManager = ({ themes, onUpdate }: { 
+  themes: Tables<"theme_settings">[]; 
+  onUpdate: () => void; 
+}) => {
   const [loading, setLoading] = useState<string | null>(null);
   const { toast } = useToast();
 
@@ -28,19 +56,15 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
       }
 
       // Update theme status
-      const { error } = await supabase
+      await supabase
         .from("theme_settings")
         .update({ is_active: false })
         .neq("id", themeId);
 
-      if (error) throw error;
-
-      const { error: activateError } = await supabase
+      await supabase
         .from("theme_settings")
         .update({ is_active: true })
         .eq("id", themeId);
-
-      if (activateError) throw activateError;
 
       toast({
         title: "Success",
@@ -81,7 +105,7 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
       }
 
       const themeData = historyData.theme_data as Tables<"theme_settings">;
-      const { error: updateError } = await supabase
+      await supabase
         .from("theme_settings")
         .update({
           theme_name: themeData.theme_name,
@@ -91,11 +115,8 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
           background_color: themeData.background_color,
           text_color: themeData.text_color,
           font_family: themeData.font_family,
-          is_active: themeData.is_active,
         })
         .eq("id", themeId);
-
-      if (updateError) throw updateError;
 
       toast({
         title: "Success",
@@ -113,46 +134,125 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
     }
   };
 
+  const handleCreateSampleTheme = async (theme: typeof sampleThemes[0]) => {
+    try {
+      const { error } = await supabase.from("theme_settings").insert({
+        theme_name: theme.name,
+        primary_color: theme.primary,
+        secondary_color: theme.secondary,
+        accent_color: theme.accent,
+        background_color: theme.background,
+        text_color: theme.text,
+        font_family: theme.font,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: `Sample theme "${theme.name}" created successfully`,
+      });
+      onUpdate();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <Card className="glass">
       <CardHeader>
-        <CardTitle>Theme Management</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Palette className="w-5 h-5" />
+          Theme Management
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {themes.map((theme) => (
-          <Card key={theme.id} className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h3 className="font-semibold">{theme.theme_name}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {theme.is_active ? "Active" : "Inactive"}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <Button
+      <CardContent className="space-y-6">
+        {/* Sample Themes Section */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Sample Themes</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {sampleThemes.map((theme) => (
+              <Card key={theme.name} className="p-4 hover:shadow-lg transition-shadow">
+                <div 
+                  className="w-full h-24 rounded-lg mb-4" 
+                  style={{ 
+                    background: `linear-gradient(45deg, ${theme.primary}, ${theme.secondary})`,
+                    border: `2px solid ${theme.accent}`
+                  }}
+                />
+                <h4 className="font-semibold mb-2">{theme.name}</h4>
+                <Button 
+                  onClick={() => handleCreateSampleTheme(theme)}
+                  className="w-full"
                   variant="outline"
-                  size="sm"
-                  onClick={() => handleActivateTheme(theme.id)}
-                  disabled={theme.is_active || loading === theme.id}
                 >
-                  {loading === theme.id ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                  ) : (
-                    "Activate"
-                  )}
+                  Use This Theme
                 </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleRestoreTheme(theme.id)}
-                  disabled={loading === theme.id}
-                >
-                  Restore Previous
-                </Button>
-              </div>
-            </div>
-          </Card>
-        ))}
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        {/* Active Themes Section */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Active Themes</h3>
+          <div className="space-y-4">
+            {themes.map((theme) => (
+              <Card key={theme.id} className="p-4">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div>
+                    <h4 className="font-semibold">{theme.theme_name}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {theme.is_active ? "Active" : "Inactive"}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleActivateTheme(theme.id)}
+                      disabled={theme.is_active || loading === theme.id}
+                    >
+                      {loading === theme.id ? (
+                        <RefreshCw className="w-4 h-4 animate-spin mr-2" />
+                      ) : null}
+                      {theme.is_active ? "Active" : "Activate"}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleRestoreTheme(theme.id)}
+                      disabled={loading === theme.id}
+                    >
+                      <History className="w-4 h-4 mr-2" />
+                      Restore Previous
+                    </Button>
+                  </div>
+                </div>
+                {theme.is_active && (
+                  <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded" style={{ background: theme.primary_color }} />
+                      <span>Primary</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded" style={{ background: theme.secondary_color }} />
+                      <span>Secondary</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-4 h-4 rounded" style={{ background: theme.accent_color }} />
+                      <span>Accent</span>
+                    </div>
+                  </div>
+                )}
+              </Card>
+            ))}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

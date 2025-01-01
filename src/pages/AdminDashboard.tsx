@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Tables } from "@/integrations/supabase/types";
 import { motion } from "framer-motion";
 import { ContentEditor } from "@/components/admin/ContentEditor";
 import { ThemeManager } from "@/components/admin/ThemeManager";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"portfolio_content">[]>([]);
   const [themes, setThemes] = useState<Tables<"theme_settings">[]>([]);
   const [loading, setLoading] = useState(true);
+  const [newSectionName, setNewSectionName] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -63,6 +67,41 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleCreateSection = async () => {
+    if (!newSectionName.trim()) {
+      toast({
+        title: "Error",
+        description: "Section name cannot be empty",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const { error } = await supabase.from("portfolio_content").insert({
+        section_name: newSectionName,
+        order_index: sections.length,
+        content: "",
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "New section created successfully",
+      });
+      setNewSectionName("");
+      setIsDialogOpen(false);
+      fetchData();
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const subscribeToChanges = () => {
     const sectionsChannel = supabase
       .channel("content-changes")
@@ -102,6 +141,8 @@ const AdminDashboard = () => {
         description: "Failed to logout. Please try again.",
         variant: "destructive",
       });
+      // Clear local storage and redirect anyway
+      localStorage.removeItem('supabase.auth.token');
       navigate("/admin/login");
     }
   };
@@ -119,10 +160,35 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <h1 className="text-3xl font-heading">Admin Dashboard</h1>
-          <Button variant="outline" onClick={handleLogout}>
-            <LogOut className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
+          <div className="flex gap-4">
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add New Section
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create New Section</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 pt-4">
+                  <Input
+                    placeholder="Enter section name"
+                    value={newSectionName}
+                    onChange={(e) => setNewSectionName(e.target.value)}
+                  />
+                  <Button onClick={handleCreateSection} className="w-full">
+                    Create Section
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+            <Button variant="outline" onClick={handleLogout}>
+              <LogOut className="w-4 h-4 mr-2" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         <motion.div
