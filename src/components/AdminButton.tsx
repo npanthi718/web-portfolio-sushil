@@ -16,59 +16,56 @@ export const AdminButton = () => {
     return null;
   }
 
+  const clearAuthData = () => {
+    // Clear all Supabase-related items from localStorage
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('sb-')) {
+        localStorage.removeItem(key);
+      }
+    });
+  };
+
   const handleAdminClick = async () => {
     if (isLoading) return;
     setIsLoading(true);
-    
-    try {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      
-      if (sessionError) {
-        console.error("Session error:", sessionError);
-        clearAuthData();
-        navigate("/admin/login");
-        return;
-      }
-      
-      if (!session) {
-        // No active session, just redirect to login
-        clearAuthData();
-        navigate("/admin/login");
-        return;
-      }
 
-      // Attempt to sign out only if we have a session
-      try {
-        await supabase.auth.signOut();
-        toast({
-          title: "Logged out successfully",
-          description: "You have been logged out of the admin panel",
-        });
-      } catch (error: any) {
-        console.error("Logout error:", error);
-        // Handle session_not_found error gracefully
-        if (error.message?.includes('session_not_found') || 
-            error.status === 403 || 
-            error.message?.includes('JWT')) {
+    try {
+      // First check if we're on an admin page
+      if (location.pathname.includes('/admin')) {
+        // Attempt to sign out
+        try {
+          await supabase.auth.signOut();
           toast({
-            title: "Session Expired",
-            description: "Your session has expired. Please log in again.",
+            title: "Logged out successfully",
+            description: "You have been logged out of the admin panel",
           });
-        } else {
-          toast({
-            variant: "destructive",
-            title: "Logout Error",
-            description: "There was a problem logging out. Please try again.",
-          });
+        } catch (error: any) {
+          // Handle session_not_found error gracefully
+          if (error.message?.includes('session_not_found') || 
+              error.status === 403 || 
+              error.message?.includes('JWT')) {
+            toast({
+              title: "Session Expired",
+              description: "Your session has expired. Please log in again.",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Logout Error",
+              description: "There was a problem logging out. Please try again.",
+            });
+          }
         }
+        
+        // Always clear auth data and redirect after logout attempt
+        clearAuthData();
+        navigate("/admin/login");
+      } else {
+        // If not on admin page, just navigate to login
+        navigate("/admin/login");
       }
-      
-      // Always clear auth data and redirect after logout attempt
-      clearAuthData();
-      navigate("/admin/login");
-      
     } catch (error: any) {
-      console.error("Session check error:", error);
+      console.error("Error during admin action:", error);
       clearAuthData();
       toast({
         variant: "destructive",
@@ -79,15 +76,6 @@ export const AdminButton = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const clearAuthData = () => {
-    // Clear all Supabase-related items from localStorage
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith('sb-')) {
-        localStorage.removeItem(key);
-      }
-    });
   };
 
   return (
