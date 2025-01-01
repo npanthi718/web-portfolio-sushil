@@ -67,9 +67,18 @@ export const ThemeManager = ({ themes, onUpdate }: ThemeManagerProps) => {
         .eq("theme_id", themeId)
         .order("created_at", { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (historyError) throw historyError;
+      
+      if (!historyData) {
+        toast({
+          title: "No history found",
+          description: "There is no previous version to restore for this theme.",
+          variant: "default",
+        });
+        return;
+      }
 
       const themeData = historyData.theme_data as Tables<"theme_settings">;
       const { error: updateError } = await supabase

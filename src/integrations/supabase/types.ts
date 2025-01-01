@@ -11,6 +11,7 @@ export type Database = {
     Tables: {
       portfolio_content: {
         Row: {
+          content: string | null
           created_at: string
           id: string
           is_visible: boolean | null
@@ -19,6 +20,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          content?: string | null
           created_at?: string
           id?: string
           is_visible?: boolean | null
@@ -27,6 +29,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          content?: string | null
           created_at?: string
           id?: string
           is_visible?: boolean | null
