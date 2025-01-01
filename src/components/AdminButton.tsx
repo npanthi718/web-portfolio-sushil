@@ -17,7 +17,9 @@ export const AdminButton = () => {
   }
 
   const handleAdminClick = async () => {
+    if (isLoading) return;
     setIsLoading(true);
+    
     try {
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
       
@@ -31,22 +33,31 @@ export const AdminButton = () => {
       if (session) {
         try {
           await supabase.auth.signOut();
-          localStorage.removeItem('supabase.auth.token');
           toast({
             title: "Logged out successfully",
             description: "You have been logged out of the admin panel",
           });
         } catch (error: any) {
           console.error("Logout error:", error);
-          if (error.message?.includes('refresh_token_not_found') || 
-              error.message?.includes('session_not_found')) {
-            localStorage.removeItem('supabase.auth.token');
+          // Handle session_not_found error gracefully
+          if (error.message?.includes('session_not_found') || 
+              error.status === 403 || 
+              error.message?.includes('JWT')) {
+            toast({
+              title: "Session Expired",
+              description: "Your session has expired. Please log in again.",
+            });
+          } else {
+            toast({
+              variant: "destructive",
+              title: "Logout Error",
+              description: "There was a problem logging out. Please try again.",
+            });
           }
-          toast({
-            variant: "destructive",
-            title: "Logout Issue",
-            description: "Your session has expired. Please log in again.",
-          });
+        } finally {
+          // Always clear local storage and redirect on logout attempt
+          localStorage.removeItem('supabase.auth.token');
+          localStorage.removeItem('supabase.auth.refreshToken');
         }
       }
       
