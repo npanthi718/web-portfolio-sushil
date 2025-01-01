@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LogOut, Settings } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Tables } from "@/integrations/supabase/types";
 import { motion } from "framer-motion";
-import { ContentManagement } from "@/components/admin/ContentManagement";
-import { ThemeManagement } from "@/components/admin/ThemeManagement";
+import { ContentEditor } from "@/components/admin/ContentEditor";
+import { ThemeManager } from "@/components/admin/ThemeManager";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"portfolio_content">[]>([]);
@@ -102,81 +102,22 @@ const AdminDashboard = () => {
         description: "Failed to logout. Please try again.",
         variant: "destructive",
       });
-      // Force navigation to login on error
       navigate("/admin/login");
     }
   };
 
-  const handleToggleVisibility = async (section: Tables<"portfolio_content">) => {
-    try {
-      const { error } = await supabase
-        .from("portfolio_content")
-        .update({ is_visible: !section.is_visible })
-        .eq("id", section.id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: `Section ${section.is_visible ? "hidden" : "shown"} successfully`,
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleActivateTheme = async (theme: Tables<"theme_settings">) => {
-    try {
-      // First, save current theme to history
-      if (themes.find(t => t.is_active)) {
-        const currentTheme = themes.find(t => t.is_active);
-        if (currentTheme) {
-          await supabase.from("theme_history").insert({
-            theme_id: currentTheme.id,
-            theme_data: currentTheme
-          });
-        }
-      }
-
-      // Deactivate all themes
-      await supabase
-        .from("theme_settings")
-        .update({ is_active: false })
-        .neq("id", theme.id);
-
-      // Activate selected theme
-      const { error } = await supabase
-        .from("theme_settings")
-        .update({ is_active: true })
-        .eq("id", theme.id);
-
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: `Theme "${theme.theme_name}" activated successfully`,
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-8">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <h1 className="text-3xl font-heading">Admin Dashboard</h1>
           <Button variant="outline" onClick={handleLogout}>
             <LogOut className="w-4 h-4 mr-2" />
@@ -190,14 +131,17 @@ const AdminDashboard = () => {
           transition={{ duration: 0.5 }}
           className="space-y-8"
         >
-          <ContentManagement
-            sections={sections}
-            onToggleVisibility={handleToggleVisibility}
-          />
-          <ThemeManagement
-            themes={themes}
-            onActivateTheme={handleActivateTheme}
-          />
+          <div className="grid gap-6">
+            {sections.map((section) => (
+              <ContentEditor
+                key={section.id}
+                section={section}
+                onUpdate={fetchData}
+              />
+            ))}
+          </div>
+
+          <ThemeManager themes={themes} onUpdate={fetchData} />
         </motion.div>
       </div>
     </div>
