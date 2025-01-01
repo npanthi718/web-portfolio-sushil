@@ -10,7 +10,7 @@ export const ThemeToggle = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed top-4 right-20 z-50" // Positioned to the left of the admin button
+      className="fixed top-16 right-4 z-50" // Positioned below the admin button
     >
       <Button
         variant="outline"

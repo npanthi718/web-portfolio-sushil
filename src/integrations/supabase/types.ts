@@ -114,6 +114,38 @@ export type Database = {
         }
         Relationships: []
       }
+      theme_history: {
+        Row: {
+          created_at: string
+          id: string
+          theme_data: Json
+          theme_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          theme_data: Json
+          theme_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          theme_data?: Json
+          theme_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "theme_history_theme_id_fkey"
+            columns: ["theme_id"]
+            isOneToOne: false
+            referencedRelation: "theme_settings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       theme_settings: {
         Row: {
           accent_color: string | null

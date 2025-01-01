@@ -1,25 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { LogOut, Edit, Trash, Plus, Check, X, Settings } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { Tables } from "@/integrations/supabase/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { ContentManagement } from "@/components/admin/ContentManagement";
+import { ThemeManagement } from "@/components/admin/ThemeManagement";
 
 const AdminDashboard = () => {
-  const [sections, setSections] = useState<Tables<"resume_sections">[]>([]);
-  const [themes, setThemes] = useState<Tables<"resume_themes">[]>([]);
-  const [editingSection, setEditingSection] = useState<string | null>(null);
+  const [sections, setSections] = useState<Tables<"portfolio_content">[]>([]);
+  const [themes, setThemes] = useState<Tables<"theme_settings">[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newSection, setNewSection] = useState({
-    section_name: "",
-    content: "",
-    order_index: 0,
-  });
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -50,8 +43,8 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [sectionsResponse, themesResponse] = await Promise.all([
-        supabase.from("resume_sections").select("*").order("order_index"),
-        supabase.from("resume_themes").select("*"),
+        supabase.from("portfolio_content").select("*").order("order_index"),
+        supabase.from("theme_settings").select("*"),
       ]);
 
       if (sectionsResponse.error) throw sectionsResponse.error;
@@ -72,10 +65,10 @@ const AdminDashboard = () => {
 
   const subscribeToChanges = () => {
     const sectionsChannel = supabase
-      .channel("resume-changes")
+      .channel("content-changes")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "resume_sections" },
+        { event: "*", schema: "public", table: "portfolio_content" },
         fetchData
       )
       .subscribe();
@@ -84,7 +77,7 @@ const AdminDashboard = () => {
       .channel("theme-changes")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "resume_themes" },
+        { event: "*", schema: "public", table: "theme_settings" },
         fetchData
       )
       .subscribe();
@@ -96,49 +89,36 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/");
-  };
-
-  const handleAddSection = async () => {
     try {
-      const { error } = await supabase.from("resume_sections").insert([
-        {
-          section_name: newSection.section_name,
-          content: JSON.stringify({ content: newSection.content }),
-          order_index: sections.length,
-        },
-      ]);
-
-      if (error) throw error;
-
-      setNewSection({ section_name: "", content: "", order_index: 0 });
+      await supabase.auth.signOut();
+      navigate("/");
       toast({
         title: "Success",
-        description: "Section added successfully",
+        description: "Logged out successfully",
       });
     } catch (error: any) {
       toast({
         title: "Error",
-        description: error.message,
+        description: "Failed to logout. Please try again.",
         variant: "destructive",
       });
+      // Force navigation to login on error
+      navigate("/admin/login");
     }
   };
 
-  const handleUpdateSection = async (section: Tables<"resume_sections">) => {
+  const handleToggleVisibility = async (section: Tables<"portfolio_content">) => {
     try {
       const { error } = await supabase
-        .from("resume_sections")
-        .update(section)
+        .from("portfolio_content")
+        .update({ is_visible: !section.is_visible })
         .eq("id", section.id);
 
       if (error) throw error;
 
-      setEditingSection(null);
       toast({
         title: "Success",
-        description: "Section updated successfully",
+        description: `Section ${section.is_visible ? "hidden" : "shown"} successfully`,
       });
     } catch (error: any) {
       toast({
@@ -149,37 +129,28 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleDeleteSection = async (id: string) => {
+  const handleActivateTheme = async (theme: Tables<"theme_settings">) => {
     try {
-      const { error } = await supabase
-        .from("resume_sections")
-        .delete()
-        .eq("id", id);
+      // First, save current theme to history
+      if (themes.find(t => t.is_active)) {
+        const currentTheme = themes.find(t => t.is_active);
+        if (currentTheme) {
+          await supabase.from("theme_history").insert({
+            theme_id: currentTheme.id,
+            theme_data: currentTheme
+          });
+        }
+      }
 
-      if (error) throw error;
-
-      toast({
-        title: "Success",
-        description: "Section deleted successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
-  const activateTheme = async (theme: Tables<"resume_themes">) => {
-    try {
+      // Deactivate all themes
       await supabase
-        .from("resume_themes")
+        .from("theme_settings")
         .update({ is_active: false })
         .neq("id", theme.id);
 
+      // Activate selected theme
       const { error } = await supabase
-        .from("resume_themes")
+        .from("theme_settings")
         .update({ is_active: true })
         .eq("id", theme.id);
 
@@ -213,158 +184,21 @@ const AdminDashboard = () => {
           </Button>
         </div>
 
-        {/* Resume Content Management */}
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="w-5 h-5" />
-              Resume Content Management
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Add New Section Form */}
-            <div className="space-y-4 p-4 border rounded-lg">
-              <h3 className="text-lg font-semibold">Add New Section</h3>
-              <div className="space-y-2">
-                <Input
-                  placeholder="Section Name"
-                  value={newSection.section_name}
-                  onChange={(e) =>
-                    setNewSection({ ...newSection, section_name: e.target.value })
-                  }
-                />
-                <Textarea
-                  placeholder="Content"
-                  value={newSection.content}
-                  onChange={(e) =>
-                    setNewSection({ ...newSection, content: e.target.value })
-                  }
-                />
-                <Button onClick={handleAddSection}>
-                  <Plus className="w-4 h-4 mr-2" />
-                  Add Section
-                </Button>
-              </div>
-            </div>
-
-            {/* Existing Sections */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold">Existing Sections</h3>
-              {sections.map((section) => (
-                <motion.div
-                  key={section.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 border rounded-lg space-y-2"
-                >
-                  {editingSection === section.id ? (
-                    <div className="space-y-2">
-                      <Input
-                        value={section.section_name}
-                        onChange={(e) =>
-                          setSections(sections.map((s) =>
-                            s.id === section.id
-                              ? { ...s, section_name: e.target.value }
-                              : s
-                          ))
-                        }
-                      />
-                      <Textarea
-                        value={JSON.parse(section.content as string).content}
-                        onChange={(e) =>
-                          setSections(sections.map((s) =>
-                            s.id === section.id
-                              ? {
-                                  ...s,
-                                  content: JSON.stringify({
-                                    content: e.target.value,
-                                  }),
-                                }
-                              : s
-                          ))
-                        }
-                      />
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          onClick={() => handleUpdateSection(section)}
-                        >
-                          <Check className="w-4 h-4 mr-2" />
-                          Save
-                        </Button>
-                        <Button
-                          variant="outline"
-                          onClick={() => setEditingSection(null)}
-                        >
-                          <X className="w-4 h-4 mr-2" />
-                          Cancel
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="flex justify-between items-center">
-                        <h4 className="font-semibold">{section.section_name}</h4>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setEditingSection(section.id)}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleDeleteSection(section.id)}
-                          >
-                            <Trash className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        {JSON.parse(section.content as string).content}
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Resume Themes */}
-        <Card className="glass">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="w-5 h-5" />
-              Resume Themes
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {themes.map((theme) => (
-                <motion.div
-                  key={theme.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-4 border rounded-lg"
-                >
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-semibold">{theme.theme_name}</h4>
-                    <Button
-                      variant={theme.is_active ? "default" : "outline"}
-                      onClick={() => activateTheme(theme)}
-                      disabled={theme.is_active}
-                    >
-                      {theme.is_active ? "Active" : "Activate"}
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-8"
+        >
+          <ContentManagement
+            sections={sections}
+            onToggleVisibility={handleToggleVisibility}
+          />
+          <ThemeManagement
+            themes={themes}
+            onActivateTheme={handleActivateTheme}
+          />
+        </motion.div>
       </div>
     </div>
   );
