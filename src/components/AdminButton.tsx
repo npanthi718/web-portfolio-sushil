@@ -1,5 +1,5 @@
 import { Button } from "./ui/button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -7,8 +7,14 @@ import { useState } from "react";
 
 export const AdminButton = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+
+  // Hide button on login page
+  if (location.pathname === "/admin/login") {
+    return null;
+  }
 
   const handleAdminClick = async () => {
     setIsLoading(true);
@@ -17,7 +23,6 @@ export const AdminButton = () => {
       
       if (sessionError) {
         console.error("Session error:", sessionError);
-        // If there's a session error, clear any stale session data
         localStorage.removeItem('supabase.auth.token');
         navigate("/admin/login");
         return;
@@ -25,7 +30,6 @@ export const AdminButton = () => {
       
       if (session) {
         try {
-          // Clear session and local storage
           await supabase.auth.signOut();
           localStorage.removeItem('supabase.auth.token');
           toast({
@@ -34,12 +38,10 @@ export const AdminButton = () => {
           });
         } catch (error: any) {
           console.error("Logout error:", error);
-          // If logout fails due to token issues, clear local storage
           if (error.message?.includes('refresh_token_not_found') || 
               error.message?.includes('session_not_found')) {
             localStorage.removeItem('supabase.auth.token');
           }
-          // Show a toast but don't throw - we still want to redirect
           toast({
             variant: "destructive",
             title: "Logout Issue",
@@ -48,12 +50,10 @@ export const AdminButton = () => {
         }
       }
       
-      // Always navigate to login page
       navigate("/admin/login");
       
     } catch (error: any) {
       console.error("Session check error:", error);
-      // Clear any potentially corrupted session data
       localStorage.removeItem('supabase.auth.token');
       toast({
         variant: "destructive",
@@ -76,7 +76,7 @@ export const AdminButton = () => {
         disabled={isLoading}
       >
         <UserRound className="admin-settings-icon w-4 h-4" />
-        Admin
+        {location.pathname.includes('/admin') ? 'Logout' : 'Admin'}
       </Button>
     </div>
   );
