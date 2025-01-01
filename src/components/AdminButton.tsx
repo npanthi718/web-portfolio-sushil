@@ -39,6 +39,12 @@ export const AdminButton = () => {
               error.message?.includes('session_not_found')) {
             localStorage.removeItem('supabase.auth.token');
           }
+          // Show a toast but don't throw - we still want to redirect
+          toast({
+            variant: "destructive",
+            title: "Logout Issue",
+            description: "Your session has expired. Please log in again.",
+          });
         }
       }
       
