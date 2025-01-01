@@ -1,9 +1,5 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
-import { ArrowUp, ArrowDown, Save, Edit, Trash2, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
@@ -17,6 +13,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { SectionHeader } from "./SectionHeader";
+import { SectionContent } from "./SectionContent";
 
 interface ContentEditorProps {
   section: Tables<"portfolio_content">;
@@ -127,76 +125,22 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
     <>
       <Card className="glass">
         <CardContent className="p-4 space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            {isEditing ? (
-              <Input
-                value={sectionName}
-                onChange={(e) => setSectionName(e.target.value)}
-                className="font-semibold text-lg"
-              />
-            ) : (
-              <h3 className="text-lg font-semibold">{section.section_name}</h3>
-            )}
-            <div className="flex flex-wrap gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleReorder("up")}
-                className="p-2"
-              >
-                <ArrowUp className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleReorder("down")}
-                className="p-2"
-              >
-                <ArrowDown className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleToggleVisibility}
-                className="p-2"
-              >
-                {section.is_visible ? (
-                  <Eye className="w-4 h-4" />
-                ) : (
-                  <EyeOff className="w-4 h-4" />
-                )}
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsEditing(!isEditing)}
-                className="p-2"
-              >
-                <Edit className="w-4 h-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowDeleteDialog(true)}
-                className="p-2 text-destructive"
-              >
-                <Trash2 className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
+          <SectionHeader
+            sectionName={sectionName}
+            isEditing={isEditing}
+            isVisible={section.is_visible || false}
+            onSectionNameChange={setSectionName}
+            onReorder={handleReorder}
+            onToggleVisibility={handleToggleVisibility}
+            onToggleEdit={() => setIsEditing(!isEditing)}
+            onDelete={() => setShowDeleteDialog(true)}
+          />
           {isEditing && (
-            <div className="space-y-4">
-              <Textarea
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="min-h-[200px]"
-                placeholder="Enter section content..."
-              />
-              <Button onClick={handleSave} className="w-full">
-                <Save className="w-4 h-4 mr-2" />
-                Save Changes
-              </Button>
-            </div>
+            <SectionContent
+              content={content}
+              onContentChange={setContent}
+              onSave={handleSave}
+            />
           )}
         </CardContent>
       </Card>
