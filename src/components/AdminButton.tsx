@@ -30,30 +30,36 @@ export const AdminButton = () => {
         return;
       }
       
-      if (session) {
-        try {
-          await supabase.auth.signOut();
+      if (!session) {
+        // No active session, just redirect to login
+        clearAuthData();
+        navigate("/admin/login");
+        return;
+      }
+
+      // Attempt to sign out only if we have a session
+      try {
+        await supabase.auth.signOut();
+        toast({
+          title: "Logged out successfully",
+          description: "You have been logged out of the admin panel",
+        });
+      } catch (error: any) {
+        console.error("Logout error:", error);
+        // Handle session_not_found error gracefully
+        if (error.message?.includes('session_not_found') || 
+            error.status === 403 || 
+            error.message?.includes('JWT')) {
           toast({
-            title: "Logged out successfully",
-            description: "You have been logged out of the admin panel",
+            title: "Session Expired",
+            description: "Your session has expired. Please log in again.",
           });
-        } catch (error: any) {
-          console.error("Logout error:", error);
-          // Handle session_not_found error gracefully
-          if (error.message?.includes('session_not_found') || 
-              error.status === 403 || 
-              error.message?.includes('JWT')) {
-            toast({
-              title: "Session Expired",
-              description: "Your session has expired. Please log in again.",
-            });
-          } else {
-            toast({
-              variant: "destructive",
-              title: "Logout Error",
-              description: "There was a problem logging out. Please try again.",
-            });
-          }
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Logout Error",
+            description: "There was a problem logging out. Please try again.",
+          });
         }
       }
       
@@ -76,9 +82,12 @@ export const AdminButton = () => {
   };
 
   const clearAuthData = () => {
-    localStorage.removeItem('supabase.auth.token');
-    localStorage.removeItem('supabase.auth.refreshToken');
-    // Clear any other auth-related data if needed
+    // Clear all Supabase-related items from localStorage
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith('sb-')) {
+        localStorage.removeItem(key);
+      }
+    });
   };
 
   return (
