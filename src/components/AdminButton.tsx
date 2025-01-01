@@ -2,7 +2,7 @@ import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 
 export const AdminButton = () => {
