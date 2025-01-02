@@ -52,33 +52,9 @@ const AdminLogin = () => {
     }
   };
 
-  const validateCredentials = () => {
-    if (!email.trim() || !password.trim()) {
-      setError("Email and password are required");
-      return false;
-    }
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address");
-      return false;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long");
-      return false;
-    }
-    return true;
-  };
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
-    if (!validateCredentials()) return;
-
-    if (!navigator.onLine) {
-      setError("No internet connection. Please check your network and try again.");
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -128,22 +104,6 @@ const AdminLogin = () => {
     }
   };
 
-  const retryConnection = () => {
-    setError("");
-    if (navigator.onLine) {
-      toast({
-        title: "Connection Restored",
-        description: "You can now try logging in again.",
-      });
-    } else {
-      toast({
-        title: "Still Offline",
-        description: "Please check your internet connection.",
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background via-accent/20 to-background p-4">
       <Card className="w-full max-w-md glass">
@@ -155,9 +115,7 @@ const AdminLogin = () => {
         </CardHeader>
         <CardContent>
           <LoginError 
-            error={error} 
-            onRetry={retryConnection}
-            showRetry={error.includes("connection") || !navigator.onLine}
+            error={error}
           />
           <LoginForm
             email={email}

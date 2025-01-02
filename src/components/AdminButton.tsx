@@ -16,14 +16,6 @@ export const AdminButton = () => {
     return null;
   }
 
-  const clearAuthData = () => {
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith('sb-')) {
-        localStorage.removeItem(key);
-      }
-    });
-  };
-
   const handleAdminClick = async () => {
     if (isLoading) return;
     setIsLoading(true);
@@ -36,36 +28,27 @@ export const AdminButton = () => {
             title: "Logged out successfully",
             description: "You have been logged out of the admin panel",
           });
+          navigate("/admin/login");
         } catch (error: any) {
-          if (error.message?.includes('session_not_found') || 
-              error.status === 403 || 
-              error.message?.includes('JWT')) {
-            toast({
-              title: "Session Expired",
-              description: "Your session has expired. Please log in again.",
-            });
-          } else {
-            toast({
-              variant: "destructive",
-              title: "Logout Error",
-              description: "There was a problem logging out. Please try again.",
-            });
-          }
+          console.error("Logout error:", error);
+          // Clear auth data anyway to ensure clean logout
+          localStorage.removeItem('supabase.auth.token');
+          navigate("/admin/login");
+          toast({
+            title: "Session ended",
+            description: "Your session has ended. Please log in again.",
+          });
         }
-        clearAuthData();
-        navigate("/admin/login");
       } else {
         navigate("/admin/login");
       }
     } catch (error: any) {
       console.error("Error during admin action:", error);
-      clearAuthData();
       toast({
         variant: "destructive",
         title: "Error",
-        description: "There was a problem with your session. Please log in again.",
+        description: "There was a problem. Please try again.",
       });
-      navigate("/admin/login");
     } finally {
       setIsLoading(false);
     }
