@@ -134,10 +134,35 @@ export const ThemeManager = ({ themes, onUpdate }: {
     }
   };
 
+  const ensureUniqueThemeName = (baseName: string): string => {
+    const existingNames = themes.map(t => t.theme_name);
+    if (!existingNames.includes(baseName)) return baseName;
+    
+    const timestamp = new Date().getTime();
+    return `${baseName} (${timestamp})`;
+  };
+
   const handleCreateSampleTheme = async (theme: typeof sampleThemes[0]) => {
     try {
+      const uniqueThemeName = ensureUniqueThemeName(theme.name);
+      
+      // First check if theme name exists
+      const { data: existingTheme } = await supabase
+        .from("theme_settings")
+        .select("id")
+        .eq("theme_name", uniqueThemeName)
+        .single();
+
+      if (existingTheme) {
+        toast({
+          title: "Theme name already exists",
+          description: "Creating theme with a unique name...",
+          variant: "default",
+        });
+      }
+
       const { error } = await supabase.from("theme_settings").insert({
-        theme_name: theme.name,
+        theme_name: uniqueThemeName,
         primary_color: theme.primary,
         secondary_color: theme.secondary,
         accent_color: theme.accent,
@@ -146,14 +171,26 @@ export const ThemeManager = ({ themes, onUpdate }: {
         font_family: theme.font,
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.code === "23505") { // Unique constraint violation
+          toast({
+            title: "Error",
+            description: "A theme with this name already exists. Please try again.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+        return;
+      }
 
       toast({
         title: "Success",
-        description: `Sample theme "${theme.name}" created successfully`,
+        description: `Sample theme "${uniqueThemeName}" created successfully`,
       });
       onUpdate();
     } catch (error: any) {
+      console.error("Theme creation error:", error);
       toast({
         title: "Error",
         description: error.message,
