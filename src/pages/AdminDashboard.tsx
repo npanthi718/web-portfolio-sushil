@@ -8,12 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { ContentList } from "@/components/admin/ContentList";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Wand2 } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
   const [loading, setLoading] = useState(true);
   const [newSectionName, setNewSectionName] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("editor");
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -96,6 +100,22 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleAIGenerate = async (prompt: string) => {
+    try {
+      // Here we would integrate with an AI service to generate content
+      toast({
+        title: "AI Generation",
+        description: "This feature is coming soon!",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const subscribeToChanges = () => {
     const channel = supabase
       .channel("content-changes")
@@ -147,25 +167,55 @@ const AdminDashboard = () => {
           setIsDialogOpen={setIsDialogOpen}
         />
 
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create New Section</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Input
-                placeholder="Enter section name"
-                value={newSectionName}
-                onChange={(e) => setNewSectionName(e.target.value)}
-              />
-              <Button onClick={handleCreateSection} className="w-full">
-                Create Section
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="editor">Visual Editor</TabsTrigger>
+            <TabsTrigger value="ai">AI Assistant</TabsTrigger>
+          </TabsList>
 
-        <ContentList sections={sections} onUpdate={fetchData} />
+          <TabsContent value="editor">
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create New Section</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 pt-4">
+                  <Input
+                    placeholder="Enter section name"
+                    value={newSectionName}
+                    onChange={(e) => setNewSectionName(e.target.value)}
+                  />
+                  <Button onClick={handleCreateSection} className="w-full">
+                    Create Section
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+
+            <ContentList sections={sections} onUpdate={fetchData} />
+          </TabsContent>
+
+          <TabsContent value="ai">
+            <Card>
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center gap-2">
+                  <Wand2 className="w-5 h-5" />
+                  <h3 className="text-lg font-semibold">AI Resume Assistant</h3>
+                </div>
+                <Input
+                  placeholder="Describe what you want to add or modify in your resume..."
+                  className="w-full"
+                />
+                <Button 
+                  onClick={() => handleAIGenerate("Sample prompt")}
+                  className="w-full"
+                >
+                  Generate Content
+                </Button>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
