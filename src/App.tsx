@@ -18,7 +18,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <div className="fixed top-16 right-4 z-50 flex flex-col gap-2">
+          <div className="fixed top-16 right-4 z-50 flex flex-col gap-2 sm:flex-row sm:items-center">
             <AdminButton />
             <ThemeToggle />
           </div>

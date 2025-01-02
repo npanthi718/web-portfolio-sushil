@@ -17,7 +17,6 @@ export const AdminButton = () => {
   }
 
   const clearAuthData = () => {
-    // Clear all Supabase-related items from localStorage
     Object.keys(localStorage).forEach(key => {
       if (key.startsWith('sb-')) {
         localStorage.removeItem(key);
@@ -30,9 +29,7 @@ export const AdminButton = () => {
     setIsLoading(true);
 
     try {
-      // First check if we're on an admin page
       if (location.pathname.includes('/admin')) {
-        // Attempt to sign out
         try {
           await supabase.auth.signOut();
           toast({
@@ -40,7 +37,6 @@ export const AdminButton = () => {
             description: "You have been logged out of the admin panel",
           });
         } catch (error: any) {
-          // Handle session_not_found error gracefully
           if (error.message?.includes('session_not_found') || 
               error.status === 403 || 
               error.message?.includes('JWT')) {
@@ -56,12 +52,9 @@ export const AdminButton = () => {
             });
           }
         }
-        
-        // Always clear auth data and redirect after logout attempt
         clearAuthData();
         navigate("/admin/login");
       } else {
-        // If not on admin page, just navigate to login
         navigate("/admin/login");
       }
     } catch (error: any) {
@@ -79,17 +72,15 @@ export const AdminButton = () => {
   };
 
   return (
-    <div className="admin-controls fixed top-4 right-4 z-[100]">
-      <Button
-        variant="outline"
-        size="sm"
-        className="admin-settings-button hover:scale-105 transition-transform duration-300 flex items-center gap-2 bg-background/80 backdrop-blur-sm"
-        onClick={handleAdminClick}
-        disabled={isLoading}
-      >
-        <UserRound className="admin-settings-icon w-4 h-4" />
-        {location.pathname.includes('/admin') ? 'Logout' : 'Admin'}
-      </Button>
-    </div>
+    <Button
+      variant="outline"
+      size="sm"
+      className="fixed top-4 right-4 z-[100] hover:scale-105 transition-transform duration-300 flex items-center gap-2 bg-background/80 backdrop-blur-sm"
+      onClick={handleAdminClick}
+      disabled={isLoading}
+    >
+      <UserRound className="w-4 h-4" />
+      {location.pathname.includes('/admin') ? 'Logout' : 'Admin'}
+    </Button>
   );
 };

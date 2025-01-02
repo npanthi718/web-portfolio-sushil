@@ -15,45 +15,42 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Check session status on mount
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-        
-        if (sessionError) {
-          console.error("Session check error:", sessionError);
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    try {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      
+      if (sessionError) {
+        console.error("Session check error:", sessionError);
+        return;
+      }
+
+      if (session?.user) {
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("is_admin")
+          .eq("id", session.user.id)
+          .single();
+
+        if (profileError) {
+          console.error("Profile check error:", profileError);
+          await supabase.auth.signOut();
           return;
         }
 
-        if (session?.user) {
-          // Verify if the user is an admin
-          const { data: profile, error: profileError } = await supabase
-            .from("profiles")
-            .select("is_admin")
-            .eq("id", session.user.id)
-            .single();
-
-          if (profileError) {
-            console.error("Profile check error:", profileError);
-            await supabase.auth.signOut();
-            return;
-          }
-
-          if (profile?.is_admin) {
-            navigate("/admin/dashboard");
-          } else {
-            // If not admin, sign out
-            await supabase.auth.signOut();
-          }
+        if (profile?.is_admin) {
+          navigate("/admin/dashboard");
+        } else {
+          await supabase.auth.signOut();
         }
-      } catch (error) {
-        console.error("Session verification error:", error);
       }
-    };
-
-    checkSession();
-  }, [navigate]);
+    } catch (error) {
+      console.error("Session verification error:", error);
+    }
+  };
 
   const validateCredentials = () => {
     if (!email.trim() || !password.trim()) {
@@ -75,9 +72,7 @@ const AdminLogin = () => {
     e.preventDefault();
     setError("");
 
-    if (!validateCredentials()) {
-      return;
-    }
+    if (!validateCredentials()) return;
 
     if (!navigator.onLine) {
       setError("No internet connection. Please check your network and try again.");
@@ -92,9 +87,7 @@ const AdminLogin = () => {
         password: password.trim(),
       });
 
-      if (signInError) {
-        throw new Error(signInError.message || "Authentication failed");
-      }
+      if (signInError) throw new Error(signInError.message);
 
       if (!authData?.user?.id) {
         throw new Error("Login failed - no user data returned");
@@ -111,7 +104,6 @@ const AdminLogin = () => {
       }
 
       if (!profileData?.is_admin) {
-        // Sign out if not admin
         await supabase.auth.signOut();
         throw new Error("This account does not have admin privileges");
       }
@@ -124,13 +116,11 @@ const AdminLogin = () => {
       navigate("/admin/dashboard");
       
     } catch (error: any) {
-      const errorMessage = error.message || "An unexpected error occurred";
       console.error("Login error:", error);
-      
-      setError(errorMessage);
+      setError(error.message);
       toast({
         title: "Login Failed",
-        description: errorMessage,
+        description: error.message,
         variant: "destructive",
       });
     } finally {
