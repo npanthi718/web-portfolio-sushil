@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { ContentList } from "@/components/admin/ContentList";
-import { ThemeManager } from "@/components/admin/ThemeManager";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
@@ -50,7 +49,7 @@ const AdminDashboard = () => {
         .order("order_index");
 
       if (error) throw error;
-      setSections(data);
+      setSections(data || []);
     } catch (error: any) {
       toast({
         title: "Error fetching data",
