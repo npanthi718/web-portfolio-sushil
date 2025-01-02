@@ -9,6 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      admin_roles: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          role_type: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          role_type: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          role_type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
@@ -59,6 +83,38 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      resume_content_history: {
+        Row: {
+          content: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          resume_content_id: string | null
+        }
+        Insert: {
+          content: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          resume_content_id?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          resume_content_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "resume_content_history_resume_content_id_fkey"
+            columns: ["resume_content_id"]
+            isOneToOne: false
+            referencedRelation: "resume_content"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

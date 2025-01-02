@@ -3,7 +3,7 @@ import { Tables } from "@/integrations/supabase/types";
 import { ContentEditor } from "./ContentEditor";
 
 interface ContentListProps {
-  sections: Tables<"portfolio_content">[];
+  sections: Tables<"resume_content">[];
   onUpdate: () => void;
 }
 

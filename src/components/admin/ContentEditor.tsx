@@ -17,13 +17,13 @@ import { SectionHeader } from "./SectionHeader";
 import { SectionContent } from "./SectionContent";
 
 interface ContentEditorProps {
-  section: Tables<"portfolio_content">;
+  section: Tables<"resume_content">;
   onUpdate: () => void;
 }
 
 export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [content, setContent] = useState(section.content || "");
+  const [content, setContent] = useState(section.content || {});
   const [sectionName, setSectionName] = useState(section.section_name);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const { toast } = useToast();
@@ -31,9 +31,9 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
   const handleSave = async () => {
     try {
       const { error } = await supabase
-        .from("portfolio_content")
+        .from("resume_content")
         .update({ 
-          content: content,
+          content,
           section_name: sectionName 
         })
         .eq("id", section.id);
@@ -58,7 +58,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
   const handleReorder = async (direction: "up" | "down") => {
     try {
       const { error } = await supabase
-        .from("portfolio_content")
+        .from("resume_content")
         .update({
           order_index: direction === "up" ? section.order_index - 1 : section.order_index + 1,
         })
@@ -78,7 +78,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
   const handleToggleVisibility = async () => {
     try {
       const { error } = await supabase
-        .from("portfolio_content")
+        .from("resume_content")
         .update({ is_visible: !section.is_visible })
         .eq("id", section.id);
 
@@ -101,7 +101,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
   const handleDelete = async () => {
     try {
       const { error } = await supabase
-        .from("portfolio_content")
+        .from("resume_content")
         .delete()
         .eq("id", section.id);
 

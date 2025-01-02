@@ -95,9 +95,9 @@ const AdminLogin = () => {
       console.error("Login error:", error);
       setError(error.message);
       toast({
+        variant: "destructive",
         title: "Login Failed",
         description: error.message,
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

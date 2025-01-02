@@ -11,8 +11,7 @@ import { ContentList } from "@/components/admin/ContentList";
 import { ThemeManager } from "@/components/admin/ThemeManager";
 
 const AdminDashboard = () => {
-  const [sections, setSections] = useState<Tables<"portfolio_content">[]>([]);
-  const [themes, setThemes] = useState<Tables<"theme_settings">[]>([]);
+  const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
   const [loading, setLoading] = useState(true);
   const [newSectionName, setNewSectionName] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,16 +44,13 @@ const AdminDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const [sectionsResponse, themesResponse] = await Promise.all([
-        supabase.from("portfolio_content").select("*").order("order_index"),
-        supabase.from("theme_settings").select("*"),
-      ]);
+      const { data, error } = await supabase
+        .from("resume_content")
+        .select("*")
+        .order("order_index");
 
-      if (sectionsResponse.error) throw sectionsResponse.error;
-      if (themesResponse.error) throw themesResponse.error;
-
-      setSections(sectionsResponse.data);
-      setThemes(themesResponse.data);
+      if (error) throw error;
+      setSections(data);
     } catch (error: any) {
       toast({
         title: "Error fetching data",
@@ -77,10 +73,10 @@ const AdminDashboard = () => {
     }
 
     try {
-      const { error } = await supabase.from("portfolio_content").insert({
+      const { error } = await supabase.from("resume_content").insert({
         section_name: newSectionName,
         order_index: sections.length,
-        content: "",
+        content: {},
       });
 
       if (error) throw error;
@@ -102,27 +98,17 @@ const AdminDashboard = () => {
   };
 
   const subscribeToChanges = () => {
-    const sectionsChannel = supabase
+    const channel = supabase
       .channel("content-changes")
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "portfolio_content" },
-        fetchData
-      )
-      .subscribe();
-
-    const themesChannel = supabase
-      .channel("theme-changes")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "theme_settings" },
+        { event: "*", schema: "public", table: "resume_content" },
         fetchData
       )
       .subscribe();
 
     return () => {
-      supabase.removeChannel(sectionsChannel);
-      supabase.removeChannel(themesChannel);
+      supabase.removeChannel(channel);
     };
   };
 
@@ -181,7 +167,6 @@ const AdminDashboard = () => {
         </Dialog>
 
         <ContentList sections={sections} onUpdate={fetchData} />
-        <ThemeManager themes={themes} onUpdate={fetchData} />
       </div>
     </div>
   );
