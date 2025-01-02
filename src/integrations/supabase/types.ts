@@ -9,36 +9,6 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      portfolio_content: {
-        Row: {
-          content: string | null
-          created_at: string
-          id: string
-          is_visible: boolean | null
-          order_index: number
-          section_name: string
-          updated_at: string
-        }
-        Insert: {
-          content?: string | null
-          created_at?: string
-          id?: string
-          is_visible?: boolean | null
-          order_index: number
-          section_name: string
-          updated_at?: string
-        }
-        Update: {
-          content?: string | null
-          created_at?: string
-          id?: string
-          is_visible?: boolean | null
-          order_index?: number
-          section_name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           created_at: string
@@ -60,7 +30,7 @@ export type Database = {
         }
         Relationships: []
       }
-      resume_sections: {
+      resume_content: {
         Row: {
           content: Json
           created_at: string
@@ -86,107 +56,6 @@ export type Database = {
           is_visible?: boolean | null
           order_index?: number
           section_name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      resume_themes: {
-        Row: {
-          created_at: string
-          id: string
-          is_active: boolean | null
-          theme_name: string
-          theme_template: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          is_active?: boolean | null
-          theme_name: string
-          theme_template: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          is_active?: boolean | null
-          theme_name?: string
-          theme_template?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      theme_history: {
-        Row: {
-          created_at: string
-          id: string
-          theme_data: Json
-          theme_id: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          theme_data: Json
-          theme_id?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          theme_data?: Json
-          theme_id?: string | null
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "theme_history_theme_id_fkey"
-            columns: ["theme_id"]
-            isOneToOne: false
-            referencedRelation: "theme_settings"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      theme_settings: {
-        Row: {
-          accent_color: string | null
-          background_color: string | null
-          created_at: string
-          font_family: string | null
-          id: string
-          is_active: boolean | null
-          primary_color: string | null
-          secondary_color: string | null
-          text_color: string | null
-          theme_name: string
-          updated_at: string
-        }
-        Insert: {
-          accent_color?: string | null
-          background_color?: string | null
-          created_at?: string
-          font_family?: string | null
-          id?: string
-          is_active?: boolean | null
-          primary_color?: string | null
-          secondary_color?: string | null
-          text_color?: string | null
-          theme_name: string
-          updated_at?: string
-        }
-        Update: {
-          accent_color?: string | null
-          background_color?: string | null
-          created_at?: string
-          font_family?: string | null
-          id?: string
-          is_active?: boolean | null
-          primary_color?: string | null
-          secondary_color?: string | null
-          text_color?: string | null
-          theme_name?: string
           updated_at?: string
         }
         Relationships: []
