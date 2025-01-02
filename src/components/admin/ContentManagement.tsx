@@ -4,8 +4,8 @@ import { Layout, Eye, EyeOff } from "lucide-react";
 import { Tables } from "@/integrations/supabase/types";
 
 interface ContentManagementProps {
-  sections: Tables<"portfolio_content">[];
-  onToggleVisibility: (section: Tables<"portfolio_content">) => void;
+  sections: Tables<"resume_content">[];
+  onToggleVisibility: (section: Tables<"resume_content">) => void;
 }
 
 export const ContentManagement = ({ sections, onToggleVisibility }: ContentManagementProps) => {
