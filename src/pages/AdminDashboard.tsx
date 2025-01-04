@@ -3,21 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Tables } from "@/integrations/supabase/types";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { DashboardHeader } from "@/components/admin/DashboardHeader";
-import { ContentList } from "@/components/admin/ContentList";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Wand2 } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { LogOut } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
   const [loading, setLoading] = useState(true);
-  const [newSectionName, setNewSectionName] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("editor");
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -65,48 +60,21 @@ const AdminDashboard = () => {
     }
   };
 
-  const handleCreateSection = async () => {
-    if (!newSectionName.trim()) {
-      toast({
-        title: "Error",
-        description: "Section name cannot be empty",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const handleUpdateSection = async (id: string, updates: Partial<Tables<"resume_content">>) => {
     try {
-      const { error } = await supabase.from("resume_content").insert({
-        section_name: newSectionName,
-        order_index: sections.length,
-        content: {},
-      });
+      const { error } = await supabase
+        .from("resume_content")
+        .update(updates)
+        .eq("id", id);
 
       if (error) throw error;
 
       toast({
         title: "Success",
-        description: "New section created successfully",
+        description: "Content updated successfully",
       });
-      setNewSectionName("");
-      setIsDialogOpen(false);
+      
       fetchData();
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleAIGenerate = async (prompt: string) => {
-    try {
-      // Here we would integrate with an AI service to generate content
-      toast({
-        title: "AI Generation",
-        description: "This feature is coming soon!",
-      });
     } catch (error: any) {
       toast({
         title: "Error",
@@ -132,22 +100,8 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      navigate("/");
-      toast({
-        title: "Success",
-        description: "Logged out successfully",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: "Failed to logout. Please try again.",
-        variant: "destructive",
-      });
-      localStorage.removeItem('supabase.auth.token');
-      navigate("/admin/login");
-    }
+    await supabase.auth.signOut();
+    navigate("/");
   };
 
   if (loading) {
@@ -160,62 +114,52 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <DashboardHeader 
-          onLogout={handleLogout}
-          isDialogOpen={isDialogOpen}
-          setIsDialogOpen={setIsDialogOpen}
-        />
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-heading">Content Editor</h1>
+          <Button variant="outline" onClick={handleLogout}>
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
+          </Button>
+        </div>
 
-        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="editor">Visual Editor</TabsTrigger>
-            <TabsTrigger value="ai">AI Assistant</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="editor">
-            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Create New Section</DialogTitle>
-                </DialogHeader>
-                <div className="space-y-4 pt-4">
-                  <Input
-                    placeholder="Enter section name"
-                    value={newSectionName}
-                    onChange={(e) => setNewSectionName(e.target.value)}
+        <div className="space-y-6">
+          {sections.map((section) => (
+            <Card key={section.id} className="glass">
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Input
+                      value={section.section_name}
+                      onChange={(e) => handleUpdateSection(section.id, { section_name: e.target.value })}
+                      className="max-w-xs"
+                    />
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">Visible</span>
+                      <Switch
+                        checked={section.is_visible || false}
+                        onCheckedChange={(checked) => handleUpdateSection(section.id, { is_visible: checked })}
+                      />
+                    </div>
+                  </div>
+                  
+                  <Textarea
+                    value={JSON.stringify(section.content, null, 2)}
+                    onChange={(e) => {
+                      try {
+                        const content = JSON.parse(e.target.value);
+                        handleUpdateSection(section.id, { content });
+                      } catch (error) {
+                        // Allow invalid JSON while typing
+                      }
+                    }}
+                    className="min-h-[200px] font-mono"
                   />
-                  <Button onClick={handleCreateSection} className="w-full">
-                    Create Section
-                  </Button>
                 </div>
-              </DialogContent>
-            </Dialog>
-
-            <ContentList sections={sections} onUpdate={fetchData} />
-          </TabsContent>
-
-          <TabsContent value="ai">
-            <Card>
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-2">
-                  <Wand2 className="w-5 h-5" />
-                  <h3 className="text-lg font-semibold">AI Resume Assistant</h3>
-                </div>
-                <Input
-                  placeholder="Describe what you want to add or modify in your resume..."
-                  className="w-full"
-                />
-                <Button 
-                  onClick={() => handleAIGenerate("Sample prompt")}
-                  className="w-full"
-                >
-                  Generate Content
-                </Button>
               </CardContent>
             </Card>
-          </TabsContent>
-        </Tabs>
+          ))}
+        </div>
       </div>
     </div>
   );

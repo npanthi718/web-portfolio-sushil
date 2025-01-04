@@ -9,26 +9,26 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      admin_roles: {
+      admin_users: {
         Row: {
-          created_at: string
+          created_at: string | null
           created_by: string | null
           id: string
-          role_type: string
+          is_super_admin: boolean | null
           user_id: string | null
         }
         Insert: {
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
           id?: string
-          role_type: string
+          is_super_admin?: boolean | null
           user_id?: string | null
         }
         Update: {
-          created_at?: string
+          created_at?: string | null
           created_by?: string | null
           id?: string
-          role_type?: string
+          is_super_admin?: boolean | null
           user_id?: string | null
         }
         Relationships: []
@@ -84,34 +84,102 @@ export type Database = {
         }
         Relationships: []
       }
-      resume_content_history: {
+      resume_profiles: {
         Row: {
-          content: Json
-          created_at: string
-          created_by: string | null
+          created_at: string | null
           id: string
-          resume_content_id: string | null
+          is_main_profile: boolean | null
+          profile_name: string
+          updated_at: string | null
+          user_id: string | null
         }
         Insert: {
-          content: Json
-          created_at?: string
-          created_by?: string | null
+          created_at?: string | null
           id?: string
-          resume_content_id?: string | null
+          is_main_profile?: boolean | null
+          profile_name: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_main_profile?: boolean | null
+          profile_name?: string
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      resume_sections: {
+        Row: {
+          content: Json
+          created_at: string | null
+          id: string
+          is_visible: boolean | null
+          order_index: number
+          profile_id: string | null
+          section_name: string
+          updated_at: string | null
+        }
+        Insert: {
+          content?: Json
+          created_at?: string | null
+          id?: string
+          is_visible?: boolean | null
+          order_index: number
+          profile_id?: string | null
+          section_name: string
+          updated_at?: string | null
         }
         Update: {
           content?: Json
-          created_at?: string
-          created_by?: string | null
+          created_at?: string | null
           id?: string
-          resume_content_id?: string | null
+          is_visible?: boolean | null
+          order_index?: number
+          profile_id?: string | null
+          section_name?: string
+          updated_at?: string | null
         }
         Relationships: [
           {
-            foreignKeyName: "resume_content_history_resume_content_id_fkey"
-            columns: ["resume_content_id"]
+            foreignKeyName: "resume_sections_profile_id_fkey"
+            columns: ["profile_id"]
             isOneToOne: false
-            referencedRelation: "resume_content"
+            referencedRelation: "resume_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      section_history: {
+        Row: {
+          content: Json
+          created_at: string | null
+          created_by: string | null
+          id: string
+          section_id: string | null
+        }
+        Insert: {
+          content: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          section_id?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string | null
+          created_by?: string | null
+          id?: string
+          section_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "section_history_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "resume_sections"
             referencedColumns: ["id"]
           },
         ]
