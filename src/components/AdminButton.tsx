@@ -3,13 +3,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const AdminButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'TOKEN_REFRESHED') {
+        console.log('Token refreshed successfully');
+      }
+      if (event === 'SIGNED_OUT') {
+        navigate("/admin/login");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   // Hide button on login page
   if (location.pathname === "/admin/login") {
@@ -23,6 +38,8 @@ export const AdminButton = () => {
     try {
       if (location.pathname.includes('/admin')) {
         try {
+          // Clear local storage first to ensure clean state
+          localStorage.removeItem('supabase.auth.token');
           await supabase.auth.signOut();
           toast({
             title: "Logged out successfully",
@@ -31,8 +48,8 @@ export const AdminButton = () => {
           navigate("/admin/login");
         } catch (error: any) {
           console.error("Logout error:", error);
-          // Clear auth data anyway to ensure clean logout
-          localStorage.removeItem('supabase.auth.token');
+          // Force clean logout anyway
+          localStorage.clear();
           navigate("/admin/login");
           toast({
             title: "Session ended",
