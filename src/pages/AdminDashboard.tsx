@@ -4,11 +4,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Tables } from "@/integrations/supabase/types";
 import { ContentList } from "@/components/admin/ContentList";
-import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { NewSectionForm } from "@/components/admin/NewSectionForm";
 import { Button } from "@/components/ui/button";
-import { LogOut } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
@@ -100,12 +99,21 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-heading">Admin Dashboard</h1>
-          <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-            <LogOut className="w-4 h-4" />
-            Logout
-          </Button>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <h1 className="text-3xl font-heading">Portfolio Content Management</h1>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => setIsDialogOpen(true)}
+              className="flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Add New Section
+            </Button>
+            <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+              <LogOut className="w-4 h-4" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         <ContentList sections={sections} onUpdate={fetchData} />
