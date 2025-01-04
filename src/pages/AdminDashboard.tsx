@@ -7,6 +7,8 @@ import { ContentList } from "@/components/admin/ContentList";
 import { DashboardHeader } from "@/components/admin/DashboardHeader";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { NewSectionForm } from "@/components/admin/NewSectionForm";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
@@ -98,11 +100,13 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <DashboardHeader 
-          onLogout={handleLogout}
-          isDialogOpen={isDialogOpen}
-          setIsDialogOpen={setIsDialogOpen}
-        />
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-heading">Admin Dashboard</h1>
+          <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+            <LogOut className="w-4 h-4" />
+            Logout
+          </Button>
+        </div>
 
         <ContentList sections={sections} onUpdate={fetchData} />
 

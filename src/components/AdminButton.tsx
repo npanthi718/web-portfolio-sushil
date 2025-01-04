@@ -6,17 +6,13 @@ export const AdminButton = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Hide button on login page
-  if (location.pathname === "/admin/login") {
+  // Hide button on login page and when in admin panel
+  if (location.pathname === "/admin/login" || location.pathname.includes('/admin/dashboard')) {
     return null;
   }
 
   const handleClick = () => {
-    if (location.pathname.includes('/admin')) {
-      navigate("/");
-    } else {
-      navigate("/admin/login");
-    }
+    navigate("/admin/login");
   };
 
   return (
@@ -27,7 +23,7 @@ export const AdminButton = () => {
       onClick={handleClick}
     >
       <UserRound className="w-4 h-4" />
-      {location.pathname.includes('/admin') ? 'Exit Admin' : 'Admin'}
+      Admin
     </Button>
   );
 };
