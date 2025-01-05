@@ -8,6 +8,16 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { NewSectionForm } from "@/components/admin/NewSectionForm";
 import { Button } from "@/components/ui/button";
 import { LogOut, Plus } from "lucide-react";
+import { Hero } from "@/components/Hero";
+import { About } from "@/components/About";
+import { Skills } from "@/components/Skills";
+import { Experience } from "@/components/Experience";
+import { Projects } from "@/components/Projects";
+import { Education } from "@/components/Education";
+import { Certificates } from "@/components/Certificates";
+import { Courses } from "@/components/Courses";
+import { Achievements } from "@/components/Achievements";
+import { Contact } from "@/components/Contact";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
@@ -101,8 +111,8 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-background to-accent/20">
+      <div className="max-w-7xl mx-auto p-4 md:p-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-3xl font-heading">Portfolio Content Management</h1>
           <div className="flex gap-2">
@@ -120,7 +130,25 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <ContentList sections={sections} onUpdate={fetchData} />
+        <div className="space-y-8">
+          <div className="grid gap-8">
+            <ContentList sections={sections} onUpdate={fetchData} />
+          </div>
+
+          <div className="space-y-8 border-t pt-8">
+            <h2 className="text-2xl font-heading mb-4">Preview</h2>
+            <Hero />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Education />
+            <Achievements />
+            <Certificates />
+            <Courses />
+            <Contact />
+          </div>
+        </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
