@@ -179,13 +179,13 @@ export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: 
                           </label>
                           {typeof itemValue === 'string' && itemValue.length > 50 ? (
                             <Textarea
-                              value={itemValue}
+                              value={String(itemValue)}
                               onChange={(e) => handleArrayInputChange(key, index, itemKey, e.target.value)}
                               className="mt-1"
                             />
                           ) : (
                             <Input
-                              value={itemValue}
+                              value={String(itemValue)}
                               onChange={(e) => handleArrayInputChange(key, index, itemKey, e.target.value)}
                               className="mt-1"
                             />
@@ -218,13 +218,13 @@ export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: 
               </label>
               {typeof value === 'string' && value.length > 50 ? (
                 <Textarea
-                  value={value}
+                  value={String(value)}
                   onChange={(e) => handleInputChange(key, e.target.value)}
                   className="mt-1"
                 />
               ) : (
                 <Input
-                  value={value}
+                  value={String(value)}
                   onChange={(e) => handleInputChange(key, e.target.value)}
                   className="mt-1"
                 />
