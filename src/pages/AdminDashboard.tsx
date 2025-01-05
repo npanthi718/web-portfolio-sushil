@@ -136,7 +136,7 @@ const AdminDashboard = () => {
           </div>
 
           <div className="space-y-8 border-t pt-8">
-            <h2 className="text-2xl font-heading mb-4">Preview</h2>
+            <h2 className="text-2xl font-heading mb-4">Live Preview</h2>
             <Hero />
             <About />
             <Skills />
