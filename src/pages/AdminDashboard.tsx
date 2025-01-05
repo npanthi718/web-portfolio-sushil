@@ -7,7 +7,7 @@ import { ContentList } from "@/components/admin/ContentList";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { NewSectionForm } from "@/components/admin/NewSectionForm";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { LogOut, Plus } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
@@ -60,6 +60,23 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/");
+      toast({
+        title: "Success",
+        description: "Logged out successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: "Failed to log out. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   const subscribeToChanges = () => {
     const channel = supabase
       .channel("content-changes")
@@ -88,13 +105,19 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-3xl font-heading">Portfolio Content Management</h1>
-          <Button 
-            onClick={() => setIsDialogOpen(true)}
-            className="flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Add New Section
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={() => setIsDialogOpen(true)}
+              className="flex items-center gap-2"
+            >
+              <Plus className="w-4 h-4" />
+              Add New Section
+            </Button>
+            <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+              <LogOut className="w-4 h-4" />
+              Logout
+            </Button>
+          </div>
         </div>
 
         <ContentList sections={sections} onUpdate={fetchData} />
