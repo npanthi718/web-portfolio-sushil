@@ -19,10 +19,12 @@ import { SectionContent } from "./SectionContent";
 interface ContentEditorProps {
   section: Tables<"resume_content">;
   onUpdate: () => void;
+  onEdit: () => void;
+  onSave: (content: any) => void;
+  isEditing: boolean;
 }
 
-export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
-  const [isEditing, setIsEditing] = useState(false);
+export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: ContentEditorProps) => {
   const [content, setContent] = useState(section.content || {});
   const [sectionName, setSectionName] = useState(section.section_name);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -44,7 +46,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
         title: "Success",
         description: "Content updated successfully",
       });
-      setIsEditing(false);
+      onSave(content);
       onUpdate();
     } catch (error: any) {
       toast({
@@ -132,7 +134,7 @@ export const ContentEditor = ({ section, onUpdate }: ContentEditorProps) => {
             onSectionNameChange={setSectionName}
             onReorder={handleReorder}
             onToggleVisibility={handleToggleVisibility}
-            onToggleEdit={() => setIsEditing(!isEditing)}
+            onToggleEdit={onEdit}
             onDelete={() => setShowDeleteDialog(true)}
           />
           {isEditing && (

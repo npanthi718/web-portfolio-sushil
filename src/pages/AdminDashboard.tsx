@@ -7,7 +7,7 @@ import { ContentList } from "@/components/admin/ContentList";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { NewSectionForm } from "@/components/admin/NewSectionForm";
 import { Button } from "@/components/ui/button";
-import { LogOut, Plus } from "lucide-react";
+import { LogOut, Plus, Save } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Skills } from "@/components/Skills";
@@ -23,6 +23,7 @@ const AdminDashboard = () => {
   const [sections, setSections] = useState<Tables<"resume_content">[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [editingSection, setEditingSection] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -87,6 +88,31 @@ const AdminDashboard = () => {
     }
   };
 
+  const handleSaveContent = async (sectionId: string, content: any) => {
+    try {
+      const { error } = await supabase
+        .from("resume_content")
+        .update({ content })
+        .eq("id", sectionId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Content updated successfully",
+      });
+      
+      setEditingSection(null);
+      fetchData(); // Refresh data to update both preview and content list
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   const subscribeToChanges = () => {
     const channel = supabase
       .channel("content-changes")
@@ -132,7 +158,13 @@ const AdminDashboard = () => {
 
         <div className="space-y-8">
           <div className="grid gap-8">
-            <ContentList sections={sections} onUpdate={fetchData} />
+            <ContentList 
+              sections={sections} 
+              onUpdate={fetchData}
+              onEdit={setEditingSection}
+              onSave={handleSaveContent}
+              editingSection={editingSection}
+            />
           </div>
 
           <div className="space-y-8 border-t pt-8">

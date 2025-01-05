@@ -5,9 +5,12 @@ import { ContentEditor } from "./ContentEditor";
 interface ContentListProps {
   sections: Tables<"resume_content">[];
   onUpdate: () => void;
+  onEdit: (sectionId: string) => void;
+  onSave: (sectionId: string, content: any) => void;
+  editingSection: string | null;
 }
 
-export const ContentList = ({ sections, onUpdate }: ContentListProps) => {
+export const ContentList = ({ sections, onUpdate, onEdit, onSave, editingSection }: ContentListProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,6 +24,9 @@ export const ContentList = ({ sections, onUpdate }: ContentListProps) => {
             key={section.id}
             section={section}
             onUpdate={onUpdate}
+            onEdit={() => onEdit(section.id)}
+            onSave={(content) => onSave(section.id, content)}
+            isEditing={editingSection === section.id}
           />
         ))}
       </div>
