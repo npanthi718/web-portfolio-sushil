@@ -13,8 +13,8 @@ const projects = [
       "Automated stock updates post-sales to ensure accurate inventory.",
       "Integrated dashboards for administrators to monitor performance metrics.",
     ],
-    demoUrl: "#", // Add your demo URL here
-    githubUrl: "#", // Add your GitHub URL here
+    demoUrl: "#", // Live demo URL here
+    githubUrl: "https://github.com/npanthi718/SuperMarket-Management-Using-MEN-Stack", // GitHub URL here
   },
   {
     title: "Student Management System",
@@ -25,8 +25,8 @@ const projects = [
       "Designed a responsive user interface for seamless interaction.",
       "Implemented secure database operations to manage sensitive information.",
     ],
-    demoUrl: "#", // Add your demo URL here
-    githubUrl: "#", // Add your GitHub URL here
+    demoUrl: "#", // Live demo URL here
+    githubUrl: "https://github.com/npanthi718/Student-Management-System", //GitHub URL here
   },
 ];
 
