@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Tables } from "@/integrations/supabase/types";
@@ -16,6 +15,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { SectionHeader } from "./SectionHeader";
+import { ContentForm } from "./editors/ContentForm";
 
 interface ContentEditorProps {
   section: Tables<"resume_content">;
@@ -25,7 +25,13 @@ interface ContentEditorProps {
   isEditing: boolean;
 }
 
-export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: ContentEditorProps) => {
+export const ContentEditor = ({ 
+  section, 
+  onUpdate, 
+  onEdit, 
+  onSave, 
+  isEditing 
+}: ContentEditorProps) => {
   const [content, setContent] = useState(section.content || {});
   const [sectionName, setSectionName] = useState(section.section_name);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -56,41 +62,6 @@ export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: 
         variant: "destructive",
       });
     }
-  };
-
-  const handleInputChange = (key: string, value: any) => {
-    setContent((prev: any) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  const handleArrayInputChange = (arrayKey: string, index: number, key: string, value: any) => {
-    setContent((prev: any) => {
-      const newArray = [...(prev[arrayKey] || [])];
-      newArray[index] = {
-        ...(newArray[index] || {}),
-        [key]: value,
-      };
-      return {
-        ...prev,
-        [arrayKey]: newArray,
-      };
-    });
-  };
-
-  const handleAddArrayItem = (arrayKey: string) => {
-    setContent((prev: any) => ({
-      ...prev,
-      [arrayKey]: [...(prev[arrayKey] || []), {}],
-    }));
-  };
-
-  const handleRemoveArrayItem = (arrayKey: string, index: number) => {
-    setContent((prev: any) => ({
-      ...prev,
-      [arrayKey]: prev[arrayKey].filter((_: any, i: number) => i !== index),
-    }));
   };
 
   const handleReorder = async (direction: "up" | "down") => {
@@ -159,86 +130,6 @@ export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: 
     }
   };
 
-  const renderContentEditor = () => {
-    if (!isEditing) return null;
-
-    return (
-      <div className="space-y-4">
-        {Object.entries(content).map(([key, value]) => {
-          if (Array.isArray(value)) {
-            return (
-              <div key={key} className="space-y-4">
-                <h4 className="text-lg font-semibold capitalize">{key.replace(/_/g, ' ')}</h4>
-                {value.map((item: any, index: number) => (
-                  <Card key={index} className="p-4">
-                    <div className="space-y-4">
-                      {Object.entries(item).map(([itemKey, itemValue]) => (
-                        <div key={itemKey}>
-                          <label className="text-sm font-medium capitalize">
-                            {itemKey.replace(/_/g, ' ')}
-                          </label>
-                          {typeof itemValue === 'string' && itemValue.length > 50 ? (
-                            <Textarea
-                              value={String(itemValue)}
-                              onChange={(e) => handleArrayInputChange(key, index, itemKey, e.target.value)}
-                              className="mt-1"
-                            />
-                          ) : (
-                            <Input
-                              value={String(itemValue)}
-                              onChange={(e) => handleArrayInputChange(key, index, itemKey, e.target.value)}
-                              className="mt-1"
-                            />
-                          )}
-                        </div>
-                      ))}
-                      <button
-                        onClick={() => handleRemoveArrayItem(key, index)}
-                        className="text-destructive hover:text-destructive/80"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </Card>
-                ))}
-                <button
-                  onClick={() => handleAddArrayItem(key)}
-                  className="text-primary hover:text-primary/80"
-                >
-                  Add {key.replace(/_/g, ' ')}
-                </button>
-              </div>
-            );
-          }
-
-          return (
-            <div key={key}>
-              <label className="text-sm font-medium capitalize">
-                {key.replace(/_/g, ' ')}
-              </label>
-              {typeof value === 'string' && value.length > 50 ? (
-                <Textarea
-                  value={String(value)}
-                  onChange={(e) => handleInputChange(key, e.target.value)}
-                  className="mt-1"
-                />
-              ) : (
-                <Input
-                  value={String(value)}
-                  onChange={(e) => handleInputChange(key, e.target.value)}
-                  className="mt-1"
-                />
-              )}
-            </div>
-          );
-        })}
-        <button onClick={handleSave} className="w-full btn-primary">
-          Save Changes
-        </button>
-      </div>
-    );
-  };
-
   return (
     <>
       <Card className="glass">
@@ -253,7 +144,13 @@ export const ContentEditor = ({ section, onUpdate, onEdit, onSave, isEditing }: 
             onToggleEdit={onEdit}
             onDelete={() => setShowDeleteDialog(true)}
           />
-          {renderContentEditor()}
+          {isEditing && (
+            <ContentForm
+              content={content}
+              onContentChange={setContent}
+              onSave={handleSave}
+            />
+          )}
         </CardContent>
       </Card>
 
