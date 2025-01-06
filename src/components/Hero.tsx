@@ -13,8 +13,14 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="hero-section min-h-screen flex items-center justify-center section-padding pt-24 bg-gradient-to-br from-background via-accent/20 to-background">
-      <div className="hero-content-wrapper max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="hero" className="hero-section min-h-screen flex items-center justify-center section-padding pt-24 bg-gradient-to-br from-background via-accent/20 to-background relative overflow-hidden">
+      {/* Ambient light effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full filter blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-3xl animate-pulse delay-1000" />
+      </div>
+
+      <div className="hero-content-wrapper max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="hero-layout-grid grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -77,15 +83,19 @@ export const Hero = () => {
             className="profile-image-container flex justify-center md:justify-end"
           >
             <div className="avatar-wrapper relative group">
+              {/* Enhanced glow effect */}
               <div className="avatar-glow absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300 animate-glow opacity-75" />
-              <Avatar className="profile-avatar w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300 animate-float">
+              <div className="avatar-reflection absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-full" />
+              <Avatar className="profile-avatar w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300 animate-float relative z-10">
                 <AvatarImage 
                   src="/uploads/DV.jpg" 
                   alt="Sushil Panthi" 
                   className="avatar-image object-cover"
                 />
-                <AvatarFallback>SP</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-2xl font-bold">SP</AvatarFallback>
               </Avatar>
+              {/* Reflection effect */}
+              <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-12 bg-gradient-to-t from-primary/20 to-transparent blur-lg transform scale-y-50 opacity-50" />
             </div>
           </motion.div>
         </div>
