@@ -7,7 +7,7 @@ import { TypeAnimation } from 'react-type-animation';
 export const Hero = () => {
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "public/uploads/Tech Resume Sushil Panthi.pdf";
+    link.href = "/uploads/Tech Resume Sushil Panthi.pdf";
     link.download = "Sushil_Panthi_Resume.pdf";
     link.click();
   };
@@ -80,7 +80,7 @@ export const Hero = () => {
               <div className="avatar-glow absolute -inset-1 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300 animate-glow opacity-75" />
               <Avatar className="profile-avatar w-48 h-48 sm:w-64 sm:h-64 border-4 border-primary/50 shadow-xl hover:scale-105 transition-transform duration-300 animate-float">
                 <AvatarImage 
-                  src="public/uploads/DV.jpg" 
+                  src="/uploads/DV.jpg" 
                   alt="Sushil Panthi" 
                   className="avatar-image object-cover"
                 />
