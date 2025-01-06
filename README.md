@@ -23,10 +23,36 @@ A fully responsive and interactive web portfolio built using **React.js** and **
 - Focus on project outcomes and team collaborations.
 
 ### 6. **Projects**
-- Showcases major projects, including:
-  - **Supermarket Management System**: Built with MongoDB, Express.js, React.js, and Node.js.
-  - **Student Management System**: Developed for managing student data with features like CRUD operations, filters, and error handling.
-- Key contributions and technologies used in each project.
+
+#### Student Management System
+A comprehensive system for managing student data and academic records.
+
+**Folder Structure:**
+```
+student-management-system/
+├── database/         # MongoDB database configurations and models
+├── static/          # CSS, JavaScript, and other static assets
+├── templates/       # HTML templates for the web interface
+└── app.py          # Main application file (Python/Flask backend)
+```
+
+**Tech Stack:**
+- **Frontend**: HTML (46.7%), CSS (18.4%), JavaScript (1.6%)
+- **Backend**: Python (33.3%) with Flask framework
+- **Database**: MongoDB
+- **Features**:
+  - Student data management with CRUD operations
+  - Course and grade tracking
+  - Attendance management
+  - Report generation
+  - User authentication and authorization
+
+#### Supermarket Management System
+Built with MongoDB, Express.js, React.js, and Node.js.
+- Advanced inventory and billing software
+- Real-time stock updates
+- Role-based access control
+- Comprehensive reporting features
 
 ### 7. **Certificates**
 - Lists all certifications achieved, showcasing technical and personal development.
@@ -44,67 +70,6 @@ A fully responsive and interactive web portfolio built using **React.js** and **
 ## Technologies Used
 - **Frontend**: React.js, TypeScript, CSS
 - **Libraries/Frameworks**:
-  - Framer Motion for animations.
-  - Styled-components for dynamic styling.
-- **Backend Integration**: Placeholder APIs for dynamic content loading.
-
-## File Structure
-```plaintext
-src/
-├── components/
-│   ├── ui/
-│   │   ├── About.tsx
-│   │   ├── Achievements.tsx
-│   │   ├── Certificates.tsx
-│   │   ├── Contact.tsx
-│   │   ├── Courses.tsx
-│   │   ├── Education.tsx
-│   │   ├── Experience.tsx
-│   │   ├── Hero.tsx
-│   │   ├── Navigation.tsx
-│   │   ├── Projects.tsx
-│   │   ├── Skills.tsx
-│   │   ├── ThemeToggle.tsx
-│   ├── hooks/
-│   │   ├── use-mobile.tsx
-│   │   ├── use-theme.tsx
-│   │   ├── use-toast.tsx
-├── App.tsx
-├── App.css
-
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+  - Framer Motion for animations
+  - Styled-components for dynamic styling
+- **Backend Integration**: Placeholder APIs for dynamic content loading
