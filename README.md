@@ -48,11 +48,32 @@ student-management-system/
   - User authentication and authorization
 
 #### Supermarket Management System
-Built with MongoDB, Express.js, React.js, and Node.js.
-- Advanced inventory and billing software
-- Real-time stock updates
-- Role-based access control
-- Comprehensive reporting features
+A comprehensive inventory and billing management system built with MERN Stack.
+
+**Folder Structure:**
+```
+supermarket-management/
+├── controllers/     # Request handlers and business logic
+├── models/         # MongoDB schema definitions
+├── node_modules/   # Project dependencies
+├── public/         # Static assets and client-side files
+├── routes/         # API route definitions
+├── src/           # Source code directory
+├── package.json    # Project configuration and dependencies
+└── config.js      # Configuration settings
+```
+
+**Tech Stack:**
+- **Frontend**: React.js
+- **Backend**: Node.js with Express.js
+- **Database**: MongoDB
+- **Features**:
+  - Advanced inventory management
+  - Real-time stock updates
+  - Role-based access control
+  - Comprehensive reporting features
+  - Automated billing system
+  - User authentication and authorization
 
 ### 7. **Certificates**
 - Lists all certifications achieved, showcasing technical and personal development.
