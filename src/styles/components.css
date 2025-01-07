@@ -65,14 +65,27 @@
          text-transparent bg-clip-text;
 }
 
-/* Enhanced reflection effects */
 .reflection {
   @apply absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 
          group-hover:opacity-100 transition-opacity duration-300;
 }
 
-/* Enhanced glow effects */
 .glow-effect {
   @apply absolute -inset-px bg-gradient-to-r from-primary via-purple-500 to-pink-500 
          opacity-75 blur group-hover:opacity-100 transition-all duration-300;
+}
+
+.card-gradient {
+  @apply bg-gradient-to-br from-card to-secondary/80 backdrop-blur-sm;
+}
+
+.hover-lift {
+  @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+}
+
+.shimmer {
+  @apply relative overflow-hidden before:absolute before:inset-0 
+         before:-translate-x-full before:animate-[shimmer_2s_infinite] 
+         before:bg-gradient-to-r before:from-transparent before:via-white/10 
+         before:to-transparent;
 }
