@@ -22,7 +22,22 @@ A fully responsive and interactive web portfolio built using **React.js** and **
 - A comprehensive list of roles, responsibilities, and contributions across various organizations.
 - Focus on project outcomes and team collaborations.
 
-### 6. **Projects**
+
+### 6. **Certificates**
+- Lists all certifications achieved, showcasing technical and personal development.
+
+### 7. **Achievements & Extracurricular Activities**
+- Highlights leadership roles, environmental contributions, and personal initiatives.
+
+### 8. **Contact Section**
+- Provides all necessary contact details:
+  - Email
+  - Phone number
+  - Address
+  - Social media links (LinkedIn, GitHub, etc.)
+
+
+### 9. **Projects**
 
 #### Student Management System
 A comprehensive system for managing student data and academic records.
@@ -35,7 +50,7 @@ A comprehensive system for managing student data and academic records.
   - Student data management with CRUD operations
 
 #### Supermarket Management System
-A comprehensive inventory and billing management system built with MERN Stack.
+A comprehensive inventory and billing management system built with MEN Stack.
 ```
 
 **Tech Stack:**
@@ -49,20 +64,8 @@ A comprehensive inventory and billing management system built with MERN Stack.
   - Comprehensive reporting features
   - Automated billing system
 
-### 7. **Certificates**
-- Lists all certifications achieved, showcasing technical and personal development.
 
-### 8. **Achievements & Extracurricular Activities**
-- Highlights leadership roles, environmental contributions, and personal initiatives.
-
-### 9. **Contact Section**
-- Provides all necessary contact details:
-  - Email
-  - Phone number
-  - Address
-  - Social media links (LinkedIn, GitHub, etc.)
-
-## Technologies Used
+### Technologies Used
 - **Frontend**: React.js, TypeScript, CSS
 - **Libraries/Frameworks**:
   - Framer Motion for animations
