@@ -7,8 +7,8 @@ const projects = [
   {
     title: "Supermarket Management System",
     date: "November 2024",
-    description: "Built advanced inventory and billing software with real-time stock updates, role-based access control, and reporting features.",
-    techStack: ["MongoDB", "Express.js", "React.js", "Node.js"],
+    description: "Built advanced inventory and billing software with real-time stock updates, Employee control, and Reporting features.",
+    techStack: ["MongoDB", "Express.js", "Node.js", "HTLM/CSS", "MEN Stack"],
     contributions: [
       "Automated stock updates post-sales to ensure accurate inventory.",
       "Integrated dashboards for administrators to monitor performance metrics.",
@@ -20,7 +20,7 @@ const projects = [
     title: "Student Management System",
     date: "October 2024",
     description: "Developed a robust platform for managing student data with features like CRUD operations, course filtering, and error handling.",
-    techStack: ["MongoDB", "Express.js", "React.js", "Node.js"],
+    techStack: ["Python", "JavaScript", "Django", "HTLM/CSS"],
     contributions: [
       "Designed a responsive user interface for seamless interaction.",
       "Implemented secure database operations to manage sensitive information.",
