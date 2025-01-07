@@ -27,53 +27,27 @@ A fully responsive and interactive web portfolio built using **React.js** and **
 #### Student Management System
 A comprehensive system for managing student data and academic records.
 
-**Folder Structure:**
-```
-student-management-system/
-├── database/         # MongoDB database configurations and models
-├── static/          # CSS, JavaScript, and other static assets
-├── templates/       # HTML templates for the web interface
-└── app.py          # Main application file (Python/Flask backend)
-```
-
 **Tech Stack:**
 - **Frontend**: HTML (46.7%), CSS (18.4%), JavaScript (1.6%)
 - **Backend**: Python (33.3%) with Flask framework
-- **Database**: MongoDB
+- **Database**: MYSQL
 - **Features**:
   - Student data management with CRUD operations
-  - Course and grade tracking
-  - Attendance management
-  - Report generation
-  - User authentication and authorization
 
 #### Supermarket Management System
 A comprehensive inventory and billing management system built with MERN Stack.
-
-**Folder Structure:**
-```
-supermarket-management/
-├── controllers/     # Request handlers and business logic
-├── models/         # MongoDB schema definitions
-├── node_modules/   # Project dependencies
-├── public/         # Static assets and client-side files
-├── routes/         # API route definitions
-├── src/           # Source code directory
-├── package.json    # Project configuration and dependencies
-└── config.js      # Configuration settings
 ```
 
 **Tech Stack:**
-- **Frontend**: React.js
+- **Frontend**: HTML / CSS
 - **Backend**: Node.js with Express.js
 - **Database**: MongoDB
 - **Features**:
   - Advanced inventory management
   - Real-time stock updates
-  - Role-based access control
+  - Employees control
   - Comprehensive reporting features
   - Automated billing system
-  - User authentication and authorization
 
 ### 7. **Certificates**
 - Lists all certifications achieved, showcasing technical and personal development.
