@@ -51,7 +51,6 @@ A comprehensive system for managing student data and academic records.
 
 #### Supermarket Management System
 A comprehensive inventory and billing management system built with MEN Stack.
-```
 
 **Tech Stack:**
 - **Frontend**: HTML / CSS
