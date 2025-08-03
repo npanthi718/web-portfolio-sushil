@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - echo "Installing dependencies..."
+    - npm install
+    - echo "Building project..."
+    - npm run build
+    - echo "Copying build to public_html..."
+    - cp -r build/* ../../public_html/
