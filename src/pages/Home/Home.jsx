@@ -270,24 +270,25 @@ function Home() {
         {
             name: 'AI in Current Technology (Advanced AI Technologies)',
             institution: 'Be10X',
-            date: 'March 2025 - Aug 2025',
+            date: 'August 2025 - February 2026',
+        },
+
+        {
+            name: 'Full Stack Development (MERN Stack)',
+            institution: 'Apna College',
+            date: 'February 2025 - July 2025',
         },
 
         {
             name: 'Data Structures and Algorithms (DSA)',
             institution: 'Apna College',
-            date: 'Oct 2024 - Feb 2025',
-        },
-        {
-            name: 'Full Stack Development (MERN Stack)',
-            institution: 'Apna College',
-            date: 'Feb 2025 - July 2025',
+            date: 'October 2024 - February 2025',
         },
 
         {
             name: 'Advanced Power BI',
             institution: 'JatanSah',
-            date: 'Jan 2024 - July 2024',
+            date: 'January 2024 - October 2024',
         },
     ];
 
