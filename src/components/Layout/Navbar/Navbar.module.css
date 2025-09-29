@@ -221,6 +221,7 @@
 }
 
 /* Burger Button Styles (for smaller screens) */
+
 .burgerButton {
     display: none;
     /* Hidden by default on larger screens */
@@ -230,11 +231,26 @@
     color: var(--text-color);
     cursor: pointer;
     font-size: 1.4rem;
-    /* Increased burger button size */
     height: auto;
 }
 
-.burgerButton:hover {
+.burgerButton:hover .burgerIcon {
+    color: var(--accent-color);
+}
+
+.burgerIcon {
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+/* Ensure cross icon uses same color as burger */
+
+.sidebarClose .burgerIcon {
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+.sidebarClose:hover .burgerIcon {
     color: var(--accent-color);
 }
 
