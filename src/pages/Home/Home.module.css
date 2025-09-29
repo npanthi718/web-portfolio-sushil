@@ -231,11 +231,34 @@ html {
     text-align: center;
 }
 
+/* Responsive skills grid */
+/* Responsive skills grid - fix overflow */
 .skillsGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    justify-items: center;
     margin-top: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 480px) {
+    .skillsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .skillsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .skillsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 /* ----------------------------------------------------- */
@@ -625,7 +648,8 @@ html {
 .feedbackMessage {
     margin-top: 18px;
     padding: 14px 22px;
-    background: var(--accent-color);;
+    background: var(--accent-color);
+    ;
     color: #0f0e0e;
     border-radius: 7px;
     font-size: 1rem;

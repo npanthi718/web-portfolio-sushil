@@ -1,3 +1,116 @@
+/* Sidebar hamburger menu styles */
+.sidebarOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 1999;
+    transition: opacity 0.3s;
+}
+
+/* Hide sidebar by default */
+.sidebarMenu {
+    position: fixed;
+    top: 0;
+    right: -340px;
+    width: 320px;
+    height: 100vh;
+    background: var(--secondary-color);
+    box-shadow: -2px 0 16px rgba(0, 0, 0, 0.12);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 24px 24px 24px;
+    transition: right 0.35s cubic-bezier(.77, 0, .18, 1);
+    overflow-y: auto;
+}
+
+.sidebarOpen {
+    right: 0;
+    display: flex;
+}
+
+.sidebarClose {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2010;
+}
+
+.sidebarLinks {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.sidebarLinks .navLink {
+    display: block;
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1.08rem;
+    text-align: left;
+    border-radius: 6px;
+    color: var(--text-color);
+    background: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebarLinks .navLink:hover {
+    background: var(--primary-color);
+    color: var(--accent-color);
+}
+
+.sidebarActions {
+    margin-top: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.sidebarActions .resumeButton {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 1.05rem;
+    padding: 10px 0;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .navLinks {
+        display: none !important;
+    }
+
+    .burgerButton {
+        display: block;
+        position: absolute;
+        top: 18px;
+        right: 28px;
+        z-index: 2100;
+        margin-right: 0;
+        background: none;
+        border: none;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 /* src/components/Layout/Navbar/Navbar.module.css */
 .navbar {
     position: fixed;
@@ -153,7 +266,7 @@
         /* Position burger button */
         top: 15px;
         /* Adjust top position */
-        right: 20px;
+        right: 50px;
         /* Adjust right position */
     }
 
@@ -178,50 +291,52 @@
     /* Mobile menu when open */
     .navLinksMobile {
         display: flex;
-        /* Show nav links when menu is open */
-        max-height: 600px;
-        /* Increased max-height for more links - adjust as needed */
-        padding: 20px 0;
-        /* Add vertical padding when menu is open */
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--secondary-color);
+        z-index: 2000;
+        padding: 60px 0 0 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
         overflow-y: auto;
-        /* Enable vertical scroll if menu content exceeds max-height */
+        align-items: center;
+        justify-content: flex-start;
+        max-height: none;
     }
 
 
-    .navLinks li {
+    .navLinksMobile li {
         margin-left: 0;
-        margin-bottom: 15px;
-        /* Spacing between links in mobile menu */
+        margin-bottom: 18px;
         height: auto;
     }
 
-    .navLink {
+    .navLinksMobile .navLink {
         display: block;
-        /* Make nav links full width in mobile menu */
-        padding: 12px 20px;
-        /* Adjusted padding for mobile nav links */
+        padding: 16px 32px;
+        font-size: 1.15rem;
         text-align: center;
-        /* Center text in mobile nav links */
+        border-radius: 8px;
+        background: none;
+        color: var(--text-color);
     }
 
-    .navActions {
+    .navLinksMobile .navActions {
         display: flex;
-        /* Show Resume and Theme Toggle buttons in mobile menu */
         flex-direction: column;
-        /* Stack actions vertically in mobile menu */
         align-items: center;
-        /* Center actions horizontally */
-        margin-top: 15px;
-        /* Add spacing above actions in mobile menu */
+        margin-top: 20px;
     }
 
-    .resumeButton {
+    .navLinksMobile .resumeButton {
         margin-left: 0;
-        /* Remove left margin for button in mobile menu */
-        margin-bottom: 10px;
-        /* Add bottom margin between buttons if stacked */
+        margin-bottom: 12px;
         margin-right: 0;
-        /* Remove right margin */
+        padding: 10px 18px;
+        font-size: 1.08rem;
     }
 }
 
