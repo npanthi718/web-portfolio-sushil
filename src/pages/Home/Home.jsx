@@ -44,7 +44,7 @@ function Home() {
             title: 'Emotion-Based Mental Health Tracker',
             technologies: ['React', 'TypeScript', 'Vite', 'Material-UI', 'Recharts', 'JWT', 'localStorage (simulated DB)', 'Tailwind CSS'],
             liveLink: 'https://comfy-bublanina-beb58b.netlify.app/',
-            githubLink: 'REPLACE_WITH_YOUR_REPO_URL',
+            githubLink: 'https://github.com/npanthi718/AI-Powered-Mental-Health-Assesment-Platform',
             keyContributions: [
                 'Emotion-first risk assessment with automatic webcam emotion analysis on login, 8-question survey, instant personalized risk score and recommendations.',
                 'Closed-loop improvement workflow with camera-monitored guided activities, 5-question emotion retest, quantified pre/post improvement and visual comparisons.',
