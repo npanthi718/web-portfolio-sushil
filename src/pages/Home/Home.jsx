@@ -41,6 +41,20 @@ function Home() {
     const projectsData = [
 
         {
+            title: 'Emotion-Based Mental Health Tracker',
+            technologies: ['React', 'TypeScript', 'Vite', 'Material-UI', 'Recharts', 'JWT', 'localStorage (simulated DB)', 'Tailwind CSS'],
+            liveLink: 'https://comfy-bublanina-beb58b.netlify.app/',
+            githubLink: 'REPLACE_WITH_YOUR_REPO_URL',
+            keyContributions: [
+                'Emotion-first risk assessment with automatic webcam emotion analysis on login, 8-question survey, instant personalized risk score and recommendations.',
+                'Closed-loop improvement workflow with camera-monitored guided activities, 5-question emotion retest, quantified pre/post improvement and visual comparisons.',
+                'Iterative personalized recommendations via dynamic re-assessment loop delivering targeted interventions and next-step guidance to reduce user risk.',
+                'Secure analytics-backed platform with role-based authentication, protected admin dashboard, persistent localStorage data and exportable real-time dashboards.'
+            ]
+        },
+
+
+        {
             title: 'LumbiniCare Connect: Lumbini Nepal Hospital',
             technologies: ['MERN Stack', 'MongoDB', 'Express.js', 'React.js', 'Node.js', 'Material-UI', 'JWT Authentication', 'RESTful APIs'],
             liveLink: 'https://lumbini-nepal-hospital-mern-stack-project.onrender.com/',
