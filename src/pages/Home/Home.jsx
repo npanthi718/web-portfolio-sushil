@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Home.module.css';
-import profileImage from '../../assets/profile-image.jpg';
+import profileImage from '../../assets/photo.png';
 import SkillCard from '../../components/SkillCard/SkillCard';
 import ProjectCard from '../../components/ProjectCard/ProjectCard';
 import CourseCard from '../../components/CourseCard/CourseCard';
