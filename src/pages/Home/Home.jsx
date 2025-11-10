@@ -43,7 +43,7 @@ function Home() {
         {
             title: 'Emotion-Based Mental Health Tracker',
             technologies: ['React', 'TypeScript', 'Vite', 'Material-UI', 'Recharts', 'JWT', 'localStorage (simulated DB)', 'Tailwind CSS'],
-            liveLink: 'https://comfy-bublanina-beb58b.netlify.app/',
+            liveLink: 'https://ai-powered-mental-healthtest-bysushil.netlify.app/',
             githubLink: 'https://github.com/npanthi718/AI-Powered-Mental-Health-Assesment-Platform',
             keyContributions: [
                 'Emotion-first risk assessment with automatic webcam emotion analysis on login, 8-question survey, instant personalized risk score and recommendations.',
@@ -311,7 +311,7 @@ function Home() {
             title: 'A Blockchain-Driven Decentralized Framework for Secure and Automated Spectrum Trading in 6G Wireless Networks Using Automata Theory',
             organizer: 'International Conference on Advances in Computational Intelligence and Applications-2025',
             institution: 'Insitute of Information Technology & Management(IITM), GGS Indraprastha University, New Delhi',
-            date: 'November 7, 2025 (accepted yet to be presented)',
+            date: 'November 8 & 9, 2025',
             location: 'Online Presentation',
             description: [
                 'Developed a blockchain-based decentralized framework for secure and automated spectrum trading in 6G networks using smart contracts and finite state automata for verification.',
