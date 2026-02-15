@@ -51,7 +51,7 @@ function Home() {
             liveLink: 'https://skillnexus-learn-and-earn-with-humans-1.onrender.com/',
             githubLink: 'https://github.com/npanthi718/SkillNexus--Learn-and-Earn-with-Humans',
             keyContributions: [
-                'Built a peer-to-peer learning marketplace where people learn directly from humans (not prerecorded videos), with mobile-first UI, width-safe layouts, svh auth modal, and refresh-stable routing so users stay on their page without 404s.',
+                'Built a peer-to-peer learning marketplace where people learn directly from humans (not prerecorded videos), with mobile-first UI, width-safe layouts.',
                 'Engineered a unified friendship + notification lifecycle with request/accept/reject/cancel endpoints, auto-delete pending notifications on cancel, single-item status that persists across refresh, relation-based syncing, duplicate suppression, and event-driven/visibility refresh.',
                 'Implemented secure, reliable platform foundations using JWT auth, protected admin areas with token validation, Mongoose data models, scrollable one-line filters for clean discovery, consistent purple brand styling, accessible contrast, and larger tap targets.',
                 'Delivered end-to-end performance and quality with removed noisy SSE 404s, optimized axios base/proxy, added toasts and disabled buttons during network calls, ran lint/QA across routes, and verified production behavior post-deploy.',
