@@ -40,6 +40,25 @@ function Home() {
 
     const projectsData = [
 
+
+        {
+            title: 'SkillNexus - Learn from Humans',
+            technologies: [
+                'React', 'Vite', 'React Router (HashRouter)', 'Axios',
+                'Node.js', 'Express', 'MongoDB', 'Mongoose', 'JWT',
+                'CSS utility classes'
+            ],
+            liveLink: 'https://skillnexus-learn-and-earn-with-humans-1.onrender.com/',
+            githubLink: 'https://github.com/npanthi718/SkillNexus--Learn-and-Earn-with-Humans',
+            keyContributions: [
+                'Built a peer-to-peer learning marketplace where people learn directly from humans (not prerecorded videos), with mobile-first UI, width-safe layouts, svh auth modal, and refresh-stable routing so users stay on their page without 404s.',
+                'Engineered a unified friendship + notification lifecycle with request/accept/reject/cancel endpoints, auto-delete pending notifications on cancel, single-item status that persists across refresh, relation-based syncing, duplicate suppression, and event-driven/visibility refresh.',
+                'Implemented secure, reliable platform foundations using JWT auth, protected admin areas with token validation, Mongoose data models, scrollable one-line filters for clean discovery, consistent purple brand styling, accessible contrast, and larger tap targets.',
+                'Delivered end-to-end performance and quality with removed noisy SSE 404s, optimized axios base/proxy, added toasts and disabled buttons during network calls, ran lint/QA across routes, and verified production behavior post-deploy.',
+            ]
+        },
+
+
         {
             title: 'Emotion-Based Mental Health Tracker',
             technologies: ['React', 'TypeScript', 'Vite', 'Material-UI', 'Recharts', 'JWT', 'localStorage (simulated DB)', 'Tailwind CSS'],
@@ -121,6 +140,32 @@ function Home() {
     ];
 
     const experienceData = [
+
+        {
+            title: 'Agentic AI Intern',
+            company: 'Innomatics Research Labs',
+            date: '02/2026 - Present',
+            location: 'Remote',
+            description: [
+                'Developing advanced AI agents and workflows utilizing Python, LangChain, and LangGraph to automate complex reasoning tasks.',
+                'Architecting and deploying scalable backend services and APIs using FastAPI to power AI-driven applications.',
+                'Leveraging AWS cloud infrastructure to support the training, testing, and deployment of agentic systems.',
+                'Collaborating on the end-to-end development of AI products, from initial concept and Python programming to production-ready deployments.',
+            ],
+        },
+
+        {
+            title: 'Data Science with GenAI Intern',
+            company: 'Innomatics Research Labs',
+            date: '11/2025 - Present',
+            location: 'Remote',
+            description: [
+                'Engaged in the development of Data Science and Generative AI-driven projects, focusing on building intelligent solutions and optimizing machine learning models.',
+                'Collaborated on high-impact products involving Artificial Intelligence and Machine Learning to bridge the gap between complex data and user-centric applications.',
+                'Applied advanced concepts in GenAI to enhance project functionalities and contribute to the end-to-end development lifecycle of data products.',
+                'Worked within an agile, virtual environment to execute technical tasks and upskill in emerging AI technologies.',
+            ],
+        },
 
         {
             title: 'Tech Intern',
