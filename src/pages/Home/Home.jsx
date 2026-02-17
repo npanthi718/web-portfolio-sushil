@@ -76,8 +76,8 @@ function Home() {
         {
             title: 'LumbiniCare Connect: Lumbini Nepal Hospital',
             technologies: ['MERN Stack', 'MongoDB', 'Express.js', 'React.js', 'Node.js', 'Material-UI', 'JWT Authentication', 'RESTful APIs'],
-            liveLink: 'https://lumbini-nepal-hospital-mern-stack-project.onrender.com/',
-            githubLink: 'https://github.com/npanthi718/Lumbini-Nepal-Hospital--MERN-Stack-Project',
+            liveLink: 'https://lumbinicare-connect-lumbini-nepal-tlj9.onrender.com/',
+            githubLink: 'https://github.com/npanthi718/LumbiniCare-Connect-Lumbini-Nepal-Hospital',
             keyContributions: [
                 'Built a full-stack hospital management system enabling efficient management of appointments, prescriptions, and departments.',
                 'Implemented secure authentication and role-based access control (RBAC) using JWT for data privacy and restricted access.',
