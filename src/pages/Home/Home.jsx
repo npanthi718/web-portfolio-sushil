@@ -65,13 +65,13 @@ function Home() {
                 'React', 'Vite', 'Node.js (ESM)', 'Express', 'Socket.io',
                 'MongoDB', 'Mongoose', 'JWT', 'Bcrypt', 'Tailwind/MUI'
             ],
-            liveLink: 'https://algocare.onrender.com/', // Replace with your actual live link
-            githubLink: 'https://github.com/npanthi718/AlgoCare--Reducing-the-Wait-Prioritizing-the-Life-', // Replace with your actual repo link
+            liveLink: 'https://algocare.onrender.com/',
+            githubLink: 'https://github.com/npanthi718/AlgoCare--Reducing-the-Wait-Prioritizing-the-Life-',
             keyContributions: [
-                'Developed an intelligent hospital resource and queue management SaaS for Track 3 of HackGenX 2026, delivering tailored dashboards for Patients, Doctors, and Administrators[cite: 5, 178, 183].',
-                'Engineered a self-correcting queue engine using a Moving Average Algorithm that calculates high-precision patient ETAs based on the actual completion speed of the last five consultations[cite: 34, 188, 198].',
-                'Implemented zero-latency real-time synchronization using Socket.io, enabling instant cross-dashboard updates for token status, bed availability, and resource levels without page refreshes[cite: 7, 12, 206].',
-                'Built a secure, modular foundation using a Controller-Service-Repository pattern with JWT-based role-based access control (RBAC) and automated history linking via email-based patient identification[cite: 21, 203, 205, 207].',
+                'Developed an intelligent hospital resource and queue management SaaS for Track 3 of HackGenX 2026, delivering tailored dashboards for Patients, Doctors, and Administrators.',
+                'Engineered a self-correcting queue engine using a Moving Average Algorithm that calculates high-precision patient ETAs based on the actual completion speed of the last five consultations.',
+                'Implemented zero-latency real-time synchronization using Socket.io, enabling instant cross-dashboard updates for token status, bed availability, and resource levels without page refreshes.',
+                'Built a secure, modular foundation using a Controller-Service-Repository pattern with JWT-based role-based access control (RBAC) and automated history linking via email-based patient identification.',
             ]
         },
 
