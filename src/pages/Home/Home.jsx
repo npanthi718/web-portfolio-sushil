@@ -7,6 +7,12 @@ import CourseCard from '../../components/CourseCard/CourseCard';
 import EducationCard from '../../components/EducationCard/EducationCard';
 import { motion } from 'framer-motion';
 import { ReactTyped } from 'react-typed';
+import emailjs from 'emailjs-com';
+
+const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+const EMAILJS_ADMIN_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID || 'template_ff6ip5a';
 
 function Home() {
     const categorizedSkillsData = { // Categorized skills data
@@ -429,17 +435,154 @@ function Home() {
         message: '',
     });
     const [feedback, setFeedback] = useState('');
+    const [feedbackType, setFeedbackType] = useState('success');
+    const [debugHint, setDebugHint] = useState('');
+    const [isSending, setIsSending] = useState(false);
+    const [fieldErrors, setFieldErrors] = useState({
+        name: '',
+        email: '',
+        message: '',
+    });
 
-    const handleChange = (e) => {  // Handle form input changes
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const buildTemplateDebugHint = (confirmationFailed, adminFailed) => {
+        const failedTemplates = [];
+
+        if (confirmationFailed) {
+            failedTemplates.push(`confirmation (${EMAILJS_TEMPLATE_ID})`);
+        }
+
+        if (adminFailed) {
+            failedTemplates.push(`admin (${EMAILJS_ADMIN_TEMPLATE_ID})`);
+        }
+
+        return failedTemplates.length > 0
+            ? `Debug: failed template(s): ${failedTemplates.join(', ')}`
+            : '';
     };
 
-    const handleSubmit = (e) => { // Handle form submission
+    const handleChange = (e) => {  // Handle form input changes
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        if (fieldErrors[name]) {
+            setFieldErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+        }
+    };
+
+    const validateForm = () => {
+        const errors = { name: '', email: '', message: '' };
+        const name = formData.name.trim();
+        const email = formData.email.trim();
+        const message = formData.message.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (name.length < 2) {
+            errors.name = 'Name must be at least 2 characters.';
+        }
+
+        if (!emailPattern.test(email)) {
+            errors.email = 'Enter a valid email address.';
+        }
+
+        if (message.length < 10) {
+            errors.message = 'Message must be at least 10 characters.';
+        }
+
+        return errors;
+    };
+
+    const handleSubmit = async (e) => { // Handle form submission
         e.preventDefault();
-        console.log("Form Data:", formData);
-        setFormData({ name: '', email: '', message: '' });
-        setFeedback("Thank you! Form submitted. We'll reach out within 48 hours.");
-        setTimeout(() => setFeedback(''), 4000);
+
+        const errors = validateForm();
+        const hasErrors = Object.values(errors).some((value) => Boolean(value));
+
+        if (hasErrors) {
+            setFieldErrors(errors);
+            setFeedbackType('error');
+            setDebugHint('');
+            setFeedback('Please fix the highlighted fields and try again.');
+            return;
+        }
+
+        if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_ADMIN_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+            setFeedbackType('error');
+            setDebugHint('');
+            setFeedback('Email service is not configured. Add REACT_APP_EMAILJS_* values in your .env file.');
+            return;
+        }
+
+        try {
+            setIsSending(true);
+            setDebugHint('');
+            setFieldErrors({ name: '', email: '', message: '' });
+            const templateParams = {
+                from_name: formData.name.trim(),
+                from_email: formData.email.trim(),
+                email: formData.email.trim(),
+                reply_to: formData.email.trim(),
+                message: formData.message.trim(),
+            };
+
+            const [confirmationResult, adminResult] = await Promise.allSettled([
+                emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_TEMPLATE_ID,
+                    templateParams,
+                    EMAILJS_PUBLIC_KEY
+                ),
+                emailjs.send(
+                    EMAILJS_SERVICE_ID,
+                    EMAILJS_ADMIN_TEMPLATE_ID,
+                    templateParams,
+                    EMAILJS_PUBLIC_KEY
+                ),
+            ]);
+
+            if (confirmationResult.status === 'rejected' || adminResult.status === 'rejected') {
+                const confirmationFailed = confirmationResult.status === 'rejected';
+                const adminFailed = adminResult.status === 'rejected';
+
+                console.error('EmailJS partial failure:', {
+                    confirmationError: confirmationFailed ? confirmationResult.reason : null,
+                    adminError: adminFailed ? adminResult.reason : null,
+                });
+
+                setFeedbackType('error');
+                setDebugHint(buildTemplateDebugHint(confirmationFailed, adminFailed));
+                if (confirmationFailed && adminFailed) {
+                    setFeedback('Failed to send both confirmation and admin notification. Please try again.');
+                } else if (confirmationFailed) {
+                    setFeedback('Your message reached admin, but confirmation email failed.');
+                } else {
+                    setFeedback('Confirmation email sent, but admin notification failed.');
+                }
+                return;
+            }
+
+            setFeedbackType('success');
+            setDebugHint('');
+            setFeedback("Message sent! You will receive a confirmation email, and admin has been notified.");
+            setFormData({ name: '', email: '', message: '' });
+        } catch (error) {
+            console.error('EmailJS send failed:', error);
+            const status = error?.status ? ` (status ${error.status})` : '';
+            const reason = error?.text || error?.message || 'Unknown error';
+            const isAuthError = error?.status === 401 || error?.status === 403;
+
+            setFeedbackType('error');
+            setDebugHint('Debug: request failed before template status resolution. Check EmailJS response in console.');
+            setFeedback(
+                isAuthError
+                    ? 'Failed to send: check EmailJS Public Key and allowed origins in EmailJS dashboard.'
+                    : `Failed to send${status}: ${reason}`
+            );
+        } finally {
+            setIsSending(false);
+            setTimeout(() => {
+                setFeedback('');
+                setDebugHint('');
+            }, 4000);
+        }
     };
 
 
@@ -911,8 +1054,10 @@ function Home() {
                                 className={styles.formInput}
                                 value={formData.name}
                                 onChange={handleChange}
+                                aria-invalid={Boolean(fieldErrors.name)}
                                 required
                             />
+                            {fieldErrors.name && <p className={styles.fieldError}>{fieldErrors.name}</p>}
                         </div>
                         <div className={styles.formGroup}>
                             <label htmlFor="email" className={styles.formLabel}>Email</label>
@@ -923,8 +1068,10 @@ function Home() {
                                 className={styles.formInput}
                                 value={formData.email}
                                 onChange={handleChange}
+                                aria-invalid={Boolean(fieldErrors.email)}
                                 required
                             />
+                            {fieldErrors.email && <p className={styles.fieldError}>{fieldErrors.email}</p>}
                         </div>
                         <div className={styles.formGroup}>
                             <label htmlFor="message" className={styles.formLabel}>Message</label>
@@ -935,28 +1082,32 @@ function Home() {
                                 className={styles.formTextarea}
                                 value={formData.message}
                                 onChange={handleChange}
+                                aria-invalid={Boolean(fieldErrors.message)}
                                 required
                             />
+                            {fieldErrors.message && <p className={styles.fieldError}>{fieldErrors.message}</p>}
                         </div>
                         <motion.button
                             type="submit"
                             className={styles.submitButton}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
+                            disabled={isSending}
+                            whileHover={!isSending ? { scale: 1.05 } : undefined}
+                            whileTap={!isSending ? { scale: 0.95 } : undefined}
                             transition={{ duration: 0.3 }}
                         >
-                            Get Connected
+                            {isSending ? 'Sending...' : 'Get Connected'}
                         </motion.button>
                     </motion.form>
                     {feedback && (
                         <motion.div
-                            className={styles.feedbackMessage}
+                            className={`${styles.feedbackMessage} ${feedbackType === 'error' ? styles.feedbackError : styles.feedbackSuccess}`}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.5 }}
                         >
-                            {feedback}
+                            <p>{feedback}</p>
+                            {debugHint && <p className={styles.debugHint}>{debugHint}</p>}
                         </motion.div>
                     )}
                 </motion.div>

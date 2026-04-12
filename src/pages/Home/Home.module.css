@@ -644,23 +644,47 @@ html {
     resize: vertical;
 }
 
+.fieldError {
+    margin-top: 6px;
+    color: #ff6b6b;
+    font-size: 0.8rem;
+    text-align: left;
+}
+
 /* Stylish feedback message for contact form */
 .feedbackMessage {
     margin-top: 18px;
     padding: 14px 22px;
-    background: var(--accent-color);
-    ;
     color: #0f0e0e;
     border-radius: 7px;
     font-size: 1rem;
     font-weight: 600;
-    box-shadow: 0 2px 8px rgba(56, 176, 0, 0.12);
     text-align: center;
     letter-spacing: 0.2px;
     opacity: 0.97;
-    border: 1px solid #38b000;
     transition: opacity 0.5s, transform 0.5s;
     z-index: 2;
+}
+
+.feedbackSuccess {
+    background: var(--accent-color);
+    border: 1px solid #38b000;
+    box-shadow: 0 2px 8px rgba(56, 176, 0, 0.12);
+}
+
+.feedbackError {
+    background: #ffdddd;
+    color: #3b1111;
+    border: 1px solid #ff8f8f;
+    box-shadow: 0 2px 8px rgba(200, 0, 0, 0.12);
+}
+
+.debugHint {
+    margin-top: 6px;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    opacity: 0.85;
 }
 
 .submitButton,
@@ -689,6 +713,22 @@ html {
     background-color: var(--accent-hover-color);
     transform: translateY(-1.5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.submitButton:disabled,
+.submitButton[disabled] {
+    cursor: not-allowed;
+    opacity: 0.7;
+    filter: grayscale(20%);
+    transform: none;
+    box-shadow: none;
+}
+
+.submitButton:disabled:hover,
+.submitButton[disabled]:hover {
+    background-color: var(--accent-color);
+    transform: none;
+    box-shadow: none;
 }
 
 /* Stylish Google Form box below contact form */
