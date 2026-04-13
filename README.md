@@ -70,27 +70,28 @@ To run this project locally:
     Create a `.env` file in the project root and add the following values:
 
     ```env
-    REACT_APP_EMAILJS_SERVICE_ID=your_service_id
-    REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
-    REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID=template_ff6ip5a
-    REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+    VITE_EMAILJS_SERVICE_ID=your_service_id
+    VITE_EMAILJS_TEMPLATE_ID=your_template_id
+    VITE_EMAILJS_ADMIN_TEMPLATE_ID=template_ff6ip5a
+    VITE_EMAILJS_PUBLIC_KEY=your_public_key
     ```
 
-    You can copy `.env.example` and replace placeholder values.
+You can copy `.env.example` and replace placeholder values.
+Legacy `REACT_APP_EMAILJS_*` keys are also supported for backward compatibility.
 
 5.  **Start the development server:**
 
     ```bash
-    npm start
+    npm run dev
     ```
 
     or
 
     ```bash
-    yarn start
+    yarn dev
     ```
 
-6.  **Open in your browser:** Visit `http://localhost:3000` in your web browser to view the portfolio.
+6.  **Open in your browser:** Visit `http://localhost:5173` in your web browser to view the portfolio.
 
 ## Usage
 
@@ -99,6 +100,29 @@ To use the portfolio website:
 - **Navigation:** Use the navigation links in the header to explore different sections: "About", "Skills", "Projects", "Experience", "Education", "Achievements", "Certificates", "Courses", and "Contact".
 - **Project Details:** Click on project cards in the "Projects" section to view more details about each project.
 - **Contact Form:** Fill out the contact form in the "Contact" section to send me a message directly through the website.
+
+## Updating Assets (Photo / Resume)
+
+- **Profile photo (multiple extensions supported):**
+  - Add your image in `src/assets` using one of these names:
+    - `profile-source.avif`
+    - `profile-source.webp`
+    - `profile-source.jpg` / `profile-source.jpeg`
+    - `profile-source.png`
+  - Then run:
+    - `npm run optimize:images`
+  - This generates optimized files used by the app:
+    - `photo.avif`
+    - `photo.webp`
+    - `photo.jpg`
+
+- **Resume file (auto extension support):**
+  - Put your resume in `src/assets` and include `resume` in the filename.
+  - Supported file types:
+    - `.pdf`
+    - `.doc`
+    - `.docx`
+  - Navbar button auto-detects the resume file and uses its extension automatically.
 
 ## Credits and Acknowledgements
 

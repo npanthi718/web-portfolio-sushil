@@ -1,18 +1,55 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import styles from './Home.module.css';
-import profileImage from '../../assets/photo.png';
-import SkillCard from '../../components/SkillCard/SkillCard';
-import ProjectCard from '../../components/ProjectCard/ProjectCard';
-import CourseCard from '../../components/CourseCard/CourseCard';
-import EducationCard from '../../components/EducationCard/EducationCard';
 import { motion } from 'framer-motion';
-import { ReactTyped } from 'react-typed';
 import emailjs from 'emailjs-com';
+import BoltRoundedIcon from '@mui/icons-material/BoltRounded';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+import WorkRoundedIcon from '@mui/icons-material/WorkRounded';
+import BusinessCenterRoundedIcon from '@mui/icons-material/BusinessCenterRounded';
+import SchoolRoundedIcon from '@mui/icons-material/SchoolRounded';
+import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRounded';
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
+import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
+import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import CallRoundedIcon from '@mui/icons-material/CallRounded';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
-const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-const EMAILJS_ADMIN_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID || 'template_ff6ip5a';
+const SkillCard = lazy(() => import('../../components/SkillCard/SkillCard'));
+const ProjectCard = lazy(() => import('../../components/ProjectCard/ProjectCard'));
+const CourseCard = lazy(() => import('../../components/CourseCard/CourseCard'));
+const EducationCard = lazy(() => import('../../components/EducationCard/EducationCard'));
+const ReactTyped = lazy(() => import('react-typed').then((module) => ({ default: module.ReactTyped })));
+
+const photoCandidates = import.meta.glob('../../assets/photo.{avif,webp,jpg,jpeg,png}', {
+    eager: true,
+    import: 'default',
+});
+
+const pickPhotoByExt = (ext) => {
+    const found = Object.entries(photoCandidates).find(([path]) => path.toLowerCase().endsWith(`.${ext}`));
+    return found ? found[1] : null;
+};
+
+const profileImageAvif = pickPhotoByExt('avif');
+const profileImageWebp = pickPhotoByExt('webp');
+const profileImageFallback =
+    pickPhotoByExt('jpg') ||
+    pickPhotoByExt('jpeg') ||
+    pickPhotoByExt('png') ||
+    profileImageWebp ||
+    profileImageAvif ||
+    '';
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || import.meta.env.REACT_APP_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || import.meta.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+const EMAILJS_ADMIN_TEMPLATE_ID =
+    import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID ||
+    import.meta.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID ||
+    'template_ff6ip5a';
 
 function Home() {
     const categorizedSkillsData = { // Categorized skills data
@@ -507,7 +544,7 @@ function Home() {
         if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_ADMIN_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
             setFeedbackType('error');
             setDebugHint('');
-            setFeedback('Email service is not configured. Add REACT_APP_EMAILJS_* values in your .env file.');
+            setFeedback('Email service is not configured. Add VITE_EMAILJS_* (or REACT_APP_EMAILJS_*) values in your .env file.');
             return;
         }
 
@@ -596,14 +633,23 @@ function Home() {
                 transition={{ duration: 0.8, delay: 0.4 }}
             >
                 <div className={styles.intro}>
-                    <motion.img
-                        src={profileImage}
-                        alt="Sushil Panthi"
-                        className={styles.profileImage}
+                    <motion.picture
                         initial={{ opacity: 0, x: -100 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.7, delay: 0.6, type: 'spring', stiffness: 80 }}
-                    />
+                    >
+                        {profileImageAvif && <source srcSet={profileImageAvif} type="image/avif" />}
+                        {profileImageWebp && <source srcSet={profileImageWebp} type="image/webp" />}
+                        <img
+                            src={profileImageFallback}
+                            alt="Sushil Panthi"
+                            className={styles.profileImage}
+                            width="3439"
+                            height="4064"
+                            loading="eager"
+                            decoding="async"
+                        />
+                    </motion.picture>
                     <div className={styles.text}>
                         <motion.h1
                             className={styles.name}
@@ -612,15 +658,17 @@ function Home() {
                             transition={{ duration: 0.7, delay: 0.8, type: 'spring', stiffness: 100 }}
                         >
                             Hi, I'm{' '}
-                            <ReactTyped
-                                strings={['Sushil Panthi']}
-                                typeSpeed={100}
-                                backSpeed={50}
-                                startDelay={1000}
-                                backDelay={3500}
-                                loop={true}
-                                showCursor={false}
-                            />
+                            <Suspense fallback="Sushil Panthi">
+                                <ReactTyped
+                                    strings={['Sushil Panthi']}
+                                    typeSpeed={100}
+                                    backSpeed={50}
+                                    startDelay={1000}
+                                    backDelay={3500}
+                                    loop={true}
+                                    showCursor={false}
+                                />
+                            </Suspense>
                         </motion.h1>
 
                         {/* Typing effect for "Full Stack Developer (MERN)" and "Power BI Developer" */}
@@ -630,15 +678,17 @@ function Home() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 1.0, type: 'spring', stiffness: 100 }}
                         >
-                            <ReactTyped
-                                strings={['Full Stack Developer (MERN)', 'Power BI Developer']}
-                                typeSpeed={100}
-                                backSpeed={50}
-                                startDelay={1000}
-                                backDelay={3500}
-                                loop={true}
-                                showCursor={false}
-                            />
+                            <Suspense fallback="Full Stack Developer (MERN)">
+                                <ReactTyped
+                                    strings={['Full Stack Developer (MERN)', 'Power BI Developer']}
+                                    typeSpeed={100}
+                                    backSpeed={50}
+                                    startDelay={1000}
+                                    backDelay={3500}
+                                    loop={true}
+                                    showCursor={false}
+                                />
+                            </Suspense>
                             {' '}| Open to Relocation
                         </motion.p>
                         <motion.p
@@ -668,7 +718,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    About Me
+                    <span className={styles.titleWithIcon}><PersonRoundedIcon /> About Me</span>
                 </motion.h2>
                 <motion.div
                     className={styles.content}
@@ -699,16 +749,16 @@ function Home() {
                         <h3>Contact Information</h3>
                         <ul className={styles.contactList}>
                             <li className={styles.contactListItem}>
-                                <strong>Email:</strong> <a href="mailto:npanthi718@gmail.com">npanthi718@gmail.com</a>
+                                <strong><EmailRoundedIcon fontSize="small" /> Email:</strong> <a href="mailto:npanthi718@gmail.com">npanthi718@gmail.com</a>
                             </li>
                             <li className={styles.contactListItem}>
-                                <strong>Phone:</strong> <a href='tel:+919359029905'>+91 9359029905</a>
+                                <strong><CallRoundedIcon fontSize="small" /> Phone:</strong> <a href='tel:+919359029905'>+91 9359029905</a>
                             </li>
                             <li className={styles.contactListItem}>
-                                <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sushilpanthi/" target="_blank" rel="noopener noreferrer">Sushil Panthi</a>
+                                <strong><LinkedInIcon fontSize="small" /> LinkedIn:</strong> <a href="https://www.linkedin.com/in/sushilpanthi/" target="_blank" rel="noopener noreferrer">Sushil Panthi</a>
                             </li>
                             <li className={styles.contactListItem}>
-                                <strong>GitHub:</strong> <a href="https://github.com/npanthi718" target="_blank" rel="noopener noreferrer">Sushil Panthi</a>
+                                <strong><GitHubIcon fontSize="small" /> GitHub:</strong> <a href="https://github.com/npanthi718" target="_blank" rel="noopener noreferrer">Sushil Panthi</a>
                             </li>
                         </ul>
                     </motion.div>
@@ -728,7 +778,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Skills & Expertise
+                    <span className={styles.titleWithIcon}><AutoAwesomeRoundedIcon /> Skills & Expertise</span>
                 </motion.h2>
                 <div className={styles.categorizedSkills}> {/* Container for categorized skills */}
                     {Object.entries(categorizedSkillsData).map(([category, skills], index) => (
@@ -740,9 +790,11 @@ function Home() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.1 }}
                             >
-                                {skills.map((skill, skillIndex) => (
-                                    <SkillCard key={skillIndex} skill={skill} />
-                                ))}
+                                <Suspense fallback={<p className={styles.cardLoading}>Loading skills...</p>}>
+                                    {skills.map((skill, skillIndex) => (
+                                        <SkillCard key={skillIndex} skill={skill} />
+                                    ))}
+                                </Suspense>
                             </motion.div>
                         </div>
                     ))}
@@ -762,7 +814,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Projects
+                    <span className={styles.titleWithIcon}><WorkRoundedIcon /> Projects</span>
                 </motion.h2>
                 <motion.div
                     className={styles.projectsGrid}
@@ -770,9 +822,11 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
-                    {projectsData.map((project, index) => (
-                        <ProjectCard key={index} project={project} />
-                    ))}
+                    <Suspense fallback={<p className={styles.cardLoading}>Loading projects...</p>}>
+                        {projectsData.map((project, index) => (
+                            <ProjectCard key={index} project={project} />
+                        ))}
+                    </Suspense>
                 </motion.div>
             </motion.section>
 
@@ -789,7 +843,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Experience
+                    <span className={styles.titleWithIcon}><BusinessCenterRoundedIcon /> Experience</span>
                 </motion.h2>
                 <motion.div
                     className={styles.experienceList}
@@ -822,7 +876,7 @@ function Home() {
             {/* Additional Experience Section */}
             <motion.section
                 id="additional-experience" // Unique ID for navbar link
-                className={`{styles.experience} ${styles.additionalExperience}`} // Reusing experience styles for consistency
+                className={`${styles.experience} ${styles.additionalExperience}`} // Reusing experience styles for consistency
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -833,7 +887,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Additional Experience {/* Section Title */}
+                    <span className={styles.titleWithIcon}><BusinessCenterRoundedIcon /> Additional Experience</span> {/* Section Title */}
                 </motion.h2>
                 <motion.div
                     className={styles.experienceList} // Reusing experienceList styles
@@ -877,7 +931,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Education
+                    <span className={styles.titleWithIcon}><SchoolRoundedIcon /> Education</span>
                 </motion.h2>
                 <motion.div
                     className={styles.educationList}
@@ -885,9 +939,11 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
-                    {educationData.map((edu, index) => (
-                        <EducationCard key={index} education={edu} />
-                    ))}
+                    <Suspense fallback={<p className={styles.cardLoading}>Loading education...</p>}>
+                        {educationData.map((edu, index) => (
+                            <EducationCard key={index} education={edu} />
+                        ))}
+                    </Suspense>
                 </motion.div>
             </motion.section>
 
@@ -906,7 +962,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Achievements & Extracurricular Activities {/* Section Title */}
+                    <span className={styles.titleWithIcon}><WorkspacePremiumRoundedIcon /> Achievements & Extracurricular Activities</span> {/* Section Title */}
                 </motion.h2>
                 <motion.div
                     className={styles.experienceList} // Reusing experienceList styles
@@ -950,7 +1006,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Courses {/* Section Title */}
+                    <span className={styles.titleWithIcon}><MenuBookRoundedIcon /> Courses</span> {/* Section Title */}
                 </motion.h2>
                 <motion.div
                     className={styles.courseList}
@@ -958,9 +1014,11 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
-                    {coursesData.map((course, index) => (
-                        <CourseCard key={index} course={course} />
-                    ))}
+                    <Suspense fallback={<p className={styles.cardLoading}>Loading courses...</p>}>
+                        {coursesData.map((course, index) => (
+                            <CourseCard key={index} course={course} />
+                        ))}
+                    </Suspense>
                 </motion.div>
             </motion.section>
 
@@ -979,7 +1037,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Research Papers
+                    <span className={styles.titleWithIcon}><ScienceRoundedIcon /> Research Papers</span>
                 </motion.h2>
                 <motion.div
                     className={styles.PaperList}
@@ -1025,7 +1083,7 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                    Contact Me
+                    <span className={styles.titleWithIcon}><AlternateEmailRoundedIcon /> Contact Me</span>
                 </motion.h2>
                 <motion.div
                     className={styles.contactInfo}
@@ -1113,7 +1171,7 @@ function Home() {
                 </motion.div>
                 <div className={styles.googleFormBox}>
                     <span className={styles.googleFormText}>
-                        🚀 For a faster response (within <strong>2 hours</strong>), fill out the attached Google form:
+                        <BoltRoundedIcon fontSize="small" /> For a faster response (within <strong>2 hours</strong>), fill out the attached Google form:
                     </span>
                     <a
                         href="https://forms.gle/ntuoEHJF9wqzBjtN9"

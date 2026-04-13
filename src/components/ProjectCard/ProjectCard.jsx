@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { Suspense, lazy, useState } from 'react';
 import styles from './ProjectCard.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import Popup from '../Popup/Popup';
+
+const Popup = lazy(() => import('../Popup/Popup'));
 
 function ProjectCard({ project }) {
     const [showSourceCodePopup, setShowSourceCodePopup] = useState(false);
@@ -105,18 +106,22 @@ function ProjectCard({ project }) {
             {/* Popups - Using AnimatePresence for smooth mount/unmount animations */}
             <AnimatePresence>
                 {showSourceCodePopup && (
-                    <Popup
-                        message="Source code for Face Recognition Attendance System is Coming Soon! Work in progress."
-                        onClose={closeSourceCodePopup}
-                    />
+                    <Suspense fallback={null}>
+                        <Popup
+                            message="Source code for Face Recognition Attendance System is Coming Soon! Work in progress."
+                            onClose={closeSourceCodePopup}
+                        />
+                    </Suspense>
                 )}
             </AnimatePresence>
             <AnimatePresence>
                 {showLiveDemoPopup && (
-                    <Popup
-                        message="Live demo for this project is Not deployed yet! Will be deployed soon."
-                        onClose={closeLiveDemoPopup}
-                    />
+                    <Suspense fallback={null}>
+                        <Popup
+                            message="Live demo for this project is Not deployed yet! Will be deployed soon."
+                            onClose={closeLiveDemoPopup}
+                        />
+                    </Suspense>
                 )}
             </AnimatePresence>
         </motion.div>

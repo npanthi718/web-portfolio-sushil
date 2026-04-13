@@ -3,14 +3,17 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    overflow-x: hidden;
-    background-color: var(--primary-color); /* Added: Ensure layout container background is themed */
+    overflow-x: clip;
+    background-color: var(--primary-color);
+    /* Added: Ensure layout container background is themed */
 }
 
 .mainContent {
     flex: 1;
-    padding: 20px;
-    max-width: 1200px;
+    padding: clamp(10px, 2vw, 24px);
+    max-width: 1320px;
     margin: 0 auto;
-    color: var(--text-color); /* Added: Ensure main content text color is themed */
+    color: var(--text-color);
+    /* Added: Ensure main content text color is themed */
+    width: 100%;
 }
