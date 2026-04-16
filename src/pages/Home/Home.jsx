@@ -175,7 +175,7 @@ function Home() {
                 message: formData.message.trim(),
                 submitted_at: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
                 portfolio_url: 'https://www.sushilpanthi.com',
-                response_time: '48 hours',
+                response_time: '10 hours',
             };
 
             const [confirmationResult, adminResult] = await Promise.allSettled([

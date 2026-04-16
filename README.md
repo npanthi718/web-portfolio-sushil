@@ -1,141 +1,138 @@
-# Personal Portfolio Website
+# Sushil Panthi Portfolio
 
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Live Demo](https://img.shields.io/badge/Live%20Demo-View-brightgreen)](https://web-portfolio-sushil.vercel.app/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-0ea5e9)](https://www.sushilpanthi.com)
+[![Vite](https://img.shields.io/badge/Built%20With-Vite-646CFF)](https://vitejs.dev)
 
-## Brief Project Description
+A modern, responsive portfolio website built with React and Vite to showcase projects, experience, research, and contact workflows.
 
-This is my personal portfolio website, built with React, to showcase my web development skills, projects, and experience. It provides a professional online presence for potential employers, clients, and collaborators to learn about my capabilities and work. The website features a responsive design, interactive sections, and a theme toggle for a personalized user experience.
+## Highlights
 
-## Key Features
+- Production-ready responsive layout for desktop, tablet, and mobile.
+- Polished sections for About, Skills, Projects, Experience, Education, Courses, Achievements, and Research.
+- Contact workflow with EmailJS dual delivery:
+  - Admin notification email
+  - Visitor confirmation email
+- Guided inquiry selection in contact form for faster and better replies.
+- Reusable, modular UI with CSS Modules and motion-enhanced interactions.
+- SEO and social metadata configured in the root HTML.
 
-- **Responsive Design:** Fully responsive layout, ensuring optimal viewing experience across desktops, tablets, and mobile devices.
-- **Interactive Home Section:** Engaging introduction with a dynamic overview of my skills and professional summary.
-- **Project Showcase:** Dedicated "Projects" section to display my web development projects with descriptions, technologies used, and project links.
-- **Skills Section:** Clearly outlines my technical skills and areas of expertise.
-- **Experience & Education Sections:** Highlights my professional experience and educational background in a structured and readable format.
-- **Visually Appealing Courses Section:** Showcases relevant courses with styled CourseCards, providing details about each course using bullet points for descriptions.
-- **Contact Section with Form:** A functional contact form allowing visitors to easily reach out to me, along with direct contact information.
-- **Clean and Modern Design:** A visually appealing and professional design focused on clear presentation of information and user-friendly navigation.
+## Tech Stack
 
-## Technologies Used
+- React 19
+- Vite 6
+- Framer Motion
+- MUI Icons
+- React Icons
+- EmailJS
+- Vitest + Testing Library
 
-- **Frontend:**
-  - [React] - A JavaScript library for building user interfaces
-  - [JavaScript (ES6+)]
-  - [HTML5]
-  - [CSS3] - Styled with CSS Modules for component-level styling and `global.css` for global styles.
-  - [React Context API] - Used for managing and providing it across the application.
-  - [Framer Motion] - Library for animations and transitions to enhance user experience.
+## Live Site
 
-- **Deployment:**
-  - Vercel - Platform used to deploy and host the website.
+- https://www.sushilpanthi.com
 
-- **Tools:**
-  - [VS Code] - Code Editor
-  - [npm] or [yarn] - Package Managers
-  - [Git] & [GitHub] - Version Control and Repository Hosting
-  - Browser Developer Tools - Used extensively for development, debugging, and CSS styling adjustments.
+## Project Structure
 
-## Live Demo
+- src
+  - components
+  - contexts
+  - data
+  - pages
+  - styles
+- email-templates
+  - admin-notification-template.html
+  - visitor-confirmation-template.html
+  - README.md
+- scripts
+- public
 
-[**[Live Demo For My WEB PROFILE]**](https://web-portfolio-sushil.vercel.app/)
+## Local Setup
 
-## Installation
+1. Clone repository
 
-To run this project locally:
+   git clone https://github.com/npanthi718/web-portfolio-sushil.git
+   cd web-portfolio-sushil
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [[Repository For All Project Done In Innomatics](https://github.com/npanthi718/FSD_Innomatics)]
-    ```
-2.  **Navigate to the project directory:**
+2. Install dependencies
 
-    ```bash
-    cd [Project 3_Personal Portfolio] (It is inside the Project folder of the main directoery or repo)
-    ```
+   npm install
 
-3.  **Install dependencies:**
+3. Create environment file
 
-    ```bash
-    npm install
-    ```
+   Copy .env.example to .env and fill values:
 
-    or
+   VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
+   VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+   VITE_EMAILJS_ADMIN_TEMPLATE_ID=template_xxxxxxx
+   VITE_EMAILJS_PUBLIC_KEY=xxxxxxxxxxxxxxxx
 
-    ```bash
-    yarn install
-    ```
+4. Run in development
 
-4.  **Configure EmailJS variables:**
-    Create a `.env` file in the project root and add the following values:
+   npm run dev
 
-    ```env
-    VITE_EMAILJS_SERVICE_ID=your_service_id
-    VITE_EMAILJS_TEMPLATE_ID=your_template_id
-    VITE_EMAILJS_ADMIN_TEMPLATE_ID=your_template_id
-    VITE_EMAILJS_PUBLIC_KEY=your_public_key
-    ```
+5. Build for production
 
-You can copy `.env.example` and replace placeholder values.
-Legacy `REACT_APP_EMAILJS_*` keys are also supported for backward compatibility.
+   npm run build
 
-5.  **Start the development server:**
+6. Preview production build
 
-    ```bash
-    npm run dev
-    ```
+   npm run preview
 
-    or
+## Scripts
 
-    ```bash
-    yarn dev
-    ```
+- npm run dev: start development server
+- npm run build: create production build
+- npm run preview: preview built app
+- npm run test: run tests once
+- npm run test:watch: run tests in watch mode
+- npm run optimize:images: optimize profile source images
 
-6.  **Open in your browser:** Visit `http://localhost:5173` in your web browser to view the portfolio.
+## EmailJS Setup (Quick)
 
-## Usage
+Use templates from email-templates folder.
 
-To use the portfolio website:
+- Admin template file: email-templates/admin-notification-template.html
+- Visitor template file: email-templates/visitor-confirmation-template.html
 
-- **Navigation:** Use the navigation links in the header to explore different sections: "About", "Skills", "Projects", "Experience", "Education", "Achievements", "Certificates", "Courses", and "Contact".
-- **Project Details:** Click on project cards in the "Projects" section to view more details about each project.
-- **Contact Form:** Fill out the contact form in the "Contact" section to send me a message directly through the website.
+Required variables:
 
-## Updating Assets (Photo / Resume)
+- from_name
+- email
+- from_email
+- reply_to
+- inquiry_type
+- message
+- submitted_at
+- portfolio_url
+- response_time
 
-- **Profile photo (multiple extensions supported):**
-  - Add your image in `src/assets` using one of these names:
-    - `profile-source.avif`
-    - `profile-source.webp`
-    - `profile-source.jpg` / `profile-source.jpeg`
-    - `profile-source.png`
-  - Then run:
-    - `npm run optimize:images`
-  - This generates optimized files used by the app:
-    - `photo.avif`
-    - `photo.webp`
-    - `photo.jpg`
+Recommended mapping:
 
-- **Resume file (auto extension support):**
-  - Put your resume in `src/assets` and include `resume` in the filename.
-  - Supported file types:
-    - `.pdf`
-    - `.doc`
-    - `.docx`
-  - Navbar button auto-detects the resume file and uses its extension automatically.
+- VITE_EMAILJS_TEMPLATE_ID -> visitor confirmation template
+- VITE_EMAILJS_ADMIN_TEMPLATE_ID -> admin notification template
 
-## Credits and Acknowledgements
+## Assets Notes
 
-- Icons: [React Icons](https://react-icons.github.io/react-icons/) - Used for icons throughout the portfolio.
+Profile image selection supports AVIF, WEBP, JPG, JPEG, PNG via import glob fallback.
+
+Resume download is auto-detected from src/assets for:
+
+- .pdf
+- .doc
+- .docx
+
+## Security and Environment
+
+- .env files are ignored by git.
+- .env.example stays committed for safe sharing.
+- Do not commit real EmailJS credentials.
 
 ## Contact
 
-[**Call-Sushil Panthi**](+917602018437)
+- Email: npanthi718@gmail.com
+- LinkedIn: https://www.linkedin.com/in/sushilpanthi/
+- GitHub: https://github.com/npanthi718
 
-- Email: [npanthi718@gmail.com]
-- LinkedIn: [[Sushil Panthi-LinkedIn](https://www.linkedin.com/in/sushilpanthi/)] _(Highly Recommended)_
-- GitHub: [[Sushil Panthi-GitHUB](https://github.com/npanthi718)]
+## License
 
----
-
-_Last Updated: [06/03/2025]_
+MIT
