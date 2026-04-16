@@ -12,16 +12,13 @@ import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRou
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
-import LaunchRoundedIcon from '@mui/icons-material/LaunchRounded';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
-import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
-import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import { aboutData, additionalExperienceData, achievementsData, categorizedSkillsData, coursesData, educationData, experienceData, externalLinks, heroData, projectsData, researchpapersData } from '../../data/portfolioData';
+import ExperienceCard from '../../components/ExperienceCard/ExperienceCard';
+import ResearchPaperCard from '../../components/ResearchPaperCard/ResearchPaperCard';
 
 const SkillCard = lazy(() => import('../../components/SkillCard/SkillCard'));
 const ProjectCard = lazy(() => import('../../components/ProjectCard/ProjectCard'));
@@ -438,26 +435,7 @@ function Home() {
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
                     {experienceData.map((exp, index) => (
-                        <motion.div
-                            className={styles.experienceItem}
-                            key={index}
-                            variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 },
-                            }}
-                        >
-                            <h3 className={styles.jobTitle}>{exp.title}</h3>
-                            <h4 className={styles.companyName}><ApartmentRoundedIcon fontSize="small" /> {exp.company}</h4>
-                            <p className={styles.dateLocation}>
-                                <span className={styles.metaBadge}><CalendarMonthRoundedIcon fontSize="small" /> {exp.date}</span>
-                                <span className={styles.metaBadge}><LocationOnRoundedIcon fontSize="small" /> {exp.location}</span>
-                            </p>
-                            <ul className={styles.descriptionList}>
-                                {exp.description.map((desc, descIndex) => (
-                                    <li key={descIndex} className={styles.descriptionItem}>{desc}</li>
-                                ))}
-                            </ul>
-                        </motion.div>
+                        <ExperienceCard key={index} item={exp} styles={styles} />
                     ))}
                 </motion.div>
             </motion.section>
@@ -485,26 +463,7 @@ function Home() {
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
                     {additionalExperienceData.map((exp, index) => (
-                        <motion.div
-                            className={styles.experienceItem} // Reusing experienceItem styles
-                            key={index}
-                            variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 },
-                            }}
-                        >
-                            <h3 className={styles.jobTitle}>{exp.title}</h3> {/* Reusing jobTitle styles */}
-                            <h4 className={styles.companyName}><ApartmentRoundedIcon fontSize="small" /> {exp.company}</h4> {/* Reusing companyName styles */}
-                            <p className={styles.dateLocation}>
-                                <span className={styles.metaBadge}><CalendarMonthRoundedIcon fontSize="small" /> {exp.date}</span>
-                                <span className={styles.metaBadge}><LocationOnRoundedIcon fontSize="small" /> {exp.location}</span>
-                            </p> {/* Reusing dateLocation styles */}
-                            <ul className={styles.descriptionList}> {/* Reusing descriptionList styles */}
-                                {exp.description.map((desc, descIndex) => (
-                                    <li key={descIndex} className={styles.descriptionItem}>{desc}</li> // Reusing descriptionItem styles
-                                ))}
-                            </ul>
-                        </motion.div>
+                        <ExperienceCard key={index} item={exp} styles={styles} />
                     ))}
                 </motion.div>
             </motion.section>
@@ -563,28 +522,7 @@ function Home() {
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
                     {achievementsData.map((achievement, index) => (
-                        <motion.div
-                            className={styles.experienceItem} // Reusing experienceItem styles
-                            key={index}
-                            variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 },
-                            }}
-                        >
-                            <h3 className={styles.jobTitle}>{achievement.title}</h3> {/* Reusing jobTitle styles */}
-                            <h4 className={styles.companyName}><ApartmentRoundedIcon fontSize="small" /> {achievement.company}</h4> {/* Reusing companyName styles */}
-                            {achievement.date && (
-                                <p className={styles.dateLocation}>
-                                    <span className={styles.metaBadge}><CalendarMonthRoundedIcon fontSize="small" /> {achievement.date}</span>
-                                    {achievement.location && <span className={styles.metaBadge}><LocationOnRoundedIcon fontSize="small" /> {achievement.location}</span>}
-                                </p>
-                            )} {/* Reusing dateLocation styles */}
-                            <ul className={styles.descriptionList}> {/* Reusing descriptionList styles */}
-                                {achievement.description.map((desc, descIndex) => (
-                                    <li key={descIndex} className={styles.descriptionItem}>{desc}</li>
-                                ))}
-                            </ul>
-                        </motion.div>
+                        <ExperienceCard key={index} item={achievement} styles={styles} />
                     ))}
                 </motion.div>
             </motion.section>
@@ -643,40 +581,7 @@ function Home() {
                     transition={{ duration: 0.6, delay: 0.6, staggerChildren: 0.2 }}
                 >
                     {researchpapersData.map((papers, index) => (
-                        <motion.div
-                            className={styles.PaperItem}
-                            key={index}
-                            variants={{
-                                hidden: { opacity: 0, y: 20 },
-                                visible: { opacity: 1, y: 0 },
-                            }}
-                        >
-                            <h3 className={styles.PaperTitle}>{papers.title}</h3>
-                            <h4 className={styles.OrganizerName}><ApartmentRoundedIcon fontSize="small" /> {papers.organizer}</h4>
-                            <h5 className={styles.PaperInstitution}><SchoolRoundedIcon fontSize="small" /> {papers.institution}</h5>
-                            <p className={styles.dateLocation}>
-                                <span className={styles.metaBadge}><CalendarMonthRoundedIcon fontSize="small" /> {papers.date}</span>
-                                <span className={styles.metaBadge}><LocationOnRoundedIcon fontSize="small" /> {papers.location}</span>
-                            </p>
-                            <ul className={styles.descriptionList}>
-                                {papers.description.map((desc, descIndex) => (
-                                    <li key={descIndex} className={styles.descriptionItem}>{desc}</li>
-                                ))}
-                            </ul>
-                            <div className={styles.paperActions}>
-                                {papers.paperLink ? (
-                                    <a href={papers.paperLink} target="_blank" rel="noopener noreferrer" className={styles.paperLinkButton}>
-                                        <LaunchRoundedIcon fontSize="small" />
-                                        <span>View Live Paper</span>
-                                    </a>
-                                ) : (
-                                    <span className={styles.paperStatusMessage}>
-                                        <InfoOutlinedIcon fontSize="small" />
-                                        <span>The paper has been presented but not published yet. It is currently in press and will be published soon.</span>
-                                    </span>
-                                )}
-                            </div>
-                        </motion.div>
+                        <ResearchPaperCard key={index} paper={papers} styles={styles} />
                     ))}
                 </motion.div>
             </motion.section>

@@ -149,24 +149,26 @@ html {
 }
 
 .sectionTitle {
-    font-size: 2.4rem;
+    font-size: clamp(1.65rem, 3vw, 2.4rem);
     font-weight: bold;
     color: var(--accent-color);
     margin-bottom: 28px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     letter-spacing: 0.5px;
-    margin-top: 130px;
+    margin-top: clamp(72px, 9vw, 130px);
 }
 
 /* ----------------------------------------------------- */
 /* About Section - Alignment and Content Width */
 /* ----------------------------------------------------- */
 .content {
-    max-width: 95%;
+    width: min(100%, 1120px);
+    max-width: 1120px;
+    padding: 0 clamp(12px, 2vw, 22px);
     text-align: justify;
     line-height: 1.6;
-    font-size: 1rem;
+    font-size: clamp(0.95rem, 1vw, 1rem);
     opacity: 1;
     font-weight: 400;
     margin-bottom: 22px;
@@ -183,15 +185,15 @@ html {
 /* ----------------------------------------------------- */
 .aboutContactDetails {
     margin-top: 30px;
-    padding: 24px;
+    padding: 24px clamp(16px, 2vw, 24px);
     border-radius: 10px;
     background-color: var(--card-background);
     box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
-    width: 90%;
-    max-width: calc(100% - 40px);
+    width: min(100%, 1120px);
+    max-width: 1120px;
     margin-left: auto;
     margin-right: auto;
     color: var(--text-color);
@@ -227,7 +229,7 @@ html {
 }
 
 .skillCategoryTitle {
-    font-size: 1.6rem;
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
     font-weight: 600;
     color: var(--accent-color);
     margin-bottom: 18px;
@@ -279,9 +281,9 @@ html {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     justify-content: center;
-    max-width: calc(100% - 40px);
+    width: min(100%, 1200px);
+    max-width: 1200px;
     margin: 20px auto;
-    width: auto;
     padding: 0 20px;
     box-sizing: border-box;
 }
@@ -290,10 +292,10 @@ html {
 /* Experience Section - List Alignment and Spacing */
 /* ----------------------------------------------------- */
 .experienceList {
-    max-width: calc(100% - 40px);
+    width: min(100%, 1120px);
+    max-width: 1120px;
     margin: 20px auto;
-    width: auto;
-    padding: 0 20px;
+    padding: 0 clamp(14px, 2vw, 20px);
     box-sizing: border-box;
 }
 
@@ -315,7 +317,7 @@ html {
 }
 
 .jobTitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 6px;
@@ -325,13 +327,13 @@ html {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 1.3vw, 1.1rem);
     color: var(--accent-color);
     margin-bottom: 5px;
 }
 
 .dateLocation {
-    font-size: 0.9rem;
+    font-size: clamp(0.82rem, 1vw, 0.9rem);
     color: var(--text-color);
     margin-bottom: 16px;
     opacity: 0.75;
@@ -343,7 +345,7 @@ html {
 }
 
 .descriptionItem {
-    font-size: 0.9rem;
+    font-size: clamp(0.82rem, 1vw, 0.9rem);
     color: var(--text-color);
     line-height: 1.5;
     margin-bottom: 5px;
@@ -357,7 +359,7 @@ html {
 .education,
 .courses,
 .achievements {
-    padding: 80px 20px;
+    padding: clamp(64px, 7vw, 84px) clamp(16px, 3vw, 28px);
     /* Improved padding for better spacing */
 }
 
@@ -382,11 +384,11 @@ html {
 .achievementList {
     align-items: flex-start;
     /* Keep left alignment for Education, Achievements lists */
-    max-width: calc(100% - 40px);
+    width: min(100%, 1120px);
+    max-width: 1120px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 20px;
-    width: auto;
+    padding: 0 clamp(14px, 2vw, 20px);
 }
 
 .courseList {
@@ -396,18 +398,18 @@ html {
     /* Center courses in Course List */
     gap: 10px;
     /* Further reduced gap between courses for very small screens */
-    max-width: calc(100% - 40px);
+    width: min(100%, 1120px);
+    max-width: 1120px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 20px;
-    width: auto;
+    padding: 0 clamp(14px, 2vw, 20px);
 }
 
 .courseCard,
 .educationCard,
 .achievementCard {
     background-color: var(--card-background);
-    padding: 22px;
+    padding: clamp(18px, 2vw, 24px);
     /* Consistent padding for all cards */
     border-radius: 10px;
     /* Consistent border radius */
@@ -471,10 +473,10 @@ html {
 /* Research Paper Section - List Alignment and Spacing */
 /* ----------------------------------------------------- */
 .PaperList {
-    max-width: calc(100% - 40px);
+    width: min(100%, 1120px);
+    max-width: 1120px;
     margin: 20px auto;
-    width: auto;
-    padding: 0 20px;
+    padding: 0 clamp(14px, 2vw, 20px);
     box-sizing: border-box;
 }
 
@@ -496,14 +498,14 @@ html {
 }
 
 .PaperTitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
     font-weight: 600;
     color: var(--text-color);
     margin-bottom: 8px;
 }
 
 .OrganizerName {
-    font-size: 1.1rem;
+    font-size: clamp(0.95rem, 1.35vw, 1.1rem);
     color: var(--accent-color);
     margin-bottom: 6px;
 }
@@ -534,7 +536,7 @@ html {
     align-items: center;
     gap: 6px;
     margin: 8px 0 10px;
-    font-size: 0.96rem;
+    font-size: clamp(0.84rem, 1vw, 0.96rem);
     color: var(--text-color-light);
 }
 
@@ -549,12 +551,13 @@ html {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 14px;
+    padding: 8px 12px;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
-    color: #fff;
+    color: var(--secondary-color);
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 600;
+    font-size: 0.88rem;
     box-shadow: var(--card-shadow-light);
     transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
 }
@@ -568,12 +571,12 @@ html {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 14px;
+    padding: 10px 12px;
     border-radius: 14px;
     background: color-mix(in srgb, var(--accent-color) 12%, transparent);
     border: 1px solid color-mix(in srgb, var(--accent-color) 24%, transparent);
     color: var(--text-color);
-    font-size: 0.92rem;
+    font-size: 0.86rem;
     line-height: 1.45;
 }
 
@@ -600,13 +603,15 @@ html {
 }
 
 .contactInfo {
-    max-width: 95%;
+    width: min(100%, 1120px);
+    max-width: 1120px;
     text-align: left;
     margin-bottom: 20px;
+    padding: 0 clamp(12px, 2vw, 20px);
 }
 
 .contactText {
-    font-size: 1rem;
+    font-size: clamp(0.92rem, 1vw, 1rem);
     color: var(--text-color);
     margin-bottom: 20px;
     opacity: 0.9;
@@ -625,7 +630,7 @@ html {
 
 .contactListItem {
     margin-bottom: 12px;
-    font-size: 0.9rem;
+    font-size: clamp(0.82rem, 1vw, 0.9rem);
     color: var(--text-color);
     opacity: 0.9;
     display: flex;
@@ -644,7 +649,7 @@ html {
     font-weight: 600;
     color: var(--text-color);
     text-align: left;
-    min-width: 80px;
+    min-width: 72px;
     /* Increased min-width for labels */
     display: inline-block;
     /* Keep as inline-block */
@@ -671,17 +676,18 @@ html {
 /* Contact Form - Alignment and Spacing - Further Width Fixes */
 /* ----------------------------------------------------- */
 .contactForm {
-    max-width: 95%;
+    width: min(100%, 1120px);
+    max-width: 1120px;
     /* Take full width up to 95% of parent */
     margin: 15px auto 0;
-    padding: 20px;
+    padding: clamp(16px, 2vw, 22px);
     /* Keep base padding, but may reduce on smaller screens */
     border-radius: 7px;
     background-color: var(--card-background);
     box-shadow: var(--card-shadow-lightest);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    width: 95%;
+    width: min(100%, 1120px);
     /* Ensure width is 95% */
     margin-left: auto;
     margin-right: auto;
@@ -701,7 +707,7 @@ html {
     margin-bottom: 5px;
     font-weight: 500;
     color: var(--text-color);
-    font-size: 0.9rem;
+    font-size: clamp(0.82rem, 0.95vw, 0.9rem);
     letter-spacing: 0.1px;
     text-align: left;
 }
@@ -714,7 +720,7 @@ html {
     border: 1px solid var(--border-color);
     background-color: var(--secondary-color);
     color: var(--text-color);
-    font-size: 0.85rem;
+    font-size: clamp(0.8rem, 0.9vw, 0.85rem);
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
     box-sizing: border-box;
     /* Very important: Include padding and border in input's total width */
@@ -735,7 +741,7 @@ html {
 
 .fieldError {
     margin-top: 6px;
-    color: #ff6b6b;
+    color: color-mix(in srgb, #ff6b6b 82%, var(--text-color));
     font-size: 0.8rem;
     text-align: left;
 }
@@ -744,9 +750,9 @@ html {
 .feedbackMessage {
     margin-top: 18px;
     padding: 14px 22px;
-    color: #0f0e0e;
+    color: var(--text-color);
     border-radius: 7px;
-    font-size: 1rem;
+    font-size: clamp(0.88rem, 1vw, 1rem);
     font-weight: 600;
     text-align: center;
     letter-spacing: 0.2px;
@@ -757,15 +763,15 @@ html {
 
 .feedbackSuccess {
     background: var(--accent-color);
-    border: 1px solid #38b000;
-    box-shadow: 0 2px 8px rgba(56, 176, 0, 0.12);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 40%, var(--border-color));
+    box-shadow: var(--card-shadow-light);
 }
 
 .feedbackError {
-    background: #ffdddd;
-    color: #3b1111;
-    border: 1px solid #ff8f8f;
-    box-shadow: 0 2px 8px rgba(200, 0, 0, 0.12);
+    background: color-mix(in srgb, #ff6b6b 18%, var(--card-background));
+    color: var(--text-color);
+    border: 1px solid color-mix(in srgb, #ff8f8f 40%, var(--border-color));
+    box-shadow: var(--card-shadow-light);
 }
 
 .debugHint {
@@ -823,23 +829,24 @@ html {
 /* Stylish Google Form box below contact form */
 .googleFormBox {
     margin-top: 28px;
-    margin-left: 30px;
-    margin-right: 90px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 18px 24px;
     background: var(--card-background);
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 119, 255, 0.10);
+    box-shadow: var(--card-shadow-light);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    width: min(100%, 820px);
 
 }
 
 .googleFormText {
-    color: #fff;
-    font-size: 1.08rem;
+    color: var(--text-color);
+    font-size: clamp(0.9rem, 1.1vw, 1.08rem);
     font-weight: 500;
     letter-spacing: 0.2px;
     margin-bottom: 4px;
@@ -847,10 +854,10 @@ html {
 
 .googleFormButton {
     display: inline-block;
-    padding: 10px 28px;
+    padding: 10px 22px;
     background: var(--accent-color);
-    color: #0f0e0e;
-    font-size: 1rem;
+    color: var(--secondary-color);
+    font-size: clamp(0.88rem, 1vw, 1rem);
     font-weight: 600;
     border: none;
     border-radius: 6px;
@@ -939,7 +946,7 @@ html {
 
 .titleWithIcon svg {
     font-size: 1.15em;
-    color: var(--accent-secondary);
+    color: var(--accent-color);
 }
 
 .sectionTitle {
@@ -1023,5 +1030,15 @@ html {
     .googleFormButton {
         width: 100%;
         text-align: center;
+    }
+
+    .content,
+    .contactInfo,
+    .experienceList,
+    .educationList,
+    .courseList,
+    .PaperList {
+        padding-left: 12px;
+        padding-right: 12px;
     }
 }
