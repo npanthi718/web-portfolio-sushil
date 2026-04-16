@@ -10,7 +10,7 @@
     box-shadow: var(--card-shadow-light);
     /* Lighter shadow for Courses */
     border: 1px solid var(--border-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     width: 100%;
     /* Take full width in Courses section */
     max-width: 1100px;
@@ -21,6 +21,11 @@
     /* **NEW**: Ensure padding is included in width */
     min-width: 0;
     /* **NEW**: Allow card to shrink if needed */
+}
+
+.courseCard:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-lg-light);
 }
 
 .courseName {
@@ -71,7 +76,8 @@
 
 @media (max-width: 767px) {
     .courseCard {
-        padding: 18px 16px;
+        padding: 16px 14px;
+        margin-bottom: 10px;
     }
 
     .courseName {
@@ -84,37 +90,5 @@
 
     .date {
         font-size: 0.75rem;
-    }
-}
-
-
-/* ----------------------------------------------------- */
-/* Media Query for Smaller Screens (Mobile - up to 767px) */
-/* ----------------------------------------------------- */
-@media (max-width: 767px) {
-    .courseCard {
-        padding: 14px;
-        /* Further reduced padding for very small screens */
-        margin-bottom: 10px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .courseName {
-        font-size: 1rem;
-        /* Further reduced font-size for very small screens */
-        margin-bottom: 5px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .institution {
-        font-size: 0.8rem;
-        /* Further reduced font-size for very small screens */
-        margin-bottom: 4px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .date {
-        font-size: 0.7rem;
-        /* Further reduced font-size for very small screens */
     }
 }

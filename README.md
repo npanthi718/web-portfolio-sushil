@@ -72,7 +72,7 @@ To run this project locally:
     ```env
     VITE_EMAILJS_SERVICE_ID=your_service_id
     VITE_EMAILJS_TEMPLATE_ID=your_template_id
-    VITE_EMAILJS_ADMIN_TEMPLATE_ID=template_ff6ip5a
+    VITE_EMAILJS_ADMIN_TEMPLATE_ID=your_template_id
     VITE_EMAILJS_PUBLIC_KEY=your_public_key
     ```
 

@@ -9,7 +9,7 @@
     /* Consistent spacing */
     box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
-    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     width: 100%;
     /* Take full width in Education section */
     max-width: 1100px;
@@ -22,6 +22,11 @@
     /* **NEW**: Ensure padding is included in width */
     min-width: 0;
     /* **NEW**: Allow card to shrink if needed */
+}
+
+.educationCard:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-lg-light);
 }
 
 .degree {
@@ -70,8 +75,7 @@
     /* Reduced font-size from 1rem for better mobile fit */
     color: var(--text-color);
     opacity: 0.7;
-    margin-bottom: 12px;
-    /* Reduced margin-bottom from 15px for tighter spacing */
+    margin-bottom: 0;
 }
 
 .cgpa {
@@ -86,7 +90,8 @@
 
 @media (max-width: 767px) {
     .educationCard {
-        padding: 18px 16px;
+        padding: 16px 14px;
+        margin-bottom: 12px;
     }
 
     .degree {
@@ -99,51 +104,12 @@
 
     .date,
     .cgpa {
-        font-size: 0.88rem;
+        font-size: 0.86rem;
     }
 
     .metaRow {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
-    }
-}
-
-
-/* ----------------------------------------------------- */
-/* Media Query for Smaller Screens (Mobile - up to 767px) */
-/* ----------------------------------------------------- */
-@media (max-width: 767px) {
-    .educationCard {
-        padding: 15px;
-        /* Further reduced padding for very small screens */
-        margin-bottom: 12px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .degree {
-        font-size: 1.1rem;
-        /* Further reduced font-size for very small screens */
-        margin-bottom: 6px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .institution {
-        font-size: 0.95rem;
-        /* Further reduced font-size for very small screens */
-        margin-bottom: 5px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .date {
-        font-size: 0.9rem;
-        /* Further reduced font-size for very small screens */
-        margin-bottom: 10px;
-        /* Further reduced margin-bottom for very small screens */
-    }
-
-    .cgpa {
-        font-size: 0.9rem;
-        /* Further reduced font-size for very small screens */
     }
 }

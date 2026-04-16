@@ -8,7 +8,7 @@ function ExperienceCard({ item, styles }) {
     return (
         <motion.div
             className={styles.experienceItem}
-            whileHover={{ y: -4 }}
+            whileHover={{ y: -2 }}
             transition={{ duration: 0.22 }}
             variants={{
                 hidden: { opacity: 0, y: 20 },

@@ -3,7 +3,9 @@ import { SiExpress, SiMongodb, SiMongoose, SiOpenai, SiTypescript, SiVite, SiDja
 
 export const skillIconMap = {
     'MERN Stack': FaReact,
+    'MEN Stack': FaNodeJs,
     React: FaReact,
+    'React.js': FaReact,
     Vite: SiVite,
     'Node.js': FaNodeJs,
     'Node.js (ESM)': FaNodeJs,
@@ -11,19 +13,25 @@ export const skillIconMap = {
     'Express.js': SiExpress,
     MongoDB: SiMongodb,
     Mongoose: SiMongoose,
-    JWT: SiOpenai,
+    JWT: FaCode,
+    'JWT Authentication': FaCode,
     TypeScript: SiTypescript,
     Python: FaPython,
+    'Python 3.9': FaPython,
     Java: FaJava,
     SQL: FaDatabase,
     C: FaDatabase,
     'C++': FaDatabase,
+    'HTML/CSS': FaHtml5,
+    'CSS Modules': FaCss3Alt,
+    'CSS utility classes': FaCss3Alt,
     HTML: FaHtml5,
     CSS: FaCss3Alt,
     JavaScript: FaJs,
     'Power BI': FaChartBar,
     'Data Visualization': FaChartLine,
     'Microsoft Excel': FaFileExcel,
+    GitHub: FaGitAlt,
     Git: FaGitAlt,
     'Microsoft Office Suite': FaMicrosoft,
     Leadership: FaUserFriends,
@@ -36,6 +44,25 @@ export const skillIconMap = {
     'Tailwind/MUI': SiTailwindcss,
     'React Router (HashRouter)': FaReact,
     Axios: FaSearch,
+    'RESTful APIs': FaCode,
+    'API Design': FaCode,
+    'RBAC & Auth Design': FaCode,
+    'Real-time System Design': SiSocketdotio,
+    'Scalable Backend Design': FaNodeJs,
+    'Performance Optimization': FaChartLine,
+    'Debugging & Troubleshooting': FaPuzzlePiece,
+    'Analytical Thinking': FaBrain,
+    Adaptability: FaUsers,
+    'Ownership Mindset': FaUserFriends,
+    Mentorship: FaUserFriends,
+    'Stakeholder Communication': FaCommentDots,
+    'REST APIs': FaCode,
+    'Material-UI': FaReact,
+    Recharts: FaChartLine,
+    Bcrypt: FaCode,
+    Flask: FaPython,
+    Tkinter: FaLaptopCode,
+    'localStorage (simulated DB)': FaDatabase,
     'Socket.io': SiSocketdotio,
     'OpenAI API': SiOpenai,
     Django: SiDjango,
@@ -51,8 +78,42 @@ export const skillIconMap = {
     Postman: SiPostman,
     Firebase: SiFirebase,
     WordPress: FaWordpressSimple,
+    Numpy: SiNumpy,
     Pandas: SiPandas,
     NumPy: SiNumpy,
 };
 
-export const getSkillIcon = (skillName) => skillIconMap[skillName] || FaCode;
+const keywordIconRules = [
+    { keyword: 'react', icon: FaReact },
+    { keyword: 'node', icon: FaNodeJs },
+    { keyword: 'express', icon: SiExpress },
+    { keyword: 'mongo', icon: SiMongodb },
+    { keyword: 'python', icon: FaPython },
+    { keyword: 'java', icon: FaJava },
+    { keyword: 'typescript', icon: SiTypescript },
+    { keyword: 'socket', icon: SiSocketdotio },
+    { keyword: 'fastapi', icon: SiFastapi },
+    { keyword: 'api', icon: FaCode },
+    { keyword: 'jwt', icon: FaCode },
+    { keyword: 'tailwind', icon: SiTailwindcss },
+    { keyword: 'css', icon: FaCss3Alt },
+    { keyword: 'html', icon: FaHtml5 },
+    { keyword: 'chart', icon: FaChartLine },
+    { keyword: 'power bi', icon: FaChartBar },
+    { keyword: 'excel', icon: FaFileExcel },
+    { keyword: 'git', icon: FaGitAlt },
+    { keyword: 'aws', icon: FaAws },
+    { keyword: 'langchain', icon: FaBrain },
+    { keyword: 'langgraph', icon: FaLaptopCode },
+];
+
+export const getSkillIcon = (skillName) => {
+    const directMatch = skillIconMap[skillName];
+    if (directMatch) {
+        return directMatch;
+    }
+
+    const normalized = String(skillName || '').toLowerCase().trim();
+    const keywordMatch = keywordIconRules.find((rule) => normalized.includes(rule.keyword));
+    return keywordMatch ? keywordMatch.icon : FaCode;
+};

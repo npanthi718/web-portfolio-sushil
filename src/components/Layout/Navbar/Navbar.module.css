@@ -19,6 +19,16 @@
     transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
+.navbar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(165deg, color-mix(in srgb, var(--accent-color) 14%, transparent), transparent 46%);
+    opacity: 0.45;
+}
+
 .navbarHidden {
     transform: translate(-50%, -140%);
     opacity: 0;
@@ -61,7 +71,8 @@
     text-decoration: none;
     font-size: 0.88rem;
     font-weight: 600;
-    padding: 8px 10px;
+    padding: 10px 12px;
+    min-height: 44px;
     border-radius: 11px;
     display: inline-flex;
     align-items: center;
@@ -96,7 +107,8 @@
     background: color-mix(in srgb, var(--accent-color) 14%, transparent);
     color: var(--text-color);
     text-decoration: none;
-    padding: 8px 10px;
+    padding: 10px 12px;
+    min-height: 44px;
     font-size: 0.86rem;
     font-weight: 700;
     cursor: pointer;
@@ -252,12 +264,12 @@
     }
 
     .resumeButton {
-        padding: 8px 9px;
+        padding: 9px 10px;
         font-size: 0.8rem;
     }
 
     .themeButton {
-        padding: 8px 9px;
+        padding: 9px 10px;
         font-size: 0.8rem;
     }
 
@@ -275,6 +287,13 @@
     .themeButton span,
     .burgerButton span {
         font-size: 0.76rem;
+    }
+
+    .resumeButton,
+    .themeButton,
+    .burgerButton,
+    .sidebarClose {
+        min-height: 42px;
     }
 
     .themeButton span {

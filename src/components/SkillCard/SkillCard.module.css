@@ -9,7 +9,7 @@
     text-align: center;
     margin: 10px;
     width: 100%;
-    max-width: 220px;
+    max-width: 240px;
     min-width: 140px;
     background-color: var(--card-background);
     box-shadow: var(--card-shadow-light);
@@ -44,6 +44,7 @@
     font-weight: 500;
     margin-bottom: 15px;
     color: var(--text-color);
+    overflow-wrap: anywhere;
 }
 
 .proficiencyBar {

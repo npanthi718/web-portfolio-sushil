@@ -57,25 +57,28 @@ html {
     color: var(--accent-color);
     margin-bottom: 6px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-    letter-spacing: 0.2px;
+    letter-spacing: clamp(0.12px, 0.02vw, 0.28px);
+    line-height: 1.2;
 }
 
 .tagline {
-    font-size: 1rem;
+    font-size: clamp(0.88rem, 1.2vw, 1rem);
     color: var(--text-color);
     margin-bottom: 12px;
     font-weight: 500;
     opacity: 0.85;
+    line-height: 1.45;
 }
 
 .overview {
     color: var(--text-color);
-    line-height: 1.5;
-    font-size: 0.9rem;
+    line-height: clamp(1.55, 1.5 + 0.2vw, 1.75);
+    font-size: clamp(0.88rem, 1.1vw, 0.98rem);
     max-width: 95%;
     margin: 0 auto 18px;
     opacity: 0.95;
     font-weight: 400;
+    letter-spacing: 0.02em;
 }
 
 /* ----------------------------------------------------- */
@@ -155,8 +158,10 @@ html {
     margin-bottom: 28px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    letter-spacing: 0.5px;
+    letter-spacing: clamp(0.2px, 0.08vw, 0.5px);
+    line-height: 1.2;
     margin-top: clamp(72px, 9vw, 130px);
+    overflow-wrap: anywhere;
 }
 
 /* ----------------------------------------------------- */
@@ -167,7 +172,7 @@ html {
     max-width: 1120px;
     padding: 0 clamp(12px, 2vw, 22px);
     text-align: justify;
-    line-height: 1.6;
+    line-height: clamp(1.6, 1.55 + 0.2vw, 1.8);
     font-size: clamp(0.95rem, 1vw, 1rem);
     opacity: 1;
     font-weight: 400;
@@ -218,9 +223,9 @@ html {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: calc(100% - 40px);
+    max-width: min(100%, 1200px);
     margin: 20px auto 0;
-    width: auto;
+    width: 100%;
     padding: 0 20px;
 }
 
@@ -246,6 +251,13 @@ html {
     margin-top: 12px;
     width: 100%;
     box-sizing: border-box;
+}
+
+@media (max-width: 479px) {
+    .skillsGrid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -278,7 +290,7 @@ html {
 /* ----------------------------------------------------- */
 .projectsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 25px;
     justify-content: center;
     width: min(100%, 1200px);
@@ -286,6 +298,13 @@ html {
     margin: 20px auto;
     padding: 0 20px;
     box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+    .projectsGrid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
 }
 
 /* ----------------------------------------------------- */
@@ -347,7 +366,7 @@ html {
 .descriptionItem {
     font-size: clamp(0.82rem, 1vw, 0.9rem);
     color: var(--text-color);
-    line-height: 1.5;
+    line-height: clamp(1.5, 1.45 + 0.2vw, 1.72);
     margin-bottom: 5px;
     list-style-type: disc;
     opacity: 0.9;
@@ -366,18 +385,12 @@ html {
 .educationList,
 .courseList,
 .achievementList {
-    max-width: 98%;
-    /* Slightly wider for lists to utilize more space */
+    max-width: 100%;
     margin-top: 15px;
-    /* Reduced top margin for lists */
-    width: 98%;
-    /* Slightly wider width for lists */
+    width: 100%;
     display: flex;
-    /* Ensure flexbox is enabled */
     flex-direction: column;
-    /* Stack items vertically by default for better mobile behavior */
     align-items: stretch;
-    /* Stretch items to full width of the container */
 }
 
 .educationList,
@@ -551,13 +564,16 @@ html {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 12px;
+    padding: 10px 14px;
+    min-height: 44px;
+    border: none;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
     color: var(--secondary-color);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.88rem;
+    cursor: pointer;
     box-shadow: var(--card-shadow-light);
     transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
 }
@@ -578,6 +594,7 @@ html {
     color: var(--text-color);
     font-size: 0.86rem;
     line-height: 1.45;
+    max-width: min(100%, 820px);
 }
 
 .descriptionList {
@@ -610,12 +627,75 @@ html {
     padding: 0 clamp(12px, 2vw, 20px);
 }
 
+.contactIntentPanel {
+    margin-bottom: 18px;
+    padding: 18px 18px 16px;
+    border-radius: 18px;
+    border: 1px solid color-mix(in srgb, var(--accent-color) 24%, var(--border-color));
+    background:
+        linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 10%, transparent) 0%, transparent 58%),
+        color-mix(in srgb, var(--card-background) 94%, transparent);
+    box-shadow: var(--card-shadow-light);
+}
+
+.contactIntentHeader h3 {
+    margin: 0 0 6px;
+    color: var(--accent-color);
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+}
+
+.contactIntentHeader p,
+.formHint {
+    margin: 0;
+    color: var(--text-color-light);
+    font-size: 0.88rem;
+    line-height: 1.45;
+}
+
 .contactText {
     font-size: clamp(0.92rem, 1vw, 1rem);
     color: var(--text-color);
     margin-bottom: 20px;
     opacity: 0.9;
     line-height: 1.5;
+}
+
+.contactHighlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.contactChip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent-color) 35%, transparent);
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+    color: var(--text-color);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.formSelectWrap {
+    position: relative;
+}
+
+.formSelectWrap::after {
+    content: '';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--text-color-light);
+    border-bottom: 2px solid var(--text-color-light);
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
 }
 
 .contactList {
@@ -636,13 +716,11 @@ html {
     display: flex;
     /* Use Flexbox for list items */
     flex-direction: row;
-    /* Arrange label and detail in a row */
     align-items: baseline;
-    /* Align text baselines */
+    flex-wrap: wrap;
     justify-content: flex-start;
-    /* Left justify items */
     gap: 10px;
-    /* Add gap between label and detail */
+    line-height: 1.45;
 }
 
 .contactListItem strong {
@@ -713,7 +791,8 @@ html {
 }
 
 .formInput,
-.formTextarea {
+.formTextarea,
+.formSelect {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -729,7 +808,8 @@ html {
 }
 
 .formInput:focus,
-.formTextarea:focus {
+.formTextarea:focus,
+.formSelect:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px var(--accent-color-transparent), 0 0 3px rgba(var(--accent-color-rgb), 0.3);
@@ -737,6 +817,13 @@ html {
 
 .formTextarea {
     resize: vertical;
+}
+
+.formSelect {
+    appearance: none;
+    padding-right: 42px;
+    cursor: pointer;
+    background-image: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 8%, transparent), transparent);
 }
 
 .fieldError {
@@ -786,7 +873,8 @@ html {
 .resumeButton {
     /* Consistent Button Styling - DRY principle applied */
     display: inline-block;
-    padding: 9px 22px;
+    padding: 10px 22px;
+    min-height: 44px;
     background-color: var(--accent-color);
     color: var(--secondary-color);
     border: none;
@@ -855,6 +943,7 @@ html {
 .googleFormButton {
     display: inline-block;
     padding: 10px 22px;
+    min-height: 44px;
     background: var(--accent-color);
     color: var(--secondary-color);
     font-size: clamp(0.88rem, 1vw, 1rem);
@@ -863,6 +952,7 @@ html {
     border-radius: 6px;
     box-shadow: 0 2px 8px rgba(56, 176, 0, 0.12);
     text-decoration: none;
+    cursor: pointer;
     transition: background 0.3s, transform 0.2s;
     margin-top: 2px;
     letter-spacing: 0.2px;
@@ -910,12 +1000,43 @@ html {
 .education,
 .courses,
 .contact {
+    position: relative;
     border-radius: 18px;
     margin-top: 14px;
     border: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent);
     background:
         linear-gradient(160deg, color-mix(in srgb, var(--secondary-color) 92%, transparent) 0%, color-mix(in srgb, var(--card-background) 90%, transparent) 100%);
     box-shadow: var(--card-shadow-light);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.home::before,
+.about::before,
+.skills::before,
+.projects::before,
+.experience::before,
+.education::before,
+.courses::before,
+.contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(170deg, color-mix(in srgb, var(--accent-color) 12%, transparent), transparent 44%);
+    opacity: 0.25;
+}
+
+.home:hover,
+.about:hover,
+.skills:hover,
+.projects:hover,
+.experience:hover,
+.education:hover,
+.courses:hover,
+.contact:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-lg-light);
 }
 
 .home {
@@ -927,6 +1048,12 @@ html {
     object-fit: cover;
     border: 4px solid color-mix(in srgb, var(--accent-color) 62%, transparent);
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.34);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.profileImage:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 20px 42px rgba(0, 0, 0, 0.34);
 }
 
 .text {
@@ -970,6 +1097,7 @@ html {
     background: linear-gradient(150deg, color-mix(in srgb, var(--card-background) 95%, transparent) 0%, color-mix(in srgb, var(--card-background-light) 93%, transparent) 100%);
     border: 1px solid color-mix(in srgb, var(--border-color) 80%, transparent);
     box-shadow: var(--card-shadow-light);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
 }
 
 .experienceItem:hover,
@@ -1027,9 +1155,26 @@ html {
         margin-right: 0;
     }
 
+    .contactChip {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .contactIntentPanel {
+        padding: 16px 14px;
+        border-radius: 14px;
+    }
+
     .googleFormButton {
         width: 100%;
         text-align: center;
+    }
+
+    .submitButton,
+    .resumeButton,
+    .paperLinkButton {
+        width: 100%;
+        justify-content: center;
     }
 
     .content,
@@ -1040,5 +1185,36 @@ html {
     .PaperList {
         padding-left: 12px;
         padding-right: 12px;
+    }
+
+    .projectsGrid,
+    .categorizedSkills {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .home:hover,
+    .about:hover,
+    .skills:hover,
+    .projects:hover,
+    .experience:hover,
+    .education:hover,
+    .courses:hover,
+    .contact:hover,
+    .experienceItem:hover,
+    .PaperItem:hover,
+    .profileImage:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 420px) {
+    .sectionTitle {
+        margin-top: 20px;
+        margin-bottom: 16px;
+    }
+
+    .paperActions {
+        gap: 8px;
     }
 }

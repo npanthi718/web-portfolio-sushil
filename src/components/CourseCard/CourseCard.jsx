@@ -18,7 +18,7 @@ function CourseCard({ course }) {
                 <h4 className={styles.institution}><SchoolRoundedIcon fontSize="small" /> {course.institution}</h4>
                 <p className={styles.date}><CalendarMonthRoundedIcon fontSize="small" /> {course.date}</p>
             </div>
-            <p className={styles.description}>{course.description}</p>
+            {course.description ? <p className={styles.description}>{course.description}</p> : null}
 
         </motion.div>
     );

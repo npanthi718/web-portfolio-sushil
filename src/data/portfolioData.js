@@ -1,31 +1,46 @@
 export const heroData = {
-    roles: ['Full Stack Developer (MERN)', 'Power BI Developer'],
+    roles: ['Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
-        'Results-driven Full Stack Developer with expertise in the MERN stack and a strong foundation in Computer Applications. Proven track record of developing scalable, high-performance web applications, combining technical skills with a proactive approach to problem-solving. Committed to contributing to dynamic tech environments with innovative solutions.',
+        'Results-driven Software Developer with hands-on experience in Full Stack Engineering, Agentic AI workflows, and Data Analytics. I build scalable, production-ready web applications using the MERN stack, design API-first backends with secure authentication, and deliver measurable business insights through Power BI dashboards. Focused on performance, reliability, and clean user-centric architecture.',
 };
 
 export const aboutData = {
     paragraphs: [
-        'Results-driven Full Stack Developer with expertise in the MERN stack and a strong foundation in Computer Applications. Proven track record of developing scalable, high-performance web applications, combining technical skills with a proactive approach to problem-solving.',
-        'Throughout my career, I have focused on creating user-centric and efficient digital solutions. My experience spans from developing dynamic user interfaces using React.js to implementing robust server-side logic with Node.js and Express.js. I am adept at database management with MongoDB and skilled in data analysis using Power BI and Microsoft Excel.',
-        'I am passionate about continuous learning and staying up-to-date with the latest technology trends. I thrive in collaborative environments and enjoy tackling complex challenges that require innovative solutions. My goal is to leverage my skills and passion to contribute meaningfully to impactful projects.',
+        'I am a Full Stack Developer with strong experience in React, Node.js, Express, MongoDB, and API-driven system design. I build clean, maintainable solutions with a strong focus on security, scalability, and production reliability.',
+        'My recent work combines software engineering with Agentic AI and data-centric problem solving. I have developed AI-enabled products using Python, FastAPI, LangChain, and cloud infrastructure, while also delivering interactive analytics through Power BI and Excel for decision support.',
+        'I take ownership across the full software lifecycle: requirements analysis, architecture, implementation, testing, optimization, and deployment. I collaborate effectively in cross-functional teams and bring a structured, product-oriented approach to execution.',
         'Outside of coding, I enjoy reading about technology advancements, contributing to open-source projects, and occasionally hiking to stay refreshed and inspired.',
     ],
     contact: [
         { key: 'email', label: 'Email', value: 'npanthi718@gmail.com', href: 'mailto:npanthi718@gmail.com' },
         { key: 'phone', label: 'Phone', value: '+91 9359029905', href: 'tel:+919359029905' },
-        { key: 'linkedin', label: 'LinkedIn', value: 'Sushil Panthi', href: 'https://www.linkedin.com/in/sushilpanthi/' },
-        { key: 'github', label: 'GitHub', value: 'Sushil Panthi', href: 'https://github.com/npanthi718' },
+        { key: 'location', label: 'Location', value: 'Kathmandu, Nepal (Open to Relocation)' },
+        { key: 'linkedin', label: 'LinkedIn', value: 'sushilpanthi', href: 'https://www.linkedin.com/in/sushilpanthi/' },
+        { key: 'github', label: 'GitHub', value: 'npanthi718', href: 'https://github.com/npanthi718' },
     ],
 };
 
 export const externalLinks = {
-    googleForm: 'https://forms.gle/ntuoEHJF9wqzBjtN9',
+    googleForm: 'https://docs.google.com/forms/d/e/1FAIpQLSf-Km-6vTCszxH7CkOcElRV8_5hF8b4f8pt2HYVnXIwSAHmgQ/viewform?usp=sharing&ouid=118034940540210199491',
 };
 
 export const categorizedSkillsData = { // Categorized skills data
     'Technical Skills': [
         { name: 'MERN Stack', proficiency: 90 },
+        { name: 'React', proficiency: 90 },
+        { name: 'Node.js', proficiency: 88 },
+        { name: 'Express.js', proficiency: 86 },
+        { name: 'MongoDB', proficiency: 86 },
+        { name: 'Mongoose', proficiency: 84 },
+        { name: 'RESTful APIs', proficiency: 86 },
+        { name: 'JWT Authentication', proficiency: 84 },
+        { name: 'Bcrypt', proficiency: 80 },
+        { name: 'TypeScript', proficiency: 78 },
+        { name: 'FastAPI', proficiency: 80 },
+        { name: 'LangChain', proficiency: 76 },
+        { name: 'LangGraph', proficiency: 74 },
+        { name: 'Socket.io', proficiency: 78 },
+        { name: 'OpenAI API', proficiency: 78 },
         { name: 'Python', proficiency: 85 },
         { name: 'Java', proficiency: 80 },
         { name: 'SQL', proficiency: 80 },
@@ -37,10 +52,28 @@ export const categorizedSkillsData = { // Categorized skills data
     ],
     'Tools & Platforms': [
         { name: 'Git', proficiency: 95 },
+        { name: 'GitHub', proficiency: 92 },
+        { name: 'Postman', proficiency: 84 },
+        { name: 'AWS', proficiency: 76 },
+        { name: 'Vite', proficiency: 82 },
+        { name: 'Material-UI', proficiency: 84 },
+        { name: 'Tailwind CSS', proficiency: 80 },
+        { name: 'Recharts', proficiency: 78 },
+        { name: 'OpenCV', proficiency: 74 },
+        { name: 'Flask', proficiency: 72 },
+        { name: 'Tkinter', proficiency: 70 },
         { name: 'Power BI', proficiency: 80 },
         { name: 'Data Visualization', proficiency: 80 },
         { name: 'Microsoft Excel', proficiency: 90 },
         { name: 'Microsoft Office Suite', proficiency: 92 },
+    ],
+    'Architecture & Engineering Practices': [
+        { name: 'API Design', proficiency: 86 },
+        { name: 'RBAC & Auth Design', proficiency: 84 },
+        { name: 'Real-time System Design', proficiency: 80 },
+        { name: 'Scalable Backend Design', proficiency: 82 },
+        { name: 'Performance Optimization', proficiency: 80 },
+        { name: 'Debugging & Troubleshooting', proficiency: 88 },
     ],
     'Soft Skills': [
         { name: 'Leadership' },
@@ -49,6 +82,11 @@ export const categorizedSkillsData = { // Categorized skills data
         { name: 'Team Collaboration' },
         { name: 'Problem Solving' },
         { name: 'Time Management' },
+        { name: 'Adaptability' },
+        { name: 'Analytical Thinking' },
+        { name: 'Ownership Mindset' },
+        { name: 'Stakeholder Communication' },
+        { name: 'Mentorship' },
     ],
 };
 
@@ -66,8 +104,8 @@ export const projectsData = [
         githubLink: 'https://github.com/npanthi718/SkillNexus--Learn-and-Earn-with-Humans',
         keyContributions: [
             'Built a peer-to-peer learning marketplace where people learn directly from humans (not prerecorded videos), with mobile-first UI, width-safe layouts.',
-            'Engineered a unified friendship + notification lifecycle with request/accept/reject/cancel endpoints, auto-delete pending notifications on cancel, single-item status that persists across refresh, relation-based syncing, duplicate suppression, and event-driven/visibility refresh.',
-            'Implemented secure, reliable platform foundations using JWT auth, protected admin areas with token validation, Mongoose data models, scrollable one-line filters for clean discovery, consistent purple brand styling, accessible contrast, and larger tap targets.',
+            'Engineered a full friendship and notification lifecycle with request/accept/reject/cancel endpoints, duplicate prevention, and event-driven refresh syncing.',
+            'Implemented secure and reliable foundations using JWT auth, protected admin areas with token validation, robust Mongoose models, and accessible interaction patterns for better usability.',
             'Delivered end-to-end performance and quality with removed noisy SSE 404s, optimized axios base/proxy, added toasts and disabled buttons during network calls, ran lint/QA across routes, and verified production behavior post-deploy.',
         ]
     },
@@ -83,9 +121,9 @@ export const projectsData = [
         githubLink: 'https://github.com/npanthi718/AlgoCare--Reducing-the-Wait-Prioritizing-the-Life-',
         keyContributions: [
             'Developed an intelligent hospital resource and queue management SaaS for Track 3 of HackGenX 2026, delivering tailored dashboards for Patients, Doctors, and Administrators.',
-            'Engineered a self-correcting queue engine using a Moving Average Algorithm that calculates high-precision patient ETAs based on the actual completion speed of the last five consultations.',
+            'Engineered a self-correcting queue engine with a moving-average model to estimate patient ETAs from the latest consultation throughput.',
             'Implemented zero-latency real-time synchronization using Socket.io, enabling instant cross-dashboard updates for token status, bed availability, and resource levels without page refreshes.',
-            'Built a secure, modular foundation using a Controller-Service-Repository pattern with JWT-based role-based access control (RBAC) and automated history linking via email-based patient identification.',
+            'Built a secure modular architecture with Controller-Service-Repository, JWT-based RBAC, and automated history linking through email-based patient identification.',
         ]
     },
 
@@ -140,7 +178,7 @@ export const projectsData = [
         githubLink: 'https://github.com/npanthi718/Face_Recognition_Attendance',
         keyContributions: [
             'Developed a dynamic and efficient attendance system using Face Recognition Technology. The system automates attendance marking by detecting and identifying student faces from classroom photos.',
-            'The project allows teachers to take attendance by capturing a class photo, automatically marking students present or absent based on facerecognition. It also provides a dashboard for managing student details and viewing attendance records.',
+            'The project allows teachers to take attendance by capturing a class photo, automatically marking students present or absent through face recognition. It also provides a dashboard for managing student details and attendance records.',
             'Architected a face detection and recognition module leveraging Flask, OpenCV, and Face Recognition Library; the tool is now used by over 20 employees across security teams.',
         ],
     },
@@ -385,7 +423,7 @@ export const researchpapersData = [
         title: 'A Blockchain-Driven Decentralized Framework for Secure and Automated Spectrum Trading in 6G Wireless Networks Using Automata Theory',
         organizer: 'International Conference on Advances in Computational Intelligence and Applications-2025',
         institution: 'Insitute of Information Technology & Management(IITM), GGS Indraprastha University, New Delhi',
-        date: 'November 8 & 9, 2025',
+        date: 'November, 2025',
         location: 'Online Presentation',
         paperLink: null,
         description: [

@@ -1,7 +1,8 @@
 import React, { Suspense, lazy, useState } from 'react';
 import styles from './ProjectCard.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaCode, FaNodeJs, FaPython, FaReact } from 'react-icons/fa';
+import { FaCode, FaGithub, FaNodeJs, FaPython, FaReact } from 'react-icons/fa';
+import { HiOutlineExternalLink } from 'react-icons/hi';
 import { SiDjango, SiExpress, SiJsonwebtokens, SiMongodb, SiMongoose, SiOpenai, SiTypescript, SiVite } from 'react-icons/si';
 
 const Popup = lazy(() => import('../Popup/Popup'));
@@ -45,7 +46,7 @@ function ProjectCard({ project }) {
     return (
         <motion.div
             className={styles.projectCard}
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ y: -3 }}
             transition={{ duration: 0.2 }}
         >
             <h3 className={styles.projectTitle}>{project.title}</h3>
@@ -82,21 +83,23 @@ function ProjectCard({ project }) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.linkButton}
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.95 }}
                         transition={{ duration: 0.3 }}
                         onClick={handleLiveDemoClick} // onClick for popup if no link
                     >
+                        <HiOutlineExternalLink className={styles.buttonIcon} aria-hidden="true" />
                         Live Demo
                     </motion.a>
                 ) : (
                     <motion.button // Changed to button, but now it's always active style
                         className={styles.linkButton} // Removed disabled style
-                        whileHover={{ scale: 1.05 }} // Re-enabled hover effect
-                        whileTap={{ scale: 0.95 }}    // Re-enabled tap effect
+                        whileHover={{ scale: 1.02 }} // Re-enabled hover effect
+                        whileTap={{ scale: 0.98 }}    // Re-enabled tap effect
                         transition={{ duration: 0.3 }}
                         onClick={handleLiveDemoClick} // onClick to show popup
                     >
+                        <HiOutlineExternalLink className={styles.buttonIcon} aria-hidden="true" />
                         Live Demo
                     </motion.button>
                 )}
@@ -106,20 +109,22 @@ function ProjectCard({ project }) {
                         target="_blank"
                         rel="noopener noreferrer"
                         className={styles.linkButton}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         transition={{ duration: 0.3 }}
                         onClick={handleGitHubClick} // onClick for popup for specific project
                     >
+                        <FaGithub className={styles.buttonIcon} aria-hidden="true" />
                         Source Code
                     </motion.a>
                 ) : (
                     <motion.button
                         className={styles.linkButton} // Keep button for source code, for "Coming Soon" message
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         transition={{ duration: 0.3 }}
                     >
+                        <FaGithub className={styles.buttonIcon} aria-hidden="true" />
                         Source Code
                     </motion.button>
                 )}

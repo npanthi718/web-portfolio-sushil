@@ -1,0 +1,53 @@
+<div style="margin:0;padding:28px;background:#edf3ff;font-family:'Segoe UI',Arial,sans-serif;color:#1f2a44;">
+  <table role="presentation" style="max-width:700px;width:100%;margin:0 auto;background:#ffffff;border:1px solid #d4e1ff;border-radius:20px;overflow:hidden;box-shadow:0 14px 34px rgba(20,55,120,0.1);border-collapse:separate;">
+    <tr>
+      <td style="padding:26px 26px 14px;background:linear-gradient(135deg,#1f5ed6,#4a88ff);text-align:center;">
+        <div style="font-size:22px;line-height:1;margin-bottom:10px;">📬✨</div>
+        <img src="https://github.com/npanthi718/web-portfolio-sushil/blob/main/src/assets/photo.jpg?raw=true" alt="Sushil Panthi" style="height:88px;width:88px;border-radius:50%;border:3px solid #ffffff;box-shadow:0 8px 18px rgba(0,0,0,0.25);" />
+        <h2 style="margin:14px 0 6px;font-size:25px;line-height:1.2;color:#ffffff;">New Portfolio Inquiry</h2>
+        <p style="margin:0;color:#dbe8ff;font-size:13px;line-height:1.5;">🚀 Someone is interested in connecting via your portfolio contact form.</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:22px 24px 10px;">
+        <table role="presentation" style="width:100%;border-collapse:collapse;border:1px solid #e6edff;border-radius:12px;overflow:hidden;background:#fcfdff;">
+          <tr>
+            <td style="padding:11px 12px;background:#f6f9ff;border-bottom:1px solid #e6edff;font-weight:700;width:36%;">👤 Name</td>
+            <td style="padding:11px 12px;border-bottom:1px solid #e6edff;">{{from_name}}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 12px;background:#f6f9ff;border-bottom:1px solid #e6edff;font-weight:700;">✉️ Email</td>
+            <td style="padding:11px 12px;border-bottom:1px solid #e6edff;">
+              <a href="mailto:{{email}}" style="color:#1f5ed6;text-decoration:none;font-weight:600;">{{email}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:11px 12px;background:#f6f9ff;border-bottom:1px solid #e6edff;font-weight:700;">🎯 Inquiry Type</td>
+            <td style="padding:11px 12px;border-bottom:1px solid #e6edff;">{{inquiry_type}}</td>
+          </tr>
+          <tr>
+            <td style="padding:11px 12px;background:#f6f9ff;font-weight:700;">🕒 Submitted At</td>
+            <td style="padding:11px 12px;">{{submitted_at}}</td>
+          </tr>
+        </table>
+
+        <p style="margin:20px 0 9px;font-size:15px;font-weight:700;color:#1f2a44;">💬 Message</p>
+        <blockquote style="margin:0;padding:14px 16px;background:#f3f7ff;border-left:4px solid #1f5ed6;border-radius:10px;color:#26344f;white-space:pre-line;">{{message}}</blockquote>
+
+        <table role="presentation" style="margin-top:16px;width:100%;border-collapse:collapse;">
+          <tr>
+            <td style="padding:10px 12px;border-radius:10px;background:#eef5ff;font-size:13px;color:#33507a;line-height:1.6;">
+              ⚡ Quick action: reply directly to
+              <a href="mailto:{{reply_to}}" style="color:#1f5ed6;text-decoration:none;font-weight:700;"> {{reply_to}}</a>
+              to continue the conversation.
+            </td>
+          </tr>
+        </table>
+
+        <p style="margin:18px 0 0;font-size:12px;color:#5f6f8f;line-height:1.6;text-align:center;">
+          Sent automatically via EmailJS from your portfolio contact workflow.
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>

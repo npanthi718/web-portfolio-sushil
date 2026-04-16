@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
@@ -9,11 +9,31 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 function ResearchPaperCard({ paper, styles }) {
     const [showStatus, setShowStatus] = useState(false);
+    const timeoutRef = useRef(null);
+
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
+    const handlePendingPaperClick = () => {
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        setShowStatus(true);
+
+        timeoutRef.current = setTimeout(() => {
+            setShowStatus(false);
+        }, 8000);
+    };
 
     return (
         <motion.div
             className={styles.PaperItem}
-            whileHover={{ y: -4 }}
+            whileHover={{ y: -2 }}
             transition={{ duration: 0.22 }}
             variants={{
                 hidden: { opacity: 0, y: 20 },
@@ -40,7 +60,11 @@ function ResearchPaperCard({ paper, styles }) {
                     </a>
                 ) : (
                     <>
-                        <button type="button" className={styles.paperLinkButton} onClick={() => setShowStatus((prev) => !prev)}>
+                        <button
+                            type="button"
+                            className={styles.paperLinkButton}
+                            onClick={handlePendingPaperClick}
+                        >
                             <InfoOutlinedIcon fontSize="small" />
                             <span>View Live Paper</span>
                         </button>

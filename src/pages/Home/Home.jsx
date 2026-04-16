@@ -16,6 +16,7 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import { aboutData, additionalExperienceData, achievementsData, categorizedSkillsData, coursesData, educationData, experienceData, externalLinks, heroData, projectsData, researchpapersData } from '../../data/portfolioData';
 import ExperienceCard from '../../components/ExperienceCard/ExperienceCard';
 import ResearchPaperCard from '../../components/ResearchPaperCard/ResearchPaperCard';
@@ -51,13 +52,22 @@ const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || import.m
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || import.meta.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 const EMAILJS_ADMIN_TEMPLATE_ID =
     import.meta.env.VITE_EMAILJS_ADMIN_TEMPLATE_ID ||
-    import.meta.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID ||
-    'template_ff6ip5a';
+    import.meta.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID;
+
+const inquiryOptions = [
+    'Hiring Opportunity (Full-time)',
+    'Project Assignment (Freelance/Contract)',
+    'Collaboration / Partnership',
+    'Technical Consultation / Help',
+    'Speaking / Mentorship',
+    'Other',
+];
 
 function Home() {
     const contactIconMap = {
         email: EmailRoundedIcon,
         phone: CallRoundedIcon,
+        location: LocationOnRoundedIcon,
         linkedin: LinkedInIcon,
         github: GitHubIcon,
     };
@@ -66,6 +76,7 @@ function Home() {
     const [formData, setFormData] = useState({ // State for form data
         name: '',
         email: '',
+        inquiryType: '',
         message: '',
     });
     const [feedback, setFeedback] = useState('');
@@ -75,6 +86,7 @@ function Home() {
     const [fieldErrors, setFieldErrors] = useState({
         name: '',
         email: '',
+        inquiryType: '',
         message: '',
     });
 
@@ -103,9 +115,10 @@ function Home() {
     };
 
     const validateForm = () => {
-        const errors = { name: '', email: '', message: '' };
+        const errors = { name: '', email: '', inquiryType: '', message: '' };
         const name = formData.name.trim();
         const email = formData.email.trim();
+        const inquiryType = formData.inquiryType.trim();
         const message = formData.message.trim();
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -115,6 +128,10 @@ function Home() {
 
         if (!emailPattern.test(email)) {
             errors.email = 'Enter a valid email address.';
+        }
+
+        if (!inquiryType) {
+            errors.inquiryType = 'Please choose your inquiry type.';
         }
 
         if (message.length < 10) {
@@ -148,13 +165,17 @@ function Home() {
         try {
             setIsSending(true);
             setDebugHint('');
-            setFieldErrors({ name: '', email: '', message: '' });
+            setFieldErrors({ name: '', email: '', inquiryType: '', message: '' });
             const templateParams = {
                 from_name: formData.name.trim(),
                 from_email: formData.email.trim(),
                 email: formData.email.trim(),
                 reply_to: formData.email.trim(),
+                inquiry_type: formData.inquiryType,
                 message: formData.message.trim(),
+                submitted_at: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+                portfolio_url: 'https://www.sushilpanthi.com',
+                response_time: '48 hours',
             };
 
             const [confirmationResult, adminResult] = await Promise.allSettled([
@@ -196,7 +217,7 @@ function Home() {
             setFeedbackType('success');
             setDebugHint('');
             setFeedback("Message sent! You will receive a confirmation email, and admin has been notified.");
-            setFormData({ name: '', email: '', message: '' });
+            setFormData({ name: '', email: '', inquiryType: '', message: '' });
         } catch (error) {
             console.error('EmailJS send failed:', error);
             const status = error?.status ? ` (status ${error.status})` : '';
@@ -278,10 +299,12 @@ function Home() {
                             <Suspense fallback="Full Stack Developer (MERN)">
                                 <ReactTyped
                                     strings={heroData.roles}
-                                    typeSpeed={100}
-                                    backSpeed={50}
+                                    contentType="null"
+                                    typeSpeed={62}
+                                    backSpeed={28}
                                     startDelay={1000}
-                                    backDelay={3500}
+                                    backDelay={5200}
+                                    smartBackspace={false}
                                     loop={true}
                                     showCursor={false}
                                 />
@@ -339,7 +362,11 @@ function Home() {
                                 return (
                                     <li key={item.key} className={styles.contactListItem}>
                                         <strong><Icon fontSize="small" /> {item.label}:</strong>
-                                        <a href={item.href} target={item.key === 'email' || item.key === 'phone' ? undefined : '_blank'} rel={item.key === 'email' || item.key === 'phone' ? undefined : 'noopener noreferrer'}>{item.value}</a>
+                                        {item.href ? (
+                                            <a href={item.href} target={item.key === 'email' || item.key === 'phone' ? undefined : '_blank'} rel={item.key === 'email' || item.key === 'phone' ? undefined : 'noopener noreferrer'}>{item.value}</a>
+                                        ) : (
+                                            <span>{item.value}</span>
+                                        )}
                                     </li>
                                 );
                             })}
@@ -609,8 +636,22 @@ function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 }}
                 >
+                    <div className={styles.contactIntentPanel}>
+                        <div className={styles.contactIntentHeader}>
+                            <h3>What do you need?</h3>
+                            <p>Select the closest option so I can respond with the right context from the start.</p>
+                        </div>
+                        <div className={styles.contactHighlights}>
+                            <span className={styles.contactChip}>Hire me</span>
+                            <span className={styles.contactChip}>Assign a project</span>
+                            <span className={styles.contactChip}>Collaborate</span>
+                            <span className={styles.contactChip}>Need help</span>
+                            <span className={styles.contactChip}>Discuss an opportunity</span>
+                        </div>
+                    </div>
+
                     <p className={styles.contactText}>
-                        Feel free to reach out to me for any questions or opportunities!  Or use the form below to get in touch 'Within 48 hours' .
+                        Whether you want to hire me, assign a project, collaborate, request technical help, or discuss an opportunity, you are welcome here. Share your goal clearly and I will respond with the best next step.
                     </p>
 
                     {/* Contact Form */}
@@ -648,6 +689,27 @@ function Home() {
                                 required
                             />
                             {fieldErrors.email && <p className={styles.fieldError}>{fieldErrors.email}</p>}
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="inquiryType" className={styles.formLabel}>What are you reaching out for?</label>
+                            <p className={styles.formHint}>This helps me tailor my reply faster.</p>
+                            <div className={styles.formSelectWrap}>
+                                <select
+                                    id="inquiryType"
+                                    name="inquiryType"
+                                    className={styles.formSelect}
+                                    value={formData.inquiryType}
+                                    onChange={handleChange}
+                                    aria-invalid={Boolean(fieldErrors.inquiryType)}
+                                    required
+                                >
+                                    <option value="">Select one option</option>
+                                    {inquiryOptions.map((option) => (
+                                        <option key={option} value={option}>{option}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            {fieldErrors.inquiryType && <p className={styles.fieldError}>{fieldErrors.inquiryType}</p>}
                         </div>
                         <div className={styles.formGroup}>
                             <label htmlFor="message" className={styles.formLabel}>Message</label>

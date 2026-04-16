@@ -10,7 +10,7 @@ function SkillCard({ skill }) {
     return (
         <motion.div
             className={styles.skillCard}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ y: -3 }}
             transition={{ duration: 0.2 }}
         >
             <div className={styles.iconContainer}>
