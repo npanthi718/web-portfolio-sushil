@@ -4,16 +4,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 22px;
     border-radius: 10px;
     text-align: center;
-    margin: 8px;
+    margin: 10px;
     width: 100%;
     max-width: 220px;
     min-width: 140px;
     background-color: var(--card-background);
-    box-shadow: var(--card-shadow);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: var(--card-shadow-light);
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     color: var(--text-color);
     box-sizing: border-box;
 }
@@ -22,18 +23,20 @@
     background-color: var(--secondary-color);
     /* Match card background or use a different color */
     border-radius: 50%;
-    padding: 15px;
+    padding: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    transition: background-color 0.3s ease;
+    margin-bottom: 16px;
+    border: 2px solid var(--border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
     /* Theme transition */
 }
 
 
 .skillIcon {
     color: var(--accent-color);
+    font-size: 2.15rem;
 }
 
 .skillName {
@@ -57,4 +60,27 @@
     height: 100%;
     background-color: var(--accent-color);
     border-radius: 5px;
+}
+
+@media (max-width: 767px) {
+    .skillCard {
+        margin: 0;
+        min-width: 0;
+        max-width: none;
+        padding: 16px 12px;
+    }
+
+    .iconContainer {
+        padding: 14px;
+        margin-bottom: 12px;
+    }
+
+    .skillIcon {
+        font-size: 1.75rem;
+    }
+
+    .skillName {
+        font-size: 0.96rem;
+        margin-bottom: 10px;
+    }
 }

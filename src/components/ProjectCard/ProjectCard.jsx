@@ -1,8 +1,24 @@
 import React, { Suspense, lazy, useState } from 'react';
 import styles from './ProjectCard.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaCode, FaNodeJs, FaPython, FaReact } from 'react-icons/fa';
+import { SiDjango, SiExpress, SiJsonwebtokens, SiMongodb, SiMongoose, SiOpenai, SiTypescript, SiVite } from 'react-icons/si';
 
 const Popup = lazy(() => import('../Popup/Popup'));
+
+const technologyIconMap = {
+    React: FaReact,
+    Vite: SiVite,
+    'Node.js': FaNodeJs,
+    Express: SiExpress,
+    MongoDB: SiMongodb,
+    Mongoose: SiMongoose,
+    JWT: SiJsonwebtokens,
+    TypeScript: SiTypescript,
+    Python: FaPython,
+    Django: SiDjango,
+    'OpenAI API': SiOpenai,
+};
 
 function ProjectCard({ project }) {
     const [showSourceCodePopup, setShowSourceCodePopup] = useState(false);
@@ -37,9 +53,15 @@ function ProjectCard({ project }) {
             <div className={styles.techStack}>
                 <h4 className={styles.techStackTitle}>Tech Stack</h4>
                 <ul className={styles.techList}>
-                    {project.technologies.map((tech, index) => (
-                        <li key={index} className={styles.techItem}>{tech}</li>
-                    ))}
+                    {project.technologies.map((tech, index) => {
+                        const TechIcon = technologyIconMap[tech] || FaCode;
+                        return (
+                            <li key={index} className={styles.techItem}>
+                                <TechIcon className={styles.techIcon} aria-hidden="true" />
+                                <span>{tech}</span>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
 

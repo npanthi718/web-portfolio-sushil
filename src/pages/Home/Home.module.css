@@ -152,7 +152,7 @@ html {
     font-size: 2.4rem;
     font-weight: bold;
     color: var(--accent-color);
-    margin-bottom: 16px;
+    margin-bottom: 28px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     letter-spacing: 0.5px;
@@ -183,15 +183,17 @@ html {
 /* ----------------------------------------------------- */
 .aboutContactDetails {
     margin-top: 30px;
-    padding: 16px;
-    border-radius: 6px;
+    padding: 24px;
+    border-radius: 10px;
     background-color: var(--card-background);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.07);
+    box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     text-align: left;
     width: 90%;
-    max-width: 95%;
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
     color: var(--text-color);
 }
 
@@ -214,9 +216,10 @@ html {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 95%;
-    margin-top: 20px;
-    width: 95%;
+    max-width: calc(100% - 40px);
+    margin: 20px auto 0;
+    width: auto;
+    padding: 0 20px;
 }
 
 .skillCategory {
@@ -241,6 +244,13 @@ html {
     margin-top: 12px;
     width: 100%;
     box-sizing: border-box;
+}
+
+@media (max-width: 767px) {
+    .skillsGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
 }
 
 @media (min-width: 480px) {
@@ -269,26 +279,30 @@ html {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 25px;
     justify-content: center;
-    max-width: 95%;
-    margin-top: 20px;
-    width: 95%;
+    max-width: calc(100% - 40px);
+    margin: 20px auto;
+    width: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 /* ----------------------------------------------------- */
 /* Experience Section - List Alignment and Spacing */
 /* ----------------------------------------------------- */
 .experienceList {
-    max-width: 95%;
-    margin-top: 20px;
-    width: 95%;
+    max-width: calc(100% - 40px);
+    margin: 20px auto;
+    width: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .experienceItem {
     background-color: var(--card-background);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease-in-out;
     text-align: left;
@@ -297,7 +311,7 @@ html {
 
 .experienceItem:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
 }
 
 .jobTitle {
@@ -308,6 +322,9 @@ html {
 }
 
 .companyName {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-size: 1.1rem;
     color: var(--accent-color);
     margin-bottom: 5px;
@@ -340,8 +357,8 @@ html {
 .education,
 .courses,
 .achievements {
-    padding: 60px 15px;
-    /* Further reduced padding for very small screens */
+    padding: 80px 20px;
+    /* Improved padding for better spacing */
 }
 
 .educationList,
@@ -365,6 +382,11 @@ html {
 .achievementList {
     align-items: flex-start;
     /* Keep left alignment for Education, Achievements lists */
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    width: auto;
 }
 
 .courseList {
@@ -374,19 +396,24 @@ html {
     /* Center courses in Course List */
     gap: 10px;
     /* Further reduced gap between courses for very small screens */
+    max-width: calc(100% - 40px);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    width: auto;
 }
 
 .courseCard,
 .educationCard,
 .achievementCard {
     background-color: var(--card-background);
-    padding: 15px;
-    /* Even further reduced padding for cards for very small screens */
-    border-radius: 6px;
-    /* Even smaller border radius for cards */
-    margin-bottom: 15px;
-    /* Even further reduced bottom margin for cards for very small screens */
-    box-shadow: var(--card-shadow-lightest);
+    padding: 22px;
+    /* Consistent padding for all cards */
+    border-radius: 10px;
+    /* Consistent border radius */
+    margin-bottom: 18px;
+    /* Consistent spacing between cards */
+    box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease-in-out;
     text-align: left;
@@ -444,19 +471,19 @@ html {
 /* Research Paper Section - List Alignment and Spacing */
 /* ----------------------------------------------------- */
 .PaperList {
-    max-width: 95%;
-    margin-top: 5px;
-    margin-bottom: -5px;
-    ;
-    width: 95%;
+    max-width: calc(100% - 40px);
+    margin: 20px auto;
+    width: auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .PaperItem {
     background-color: var(--card-background);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    border-radius: 10px;
+    margin-bottom: 22px;
+    box-shadow: var(--card-shadow-light);
     border: 1px solid var(--border-color);
     transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease-in-out;
     text-align: left;
@@ -465,27 +492,89 @@ html {
 
 .PaperItem:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--card-shadow);
 }
 
 .PaperTitle {
     font-size: 1.2rem;
     font-weight: 600;
     color: var(--text-color);
-    margin-bottom: -12px;
+    margin-bottom: 8px;
 }
 
 .OrganizerName {
     font-size: 1.1rem;
     color: var(--accent-color);
-    margin-bottom: 0px;
+    margin-bottom: 6px;
 }
 
 .dateLocation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
     font-size: 0.9rem;
     color: var(--text-color);
     margin-bottom: 13px;
     opacity: 0.75;
+}
+
+.metaBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 26%, transparent);
+}
+
+.PaperInstitution {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 10px;
+    font-size: 0.96rem;
+    color: var(--text-color-light);
+}
+
+.paperActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.paperLinkButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: var(--card-shadow-light);
+    transition: transform 0.22s ease, box-shadow 0.22s ease, opacity 0.22s ease;
+}
+
+.paperLinkButton:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--card-shadow);
+}
+
+.paperStatusMessage {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--accent-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-color) 24%, transparent);
+    color: var(--text-color);
+    font-size: 0.92rem;
+    line-height: 1.45;
 }
 
 .descriptionList {

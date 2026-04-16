@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  --primary-color: #08121d;
-  --secondary-color: #0f1c2a;
-  --card-background: #142538;
-  --card-background-light: #1a3049;
-  --text-color: #edf5ff;
-  --text-color-light: #b4c8de;
-  --accent-color: #1dd2af;
-  --accent-secondary: #6fe3ff;
-  --accent-hover-color: #11b697;
-  --accent-color-transparent: rgba(29, 210, 175, 0.2);
-  --accent-color-rgb: 29, 210, 175;
-  --border-color: #27415c;
-  --glass-bg: #102236;
-  --glass-border: rgba(151, 191, 229, 0.22);
-  --card-shadow: 0 16px 36px rgba(0, 0, 0, 0.26);
-  --card-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.18);
-  --card-shadow-lightest: 0 6px 16px rgba(0, 0, 0, 0.14);
-  --card-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.34);
-  --card-shadow-lg-light: 0 10px 24px rgba(0, 0, 0, 0.18);
+  --primary-color: #07111c;
+  --secondary-color: #0d1a29;
+  --card-background: #122437;
+  --card-background-light: #18304a;
+  --text-color: #eef5ff;
+  --text-color-light: #b7c9df;
+  --accent-color: #2b7dff;
+  --accent-secondary: #7d5cff;
+  --accent-hover-color: #165fe2;
+  --accent-color-transparent: rgba(43, 125, 255, 0.18);
+  --accent-color-rgb: 43, 125, 255;
+  --border-color: #25435f;
+  --glass-bg: #0e1e31;
+  --glass-border: rgba(155, 191, 234, 0.2);
+  --card-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  --card-shadow-light: 0 8px 20px rgba(0, 0, 0, 0.2);
+  --card-shadow-lightest: 0 6px 16px rgba(0, 0, 0, 0.15);
+  --card-shadow-lg: 0 20px 48px rgba(0, 0, 0, 0.36);
+  --card-shadow-lg-light: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -36,10 +36,36 @@ body {
   font-family: 'Sora', sans-serif;
   color: var(--text-color);
   background:
-    radial-gradient(1500px 700px at 8% -10%, rgba(111, 227, 255, 0.16), transparent 52%),
-    radial-gradient(1200px 640px at 92% -2%, rgba(29, 210, 175, 0.14), transparent 50%),
-    linear-gradient(160deg, #08121d 0%, #0c1928 55%, #0f2235 100%);
+    radial-gradient(1500px 700px at 8% -10%, rgba(125, 92, 255, 0.16), transparent 52%),
+    radial-gradient(1200px 640px at 92% -2%, rgba(43, 125, 255, 0.14), transparent 50%),
+    linear-gradient(160deg, #07111c 0%, #0b1827 55%, #10263a 100%);
   transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.light-theme {
+  --primary-color: #f6f9ff;
+  --secondary-color: #ecf3ff;
+  --card-background: #ffffff;
+  --card-background-light: #f7faff;
+  --text-color: #102033;
+  --text-color-light: #506175;
+  --accent-color: #216cf0;
+  --accent-secondary: #7058ec;
+  --accent-hover-color: #0d57cf;
+  --accent-color-transparent: rgba(33, 108, 240, 0.16);
+  --accent-color-rgb: 33, 108, 240;
+  --border-color: #cad9ea;
+  --glass-bg: #ffffff;
+  --glass-border: rgba(37, 71, 112, 0.14);
+  --card-shadow: 0 12px 28px rgba(12, 34, 63, 0.14);
+  --card-shadow-light: 0 7px 16px rgba(12, 34, 63, 0.11);
+  --card-shadow-lightest: 0 4px 10px rgba(12, 34, 63, 0.08);
+  --card-shadow-lg: 0 14px 36px rgba(12, 34, 63, 0.18);
+  --card-shadow-lg-light: 0 9px 22px rgba(12, 34, 63, 0.14);
+  background:
+    radial-gradient(1450px 700px at 8% -10%, rgba(112, 88, 236, 0.12), transparent 54%),
+    radial-gradient(1200px 620px at 92% -2%, rgba(33, 108, 240, 0.1), transparent 50%),
+    linear-gradient(160deg, #f6f9ff 0%, #eef4ff 55%, #e7effb 100%);
 }
 
 h1,

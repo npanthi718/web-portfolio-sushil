@@ -3,6 +3,8 @@ import styles from './Navbar.module.css';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
@@ -13,6 +15,7 @@ import WorkspacePremiumRoundedIcon from '@mui/icons-material/WorkspacePremiumRou
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded';
 import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
 import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
+import { useTheme } from '../../../contexts/ThemeContext';
 
 const resumeCandidates = import.meta.glob('../../../assets/*.{pdf,doc,docx}', {
     eager: true,
@@ -37,6 +40,7 @@ function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const lastScrollY = useRef(0);
+    const { theme, toggleTheme } = useTheme();
 
     const resolvedResume = useMemo(() => {
         const entries = Object.entries(resumeCandidates);
@@ -106,6 +110,15 @@ function Navbar() {
                         <DownloadRoundedIcon fontSize="small" />
                         <span>Resume</span>
                     </a>
+                    <button
+                        className={styles.themeButton}
+                        onClick={toggleTheme}
+                        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        aria-pressed={theme === 'light'}
+                    >
+                        {theme === 'dark' ? <LightModeRoundedIcon fontSize="small" /> : <DarkModeRoundedIcon fontSize="small" />}
+                        <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+                    </button>
                     <button className={styles.burgerButton} onClick={toggleMenu} aria-label="Open menu">
                         <MenuRoundedIcon fontSize="small" />
                         <span>Menu</span>
@@ -142,6 +155,18 @@ function Navbar() {
                         <DownloadRoundedIcon fontSize="small" />
                         <span>Resume</span>
                     </a>
+                    <button
+                        className={styles.themeButton}
+                        onClick={() => {
+                            toggleTheme();
+                            closeMenu();
+                        }}
+                        aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                        aria-pressed={theme === 'light'}
+                    >
+                        {theme === 'dark' ? <LightModeRoundedIcon fontSize="small" /> : <DarkModeRoundedIcon fontSize="small" />}
+                        <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    </button>
                 </div>
             </aside>
         </>
