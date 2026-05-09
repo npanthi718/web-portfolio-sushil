@@ -749,19 +749,6 @@ function Home() {
                         </motion.div>
                     )}
                 </motion.div>
-                <div className={styles.googleFormBox}>
-                    <span className={styles.googleFormText}>
-                        <BoltRoundedIcon fontSize="small" /> For a faster response (within <strong>2 hours</strong>), fill out the attached Google form:
-                    </span>
-                    <a
-                        href={externalLinks.googleForm}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={styles.googleFormButton}
-                    >
-                        Get in Touch with Sushil
-                    </a>
-                </div>
             </motion.section>
         </div>
     );

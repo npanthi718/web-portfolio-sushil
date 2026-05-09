@@ -1,26 +1,24 @@
 export const heroData = {
     roles: ['Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
-        'Results-driven Software Developer and BCA candidate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
+        'Results-driven Software Developer and BCA graduate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
 };
 
 export const aboutData = {
     paragraphs: [
-        'I am a Full Stack Developer (MERN) and AI enthusiast currently pursuing my Bachelor of Computer Applications (BCA) at Sandip University with a CGPA of 8.6. With a technical foundation spanning the entire software development lifecycle, I specialize in building scalable, production-ready web applications and advanced Agentic AI systems. My expertise includes designing API-first backends with FastAPI, implementing secure JWT-based role access, and developing stateful AI assistants using LangChain and LangGraph. I am deeply committed to architecting clean, high-performance solutions that bridge the gap between complex backend logic and intuitive, user-centric interfaces.',
+        'I am a Full Stack Developer (MERN) and AI enthusiast recently graduated with a Bachelor of Computer Applications (BCA) at Sandip University with a CGPA of 8.6. With a technical foundation spanning the entire software development lifecycle, I specialize in building scalable, production-ready web applications and advanced Agentic AI systems. My expertise includes designing API-first backends with FastAPI, implementing secure JWT-based role access, and developing stateful AI assistants using LangChain and LangGraph. I am deeply committed to architecting clean, high-performance solutions that bridge the gap between complex backend logic and intuitive, user-centric interfaces.',
         'My professional journey is defined by hands-on experience across 4 internships and over 8 diverse projects. I have successfully engineered complex systems, such as a self-correcting queue engine for hospital management and a peer-to-peer learning marketplace with sophisticated notification lifecycles. Beyond core development, I leverage data analytics through Power BI to transform raw data into measurable business insights. Whether I am optimizing MongoDB schemas for high-load applications or deploying Generative AI models on AWS, my focus remains on reliability, security, and driving real-world impact.',
         'What sets my profile apart is a strong background in emerging technology research, backed by 4 international publications and a Best Paper Award at ICETDA 2025. This academic rigor informs my structured approach to problem-solving and rapid prototyping. I thrive in collaborative, cross-functional environments and take full ownership of the product lifecycle—from requirements analysis to final deployment. Outside of my core technical work, I am an active contributor to the tech community and a lifelong learner dedicated to staying at the forefront of AI and software engineering.',
     ],
     contact: [
         { key: 'email', label: 'Email', value: 'npanthi718@gmail.com', href: 'mailto:npanthi718@gmail.com' },
-        { key: 'phone', label: 'Phone', value: '+91 9359029905', href: 'tel:+919359029905' },
+        { key: 'phone', label: 'Phone(India)', value: '+91 9359029905', href: 'tel:+919359029905' },
+        { key: 'phone', label: 'Phone(Nepal)', value: '+977 9823009467', href: 'tel:+9779823009467' },
+        { key: 'whatsapp', label: 'WhatsApp', value: '+977 9823009467', href: 'https://wa.me/9779823009467' },
         { key: 'location', label: 'Location', value: 'Kathmandu, Nepal (Open to Relocation)' },
         { key: 'linkedin', label: 'LinkedIn', value: 'sushilpanthi', href: 'https://www.linkedin.com/in/sushilpanthi/' },
         { key: 'github', label: 'GitHub', value: 'npanthi718', href: 'https://github.com/npanthi718' },
     ],
-};
-
-export const externalLinks = {
-    googleForm: 'https://docs.google.com/forms/d/e/1FAIpQLSf-Km-6vTCszxH7CkOcElRV8_5hF8b4f8pt2HYVnXIwSAHmgQ/viewform?usp=sharing&ouid=118034940540210199491',
 };
 
 export const categorizedSkillsData = { // Categorized skills data
