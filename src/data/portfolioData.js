@@ -1,15 +1,14 @@
 export const heroData = {
     roles: ['Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
-        'Results-driven Software Developer with hands-on experience in Full Stack Engineering, Agentic AI workflows, and Data Analytics. I build scalable, production-ready web applications using the MERN stack, design API-first backends with secure authentication, and deliver measurable business insights through Power BI dashboards. Focused on performance, reliability, and clean user-centric architecture.',
+        'Results-driven Software Developer and BCA candidate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
 };
 
 export const aboutData = {
     paragraphs: [
-        'I am a Full Stack Developer with strong experience in React, Node.js, Express, MongoDB, and API-driven system design. I build clean, maintainable solutions with a strong focus on security, scalability, and production reliability.',
-        'My recent work combines software engineering with Agentic AI and data-centric problem solving. I have developed AI-enabled products using Python, FastAPI, LangChain, and cloud infrastructure, while also delivering interactive analytics through Power BI and Excel for decision support.',
-        'I take ownership across the full software lifecycle: requirements analysis, architecture, implementation, testing, optimization, and deployment. I collaborate effectively in cross-functional teams and bring a structured, product-oriented approach to execution.',
-        'Outside of coding, I enjoy reading about technology advancements, contributing to open-source projects, and occasionally hiking to stay refreshed and inspired.',
+        'I am a Full Stack Developer (MERN) and AI enthusiast currently pursuing my Bachelor of Computer Applications (BCA) at Sandip University with a CGPA of 8.6. With a technical foundation spanning the entire software development lifecycle, I specialize in building scalable, production-ready web applications and advanced Agentic AI systems. My expertise includes designing API-first backends with FastAPI, implementing secure JWT-based role access, and developing stateful AI assistants using LangChain and LangGraph. I am deeply committed to architecting clean, high-performance solutions that bridge the gap between complex backend logic and intuitive, user-centric interfaces.',
+        'My professional journey is defined by hands-on experience across 4 internships and over 8 diverse projects. I have successfully engineered complex systems, such as a self-correcting queue engine for hospital management and a peer-to-peer learning marketplace with sophisticated notification lifecycles. Beyond core development, I leverage data analytics through Power BI to transform raw data into measurable business insights. Whether I am optimizing MongoDB schemas for high-load applications or deploying Generative AI models on AWS, my focus remains on reliability, security, and driving real-world impact.',
+        'What sets my profile apart is a strong background in emerging technology research, backed by 4 international publications and a Best Paper Award at ICETDA 2025. This academic rigor informs my structured approach to problem-solving and rapid prototyping. I thrive in collaborative, cross-functional environments and take full ownership of the product lifecycle—from requirements analysis to final deployment. Outside of my core technical work, I am an active contributor to the tech community and a lifelong learner dedicated to staying at the forefront of AI and software engineering.',
     ],
     contact: [
         { key: 'email', label: 'Email', value: 'npanthi718@gmail.com', href: 'mailto:npanthi718@gmail.com' },
@@ -211,28 +210,15 @@ export const projectsData = [
 export const experienceData = [
 
     {
-        title: 'Agentic AI Intern',
+        title: 'Agentic AI & Data Science (GenAI) Intern',
         company: 'Innomatics Research Labs',
-        date: '02/2026 - Present',
+        date: '11/2025 - 05/2026',
         location: 'Remote',
         description: [
-            'Developing advanced AI agents and workflows utilizing Python, LangChain, and LangGraph to automate complex reasoning tasks.',
-            'Architecting and deploying scalable backend services and APIs using FastAPI to power AI-driven applications.',
-            'Leveraging AWS cloud infrastructure to support the training, testing, and deployment of agentic systems.',
-            'Collaborating on the end-to-end development of AI products, from initial concept and Python programming to production-ready deployments.',
-        ],
-    },
-
-    {
-        title: 'Data Science with GenAI Intern',
-        company: 'Innomatics Research Labs',
-        date: '11/2025 - 03/2026',
-        location: 'Remote',
-        description: [
-            'Engaged in the development of Data Science and Generative AI-driven projects, focusing on building intelligent solutions and optimizing machine learning models.',
-            'Collaborated on high-impact products involving Artificial Intelligence and Machine Learning to bridge the gap between complex data and user-centric applications.',
-            'Applied advanced concepts in GenAI to enhance project functionalities and contribute to the end-to-end development lifecycle of data products.',
-            'Worked within an agile, virtual environment to execute technical tasks and upskill in emerging AI technologies.',
+            'Developed a stateful customer support assistant using LangGraph to manage complex decision making nodes, conditional routing, and managed query lifecycles.',
+            'Engineered a localized RAG pipeline utilizing ChromaDB for vector storage and recursive character splitting to ensure document-grounded, factually accurate responses.',
+            'Implemented Human-in-the-Loop (HITL) safety gates to identify knowledge gaps or low confidence queries and route them to human agents with explicit reasoning.',
+            'Optimized multi-model inference by integrating Groq for low-latency generation with a Gemini fallback strategy and full execution transparency via LangSmith.',
         ],
     },
 
