@@ -240,11 +240,10 @@ export const experienceData = [
         date: '01/2025 - 03/2025',
         location: 'Remote',
         description: [
-            'Built dynamic and interactive user interfaces using React.js, improving the usability and aesthetics of web applications.',
-            'Implemented robust server-side logic with Node.js and Express.js, ensuring secure and efficient data handling.',
-            'Managed and queried data using MongoDB, optimizing application performance through effective data modeling.',
-            'Participated in training sessions to upskill in both frontend and backend technologies, applying new concepts directly to real-world tasks.',
-            'Proactively handled assigned tasks, demonstrating problem-solving skills and a commitment to learning and growth.',
+            'Developed dynamic, component-based UIs using React.js and implemented secure server-side logic with Node.js and Express.js for real-world web applications.',
+            'Designed and optimized MongoDB schemas and queries for efficient data modeling, directly improving application performance and reliability.',
+            'Delivered LumbiniCare Connect as the capstone project — a full-stack hospital management system with JWT-based role access, RESTful APIs, and a responsive Material-UI frontend.',
+            'Applied full-stack best practices end-to-end: from UI component architecture and API design to database integration and deployment.',
         ],
     },
     {
@@ -253,10 +252,9 @@ export const experienceData = [
         date: '07/2024 - 01/2025',
         location: 'Remote',
         description: [
-            'Utilized MERN stack (MongoDB, Express.js, React.js, Node.js) and modern development practices to build scalable and dynamic applications.',
-            'Worked under the supervision of senior developers, learning and applying best practices in software development.',
-            'Contributed to debugging, testing, and optimizing code to improve application performance and reliability.',
-            'Enhanced technical knowledge through hands-on experience and real-world application of software development concepts.',
+            'Gained hands-on experience building full-stack web applications using the MERN stack — developing React.js interfaces, Node.js​/Express.js APIs, and MongoDB databases from the ground up.',
+            'Debugged, tested, and optimized code across frontend and backend layers, developing a strong foundation in scalable application development.',
+            'Applied software development best practices including component architecture, RESTful API design, and Git version control in a structured, real-world environment.',
         ],
     },
 
