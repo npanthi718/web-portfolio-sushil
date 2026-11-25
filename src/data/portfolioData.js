@@ -1,5 +1,5 @@
 export const heroData = {
-    roles: ['Founder & CEO, Himnova Technologies', 'Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
+    roles: ['Founder & Chief Architect, Himnova Technologies', 'Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
         'Results-driven Software Developer and BCA graduate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
 };
@@ -208,8 +208,8 @@ export const projectsData = [
 export const experienceData = [
 
     {
-        title: 'Founder, Chairperson & CEO',
-        company: 'Himnova Technologies Pvt. Ltd. & Himnova Academy',
+        title: 'Founder, Chairman, Executive Director & Chief Architect',
+        company: 'Himnova Technologies Private Limited & Himnova Academy',
         date: '11/2026 - Present',
         location: 'Dillibazar-30, Kathmandu, Nepal (On-site)',
         links: [
@@ -217,10 +217,10 @@ export const experienceData = [
             { label: 'Himnova Academy', href: 'https://academy.himnovatech.com' },
         ],
         description: [
-            'Founded Himnova Technologies Pvt. Ltd., a software company delivering web applications, AI-powered solutions, and digital products for businesses, and Himnova Academy, its training arm for industry-ready tech education.',
-            'Lead the company as Chairperson & CEO, setting vision, strategy, and business development while overseeing operations, hiring, and client relationships.',
-            'Architect the technical direction across products and client projects, defining the MERN, FastAPI, and Agentic AI stack, system design standards, and delivery practices.',
-            'Built Himnova Academy to bridge academia and industry through hands-on courses, mentorship, and project-based learning in full stack development, AI, and data analytics.',
+            'Founded Himnova Technologies, an IT & software development company in Kathmandu offering 15 IT services: custom software, web platforms, mobile apps, cloud & DevOps, AI pipelines, data analytics, cybersecurity, digital marketing, and 24/7 IT support.',
+            'Lead the company as Chairman & Executive Director, setting vision, strategy, and business development while overseeing operations, the engineering team, and client partnerships.',
+            'As Chief Architect, define the technical direction for client projects and turnkey products, covering cloud-native architecture, Agentic AI and RAG pipelines (LangGraph), secure APIs, and zero-downtime deployment.',
+            'Founded Himnova Academy, offering live online and in-person courses in AI tools, automation (n8n, Make, Zapier), digital marketing, web development (React, Node.js, Python), and freelancing, with real projects and verifiable certificates.',
         ],
     },
 
