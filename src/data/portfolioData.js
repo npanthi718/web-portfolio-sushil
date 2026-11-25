@@ -15,7 +15,7 @@ export const aboutData = {
         { key: 'phone', label: 'Phone(India)', value: '+91 9359029905', href: 'tel:+919359029905' },
         { key: 'phone', label: 'Phone(Nepal)', value: '+977 9823009467', href: 'tel:+9779823009467' },
         { key: 'whatsapp', label: 'WhatsApp', value: '+977 9823009467', href: 'https://wa.me/9779823009467' },
-        { key: 'location', label: 'Location', value: 'Kathmandu, Nepal (Open to Relocation)' },
+        { key: 'location', label: 'Location', value: 'Kathmandu, Nepal (Open for Collaboration & Business Proposals)' },
         { key: 'linkedin', label: 'LinkedIn', value: 'sushilpanthi', href: 'https://www.linkedin.com/in/sushilpanthi/' },
         { key: 'github', label: 'GitHub', value: 'npanthi718', href: 'https://github.com/npanthi718' },
     ],

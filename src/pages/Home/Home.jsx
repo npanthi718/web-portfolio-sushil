@@ -55,9 +55,11 @@ const EMAILJS_ADMIN_TEMPLATE_ID =
     import.meta.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE_ID;
 
 const inquiryOptions = [
-    'Hiring Opportunity (Full-time)',
-    'Project Assignment (Freelance/Contract)',
-    'Collaboration / Partnership',
+    'Business Proposal / Partnership',
+    'Collaboration',
+    'Investment / Strategic Opportunity',
+    'Software Project (Himnova Technologies)',
+    'Training & Courses (Himnova Academy)',
     'Technical Consultation / Help',
     'Speaking / Mentorship',
     'Other',
@@ -309,7 +311,7 @@ function Home() {
                                     showCursor={false}
                                 />
                             </Suspense>
-                            {' '}| Open to Relocation
+                            {' '}| Open for Collaboration & Business Proposals
                         </motion.p>
                         <motion.p
                             className={styles.overview}
@@ -642,16 +644,16 @@ function Home() {
                             <p>Select the closest option so I can respond with the right context from the start.</p>
                         </div>
                         <div className={styles.contactHighlights}>
-                            <span className={styles.contactChip}>Hire me</span>
-                            <span className={styles.contactChip}>Assign a project</span>
+                            <span className={styles.contactChip}>Business proposal</span>
                             <span className={styles.contactChip}>Collaborate</span>
+                            <span className={styles.contactChip}>Start a project</span>
                             <span className={styles.contactChip}>Need help</span>
                             <span className={styles.contactChip}>Discuss an opportunity</span>
                         </div>
                     </div>
 
                     <p className={styles.contactText}>
-                        Whether you want to hire me, assign a project, collaborate, request technical help, or discuss an opportunity, you are welcome here. Share your goal clearly and I will respond with the best next step.
+                        Whether you have a business proposal, a partnership or investment idea, a software project for Himnova Technologies, a training need for Himnova Academy, or want to collaborate, you can reach me directly here. Share your goal clearly and I will respond with the best next step.
                     </p>
 
                     {/* Contact Form */}
