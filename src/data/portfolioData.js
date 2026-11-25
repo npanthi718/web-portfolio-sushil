@@ -1,5 +1,5 @@
 export const heroData = {
-    roles: ['Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
+    roles: ['Founder & CEO, Himnova Technologies', 'Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
         'Results-driven Software Developer and BCA graduate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
 };
@@ -206,6 +206,23 @@ export const projectsData = [
 ];
 
 export const experienceData = [
+
+    {
+        title: 'Founder, Chairperson & CEO',
+        company: 'Himnova Technologies Pvt. Ltd. & Himnova Academy',
+        date: '11/2026 - Present',
+        location: 'Dillibazar-30, Kathmandu, Nepal (On-site)',
+        links: [
+            { label: 'Himnova Technologies', href: 'https://www.himnovatech.com' },
+            { label: 'Himnova Academy', href: 'https://academy.himnovatech.com' },
+        ],
+        description: [
+            'Founded Himnova Technologies Pvt. Ltd., a software company delivering web applications, AI-powered solutions, and digital products for businesses, and Himnova Academy, its training arm for industry-ready tech education.',
+            'Lead the company as Chairperson & CEO, setting vision, strategy, and business development while overseeing operations, hiring, and client relationships.',
+            'Architect the technical direction across products and client projects, defining the MERN, FastAPI, and Agentic AI stack, system design standards, and delivery practices.',
+            'Built Himnova Academy to bridge academia and industry through hands-on courses, mentorship, and project-based learning in full stack development, AI, and data analytics.',
+        ],
+    },
 
     {
         title: 'Agentic AI & Data Science (GenAI) Intern',

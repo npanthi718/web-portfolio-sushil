@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded';
 
 function ExperienceCard({ item, styles }) {
     return (
@@ -20,6 +21,18 @@ function ExperienceCard({ item, styles }) {
             <p className={styles.dateLocation}>
                 <span className={styles.metaBadge}><CalendarMonthRoundedIcon fontSize="small" /> {item.date}</span>
                 {item.location && <span className={styles.metaBadge}><LocationOnRoundedIcon fontSize="small" /> {item.location}</span>}
+                {item.links?.map((link) => (
+                    <a
+                        key={link.href}
+                        className={styles.metaBadge}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'inherit', textDecoration: 'none' }}
+                    >
+                        <LanguageRoundedIcon fontSize="small" /> {link.label}
+                    </a>
+                ))}
             </p>
             <ul className={styles.descriptionList}>
                 {item.description.map((desc, descIndex) => (
