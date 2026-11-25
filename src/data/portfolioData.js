@@ -1,13 +1,14 @@
 export const heroData = {
     roles: ['Founder & Chief Architect, Himnova Technologies', 'Full Stack Developer (MERN & APIs)', 'Agentic AI and Backend Engineer', 'Power BI and Data Analytics Developer'],
     overview:
-        'Results-driven Software Developer and BCA graduate (CGPA: 8.6) with hands-on experience across 4 internships and 8+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
+        'Founder, Chairman & Chief Architect of Himnova Technologies Private Limited and Himnova Academy, and a results-driven Software Developer and BCA graduate (CGPA: 8.6) with hands-on experience across 4 internships and 10+ scalable projects. I specialize in building production-ready MERN applications and advanced Agentic AI workflows using LangChain and LangGraph. With 4 international research publications—including a Best Paper Award—and expertise in deploying FastAPI services on AWS, I bridge the gap between academic excellence and real-world engineering. Committed to architecting clean, user-centric solutions that leverage data analytics and AI to drive measurable impact.',
 };
 
 export const aboutData = {
     paragraphs: [
+        'I am the Founder, Chairman, Executive Director & Chief Architect of Himnova Technologies Private Limited, an IT & software development company in Kathmandu, Nepal, and of Himnova Academy, its training arm for AI, automation, digital marketing, and tech skills. I designed and built both company platforms myself, www.himnovatech.com and academy.himnovatech.com, and I now lead the vision, strategy, and technical architecture of every product and client project we deliver. I am open to collaborations, partnerships, and business proposals.',
         'I am a Full Stack Developer (MERN) and AI enthusiast recently graduated with a Bachelor of Computer Applications (BCA) at Sandip University with a CGPA of 8.6. With a technical foundation spanning the entire software development lifecycle, I specialize in building scalable, production-ready web applications and advanced Agentic AI systems. My expertise includes designing API-first backends with FastAPI, implementing secure JWT-based role access, and developing stateful AI assistants using LangChain and LangGraph. I am deeply committed to architecting clean, high-performance solutions that bridge the gap between complex backend logic and intuitive, user-centric interfaces.',
-        'My professional journey is defined by hands-on experience across 4 internships and over 8 diverse projects. I have successfully engineered complex systems, such as a self-correcting queue engine for hospital management and a peer-to-peer learning marketplace with sophisticated notification lifecycles. Beyond core development, I leverage data analytics through Power BI to transform raw data into measurable business insights. Whether I am optimizing MongoDB schemas for high-load applications or deploying Generative AI models on AWS, my focus remains on reliability, security, and driving real-world impact.',
+        'My professional journey is defined by hands-on experience across 4 internships and over 10 diverse projects. I have successfully engineered complex systems, such as the Himnova company and academy portals, a self-correcting queue engine for hospital management and a peer-to-peer learning marketplace with sophisticated notification lifecycles. Beyond core development, I leverage data analytics through Power BI to transform raw data into measurable business insights. Whether I am optimizing MongoDB schemas for high-load applications or deploying Generative AI models on AWS, my focus remains on reliability, security, and driving real-world impact.',
         'What sets my profile apart is a strong background in emerging technology research, backed by 4 international publications and a Best Paper Award at ICETDA 2025. This academic rigor informs my structured approach to problem-solving and rapid prototyping. I thrive in collaborative, cross-functional environments and take full ownership of the product lifecycle—from requirements analysis to final deployment. Outside of my core technical work, I am an active contributor to the tech community and a lifelong learner dedicated to staying at the forefront of AI and software engineering.',
     ],
     contact: [
@@ -74,6 +75,8 @@ export const categorizedSkillsData = { // Categorized skills data
     ],
     'Soft Skills': [
         { name: 'Leadership' },
+        { name: 'Entrepreneurship' },
+        { name: 'Business Strategy' },
         { name: 'Team Management' },
         { name: 'Communication' },
         { name: 'Team Collaboration' },
@@ -89,6 +92,37 @@ export const categorizedSkillsData = { // Categorized skills data
 
 export const projectsData = [
 
+    {
+        title: 'Himnova Technologies - Company Platform & Business Portal',
+        technologies: [
+            'React', 'Vite', 'React Router', 'Node.js', 'Express',
+            'REST API (v1)', 'Nginx', 'Ubuntu VPS', 'SEO (Schema.org)'
+        ],
+        liveLink: 'https://www.himnovatech.com',
+        githubLink: null,
+        keyContributions: [
+            'Designed and built the official platform of Himnova Technologies, showcasing 15 IT service lines, 19 turnkey software products with pricing, case studies, engineering blogs, and careers.',
+            'Developed a secure staff login portal (BOS) backed by a versioned REST API (api.himnovatech.com/api/v1) for internal business operations and content management.',
+            'Integrated live course data from the Himnova Academy API so academy programs appear on the company site automatically, without manual updates.',
+            'Deployed on a self-managed Ubuntu server behind Nginx with HTTPS, security headers, and SEO-friendly page metadata for search visibility.',
+        ]
+    },
+
+    {
+        title: 'Himnova Academy - Learning & Certification Portal',
+        technologies: [
+            'React', 'Vite', 'React Router', 'Node.js', 'Express',
+            'REST API', 'Helmet Security', 'Nginx', 'QR Certificates', 'eSewa / Khalti'
+        ],
+        liveLink: 'https://academy.himnovatech.com',
+        githubLink: null,
+        keyContributions: [
+            'Built a full learning portal for Himnova Academy with course catalog, batches, offers, trainer profiles, and online enrollment for live online and in-person classes.',
+            'Implemented role-based student and trainer portals with session-protected APIs, where learners access recordings, notes, assignments, and trainer feedback and grades.',
+            'Created a public certificate verification system with unique certificate numbers and QR codes so anyone can verify a certificate online.',
+            'Added a trainer application flow, WhatsApp inquiry integration, and Nepali payment options (eSewa / Khalti), served from a hardened Express API (academy-api.himnovatech.com).',
+        ]
+    },
 
     {
         title: 'SkillNexus - Learn from Humans',
